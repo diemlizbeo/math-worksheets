@@ -36,7 +36,6 @@
             --okbg: #e2f6ec;
             --try: #a2550a;
             --trybg: #fff4dd;
-            --star: #ffcc33;
             --shadow-sm: 0 2px 8px rgba(29, 43, 79, .06);
             --shadow: 0 14px 36px -12px rgba(29, 43, 79, .18)
         }
@@ -45,13 +44,23 @@
             box-sizing: border-box
         }
 
+        [hidden] {
+            display: none !important
+        }
+
+        /* Everything is sized in rem, so the whole page grows with the screen: 18px on phones, ~21px on iPad landscape, 26px on a projector. */
         html {
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
+            font-size: clamp(18px, 0.7vw + 13px, 26px);
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            --maxw: 90rem;
+            --gutter: clamp(12px, 2.5vw, 40px)
         }
 
         body {
             margin: 0;
-            font: 16px/1.6 "Nunito", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+            font: 1rem/1.6 "Nunito", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
             color: var(--text);
             background: radial-gradient(#d9e2ef 1.2px, transparent 1.4px) 0 0/24px 24px, var(--bg);
             min-height: 100vh;
@@ -66,7 +75,7 @@
                 radial-gradient(480px 260px at 55% 130%, rgba(45, 212, 191, .45), transparent 65%),
                 linear-gradient(120deg, #1e3a8a 0%, #2c4fd0 45%, #5a3bcf 100%);
             color: #fff;
-            padding: 34px max(20px, calc((100% - 1200px)/2)) 92px;
+            padding: 1.25rem max(var(--gutter), calc((100% - var(--maxw))/2)) 3.75rem;
             position: relative;
             overflow: hidden
         }
@@ -89,7 +98,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            height: 70px;
+            height: 4.375rem;
             background: linear-gradient(transparent, rgba(15, 23, 70, .18));
             pointer-events: none
         }
@@ -99,35 +108,20 @@
             pointer-events: none
         }
 
-        .tri-art {
-            width: 210px;
-            height: auto;
-            right: calc((100% - 1200px)/2 - 260px);
-            top: 14px;
-            transform: rotate(-6deg);
-            opacity: .9
-        }
-
-        @media(max-width:1700px) {
-            .tri-art {
-                display: none
-            }
-        }
-
         .d2 {
-            width: 240px;
-            height: 240px;
-            left: -90px;
-            top: -130px;
+            width: 15rem;
+            height: 15rem;
+            left: -5.625rem;
+            top: -8.125rem;
             border-radius: 50%;
             border: 32px solid rgba(255, 255, 255, .07)
         }
 
         .d3 {
-            width: 46px;
-            height: 40px;
-            right: calc(max(20px, (100% - 1200px)/2) + 220px);
-            top: 10px;
+            width: 2.875rem;
+            height: 2.5rem;
+            right: calc(max(var(--gutter), (100% - var(--maxw))/2) + 18rem);
+            top: 0.625rem;
             background: linear-gradient(135deg, #ffe08a, #ffb84d);
             clip-path: polygon(50% 0, 100% 100%, 0 100%);
             transform: rotate(18deg);
@@ -136,8 +130,8 @@
         }
 
         .spark {
-            width: 8px;
-            height: 8px;
+            width: 0.5rem;
+            height: 0.5rem;
             border-radius: 50%;
             background: #fff;
             box-shadow: 0 0 12px 3px rgba(255, 255, 255, .7);
@@ -146,22 +140,22 @@
 
         .sp1 {
             left: 6%;
-            bottom: 70px
+            bottom: 4.375rem
         }
 
         .sp2 {
             left: 44%;
-            top: 18px;
-            width: 6px;
-            height: 6px;
+            top: 1.125rem;
+            width: 0.375rem;
+            height: 0.375rem;
             animation-delay: 1s
         }
 
         .sp3 {
             right: 30%;
-            bottom: 60px;
-            width: 5px;
-            height: 5px;
+            bottom: 3.75rem;
+            width: 0.3125rem;
+            height: 0.3125rem;
             animation-delay: 2s
         }
 
@@ -194,18 +188,18 @@
         .hrow {
             display: flex;
             align-items: center;
-            gap: 22px;
+            gap: 1.375rem;
             position: relative;
             z-index: 1
         }
 
         .mascot {
-            font-size: 42px;
+            font-size: 2.625rem;
             background: rgba(255, 255, 255, .18);
             border: 2px solid rgba(255, 255, 255, .35);
-            border-radius: 24px;
-            width: 80px;
-            height: 80px;
+            border-radius: 1.5rem;
+            width: 5rem;
+            height: 5rem;
             display: grid;
             place-items: center;
             flex: none;
@@ -229,114 +223,364 @@
             display: inline-block;
             font-weight: 800;
             letter-spacing: 1.5px;
-            font-size: 12px;
+            font-size: 0.75rem;
             color: #fff;
             background: rgba(255, 255, 255, .16);
             border-radius: 999px;
-            padding: 4px 12px
+            padding: 0.25rem 0.75rem
         }
 
         h1 {
-            font-size: clamp(24px, 3.6vw, 36px);
+            font-size: clamp(1.5rem, 3.2vw, 2.25rem);
             font-weight: 900;
             line-height: 1.2;
             letter-spacing: -.3px;
-            margin: 10px 0 6px;
+            margin: 0.625rem 0 0.375rem;
             text-shadow: 0 2px 10px rgba(10, 20, 60, .2)
         }
 
         header p {
             margin: 0;
             color: #e3eaff;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: 600
-        }
-
-        .stars {
-            margin-left: auto;
-            background: rgba(255, 255, 255, .16);
-            border: 1px solid rgba(255, 255, 255, .35);
-            border-radius: 20px;
-            padding: 12px 20px;
-            text-align: center;
-            flex: none;
-            box-shadow: 0 10px 30px rgba(15, 23, 70, .25);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px)
-        }
-
-        .star-row {
-            font-size: 28px;
-            line-height: 1;
-            letter-spacing: 4px
-        }
-
-        .star-row span {
-            color: rgba(255, 255, 255, .3);
-            display: inline-block;
-            transition: .35s
-        }
-
-        .stars[data-count="1"] .star-row span:nth-child(-n+1),
-        .stars[data-count="2"] .star-row span:nth-child(-n+2),
-        .stars[data-count="3"] .star-row span {
-            color: var(--star);
-            text-shadow: 0 2px 10px rgba(255, 190, 0, .55);
-            transform: scale(1.12)
-        }
-
-        .star-text {
-            font-size: 13px;
-            color: #e3eaff;
-            margin-top: 6px;
-            white-space: nowrap
-        }
-
-        .star-text b {
-            color: #fff;
-            font-size: 15px;
-            font-weight: 900
         }
 
         /* ---------- Main container ---------- */
         .wrap {
-            max-width: 1240px;
-            margin: -56px auto 28px;
-            padding: 0 20px;
+            max-width: calc(var(--maxw) + 2 * var(--gutter));
+            margin: -3.25rem auto 1.75rem;
+            padding: 0 var(--gutter);
             position: relative;
             z-index: 2
         }
 
         .toolbar {
             display: flex;
-            gap: 12px;
+            gap: 0.75rem;
             flex-wrap: wrap;
             align-items: center;
             background: #fff;
             border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 12px 14px 12px 20px;
-            box-shadow: var(--shadow)
+            border-radius: 1.25rem;
+            padding: 0.75rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.25rem
         }
 
-        .toolbar label {
-            font-weight: 800;
-            font-size: 15px;
-            color: var(--navy);
-            white-space: nowrap
-        }
-
-        .toolbar input {
-            border-radius: 14px;
-            border: 2px solid var(--line);
-            padding: 10px 14px;
-            font: inherit;
-            font-weight: 700;
-            color: var(--navy);
-            min-width: 220px;
+        .tb-info {
             flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.375rem 0.875rem;
+            font-weight: 700;
+            font-size: 1.0625rem;
+            color: var(--muted)
+        }
+
+        .tb-info b {
+            color: var(--navy);
+            font-weight: 900
+        }
+
+        .tb-room {
+            background: var(--soft);
+            color: var(--accent-d);
+            border: 2px solid var(--tint);
+            border-radius: 999px;
+            padding: 0.125rem 0.875rem;
+            font-weight: 900
+        }
+
+        .tb-actions {
+            display: flex;
+            gap: 0.5rem
+        }
+
+        /* ---------- Home ---------- */
+        .home {
+            max-width: 68rem;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 1.75rem;
+            padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 4vw, 3rem);
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: pop .35s ease
+        }
+
+        .home h2 {
+            font-size: clamp(1.5rem, 3vw, 2.125rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin: 0;
+            color: var(--navy)
+        }
+
+        .home-sub {
+            margin: 0.375rem 0 0;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 1.0625rem
+        }
+
+        .home-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.625rem;
+            font-size: 1.125rem;
+            font-weight: 900;
+            color: var(--navy);
+            margin: 1rem 0 0.625rem
+        }
+
+        .home-field {
+            max-width: 34rem;
+            margin: 0 auto
+        }
+
+        .home-field input {
+            width: 100%;
+            font: inherit;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--navy);
+            padding: 0.875rem 1.25rem;
+            border: 2px solid var(--line2);
+            border-radius: 1.125rem;
             background: #f7f9fd;
             transition: .15s
+        }
+
+        .home-err {
+            display: block;
+            margin-top: 0.625rem;
+            color: #c0392b;
+            font-weight: 700;
+            font-size: 0.9375rem
+        }
+
+        .rooms {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(0.75rem, 2vw, 1.25rem)
+        }
+
+        .room {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 1rem 1rem 1rem;
+            border: 2px solid var(--line);
+            border-radius: 1.5rem;
+            background: linear-gradient(180deg, var(--soft), #fff 75%);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            transition: .2s
+        }
+
+        .room:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 30px -16px rgba(29, 43, 79, .35)
+        }
+
+        .room .ic {
+            font-size: 2.25rem;
+            width: 4.25rem;
+            height: 4.25rem;
+            border-radius: 1.5rem;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            border: 2px solid var(--tint);
+            box-shadow: 0 6px 0 var(--tint);
+            margin-bottom: 0.625rem;
+            transition: .25s
+        }
+
+        .room:hover .ic {
+            transform: rotate(-6deg) scale(1.06)
+        }
+
+        .room .txt {
+            display: flex;
+            flex-direction: column
+        }
+
+        .room .no {
+            font-size: 0.8125rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent-d)
+        }
+
+        .room strong {
+            font-size: 1.375rem;
+            font-weight: 900;
+            line-height: 1.25;
+            color: var(--navy)
+        }
+
+        .room .go {
+            margin-top: 0.625rem;
+            background: var(--accent-d);
+            color: #fff;
+            border-radius: 999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9375rem;
+            font-weight: 800;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, .18)
+        }
+
+        .room.done:after {
+            content: "✓";
+            position: absolute;
+            right: 0.75rem;
+            top: 0.75rem;
+            background: var(--ok);
+            color: #fff;
+            border-radius: 50%;
+            width: 1.625rem;
+            height: 1.625rem;
+            font-size: 0.875rem;
+            font-weight: 900;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 0 3px #fff
+        }
+
+        @media(max-width:600px) {
+            .rooms {
+                grid-template-columns: 1fr
+            }
+
+            .room {
+                flex-direction: row;
+                text-align: left;
+                gap: 0.75rem;
+                padding: 0.75rem 0.875rem
+            }
+
+            .room .ic {
+                font-size: 1.5rem;
+                width: 2.875rem;
+                height: 2.875rem;
+                border-radius: 1rem;
+                box-shadow: 0 4px 0 var(--tint);
+                margin: 0;
+                flex: none
+            }
+
+            .room strong {
+                font-size: 1.0625rem
+            }
+
+            .home h2 {
+                font-size: 1.3rem
+            }
+
+            .room .go {
+                margin: 0 0 0 auto;
+                width: 2.25rem;
+                height: 2.25rem;
+                padding: 0;
+                display: grid;
+                place-items: center;
+                font-size: 1.125rem;
+                flex: none
+            }
+
+            .room .go-t {
+                display: none
+            }
+
+            .room.done:after {
+                top: 0.375rem;
+                left: 2.625rem;
+                right: auto;
+                width: 1.375rem;
+                height: 1.375rem;
+                font-size: 0.75rem
+            }
+        }
+
+        /* ---------- PDF popup ---------- */
+        .pdf-pop {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: rgba(15, 23, 50, .45);
+            display: grid;
+            place-items: center;
+            padding: 1rem
+        }
+
+        .pop-box {
+            background: #fff;
+            border-radius: 1.375rem;
+            padding: 1.375rem;
+            width: 100%;
+            max-width: 26.25rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: pop .25s ease
+        }
+
+        .pop-title {
+            font-size: 1.1875rem;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 0.375rem
+        }
+
+        .pop-text {
+            margin: 0 0 0.875rem;
+            font-weight: 600;
+            color: var(--muted);
+            white-space: pre-line;
+            word-break: break-word
+        }
+
+        .pop-actions {
+            display: grid;
+            gap: 0.625rem
+        }
+
+        .pop-actions a {
+            display: block;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 0.875rem;
+            padding: 0.625rem 1.125rem;
+            border: 2px solid var(--line2);
+            color: var(--navy)
+        }
+
+        .pop-actions a.primary {
+            color: #fff;
+            padding: 0.75rem 1.375rem
+        }
+
+        .pop-tip {
+            margin: 0.75rem 0 0;
+            font-size: 0.8438rem;
+            font-weight: 600;
+            color: var(--muted)
+        }
+
+        .pop-close {
+            margin-top: 0.75rem;
+            width: 100%
         }
 
         input::placeholder {
@@ -350,8 +594,8 @@
             font-weight: 800;
             border: 2px solid var(--line2);
             cursor: pointer;
-            border-radius: 14px;
-            padding: 10px 18px;
+            border-radius: 0.875rem;
+            padding: 0.625rem 1.125rem;
             transition: .15s;
             background: #fff;
             color: var(--navy)
@@ -392,7 +636,7 @@
             background: var(--accent-d);
             border-color: var(--accent-d);
             box-shadow: 0 4px 0 rgba(0, 0, 0, .2);
-            padding: 12px 22px
+            padding: 0.75rem 1.375rem
         }
 
         .primary:hover {
@@ -407,140 +651,30 @@
             box-shadow: 0 1px 0 rgba(0, 0, 0, .2)
         }
 
-        /* ---------- Room tabs ---------- */
-        .tabs {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin: 20px 0 22px
-        }
-
-        .tab[data-tab="1"],
+        /* ---------- Room colors ---------- */
         .s1 {
             --accent: var(--blue);
             --accent-d: var(--blue-d);
             --soft: var(--blue-s);
-            --tint: var(--blue-t)
+            --tint: var(--blue-t);
+            --mid: #a1c5f8
         }
 
-        .tab[data-tab="2"],
         .s2 {
             --accent: var(--orange);
             --accent-d: var(--orange-d);
             --soft: var(--orange-s);
-            --tint: var(--orange-t)
+            --tint: var(--orange-t);
+            --mid: #f9cb9e
         }
 
-        .tab[data-tab="3"],
+        /* --mid: accent mixed with white, written out because html2canvas (PDF) can't parse color-mix() */
         .s3 {
             --accent: var(--purple);
             --accent-d: var(--purple-d);
             --soft: var(--purple-s);
-            --tint: var(--purple-t)
-        }
-
-        .tab {
-            position: relative;
-            background: #fff;
-            border: 2px solid var(--line);
-            text-align: left;
-            padding: 14px 16px;
-            border-radius: 20px;
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            color: var(--text);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden
-        }
-
-        .tab:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 5px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform .3s
-        }
-
-        .tab:hover {
-            border-color: var(--tint);
-            color: var(--text)
-        }
-
-        .tab .ic {
-            font-size: 26px;
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            display: grid;
-            place-items: center;
-            background: var(--soft);
-            border: 2px solid var(--tint);
-            flex: none;
-            transition: .25s
-        }
-
-        .tab .no {
-            display: block;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--accent-d)
-        }
-
-        .tab strong {
-            display: block;
-            font-size: 17px;
-            font-weight: 900;
-            color: var(--navy);
-            line-height: 1.3
-        }
-
-        .tab span.sub {
-            display: block;
-            font-weight: 600;
-            color: var(--muted);
-            font-size: 13.5px
-        }
-
-        .tab.active {
-            background: var(--soft);
-            border-color: var(--accent);
-            box-shadow: 0 14px 26px -12px rgba(29, 43, 79, .35);
-            transform: translateY(-3px)
-        }
-
-        .tab.active:before {
-            transform: scaleX(1)
-        }
-
-        .tab.active .ic {
-            background: #fff;
-            border-color: var(--accent);
-            transform: rotate(-6deg) scale(1.06)
-        }
-
-        .tab.done:after {
-            content: "✓";
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            background: var(--ok);
-            color: #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-size: 14px;
-            font-weight: 900;
-            display: grid;
-            place-items: center;
-            box-shadow: 0 0 0 3px #fff
+            --tint: var(--purple-t);
+            --mid: #cbb6fb
         }
 
         /* ---------- Sheet ---------- */
@@ -548,8 +682,8 @@
             position: relative;
             background: #fff;
             border: 1px solid var(--line);
-            border-radius: 26px;
-            padding: clamp(18px, 3vw, 32px);
+            border-radius: 1.625rem;
+            padding: clamp(1rem, 2.5vw, 2.25rem);
             box-shadow: var(--shadow);
             display: none
         }
@@ -560,8 +694,8 @@
             left: 0;
             right: 0;
             top: 0;
-            height: 7px;
-            border-radius: 26px 26px 0 0;
+            height: 0.4375rem;
+            border-radius: 1.625rem 1.625rem 0 0;
             background: linear-gradient(90deg, var(--accent), var(--tint))
         }
 
@@ -585,17 +719,17 @@
         .sheet-head {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin: 4px 0 26px
+            gap: 0.875rem;
+            margin: 0.25rem 0 1.625rem
         }
 
         .room-ic {
-            width: 58px;
-            height: 58px;
-            border-radius: 18px;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1.25rem;
             display: grid;
             place-items: center;
-            font-size: 30px;
+            font-size: 2rem;
             background: var(--soft);
             border: 2px solid var(--tint);
             flex: none
@@ -603,15 +737,15 @@
 
         .room-no {
             display: block;
-            font-size: 12px;
+            font-size: 0.875rem;
             font-weight: 800;
-            letter-spacing: 1.2px;
+            letter-spacing: .1em;
             text-transform: uppercase;
             color: var(--accent-d)
         }
 
         .sheet h2 {
-            font-size: clamp(22px, 2.6vw, 28px);
+            font-size: clamp(1.5rem, 2.6vw, 2.125rem);
             font-weight: 900;
             line-height: 1.2;
             margin: 0;
@@ -619,16 +753,16 @@
         }
 
         .lead {
-            margin: -4px 0 14px 42px;
+            margin: -0.25rem 0 0.875rem 2.875rem;
             color: var(--text);
             font-weight: 600
         }
 
+        /* One column on every screen: illustration on top, questions below */
         .layout {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-            gap: 28px;
-            align-items: start
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.75rem
         }
 
         .col>.step:first-child {
@@ -636,13 +770,13 @@
         }
 
         .step {
-            font-size: 17px;
+            font-size: 1.1875rem;
             font-weight: 800;
             line-height: 1.5;
-            margin: 24px 0 14px;
+            margin: 1.5rem 0 0.875rem;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 0.75rem;
             color: var(--navy)
         }
 
@@ -650,21 +784,21 @@
             background: var(--accent-d);
             color: #fff;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 2.125rem;
+            height: 2.125rem;
             display: inline-grid;
             place-items: center;
             flex: none;
-            font-size: 15px;
+            font-size: 1.0625rem;
             font-weight: 900;
             box-shadow: 0 3px 0 rgba(0, 0, 0, .15), 0 0 0 4px var(--tint)
         }
 
         .visual {
             border: 2px solid var(--line);
-            border-radius: 20px;
+            border-radius: 1.25rem;
             background: #fff;
-            padding: 10px;
+            padding: 0.625rem;
             overflow: hidden;
             box-shadow: var(--shadow-sm)
         }
@@ -673,62 +807,64 @@
             display: block;
             width: 100%;
             height: auto;
-            max-height: 430px;
+            max-height: min(72vh, 34rem);
             touch-action: none
         }
 
         .hint {
-            font-size: 14.5px;
+            font-size: 0.9063rem;
             font-weight: 600;
             color: #7a5a06;
             background: #fff8e1;
             border: 1px solid #ffe6a3;
-            border-radius: 14px;
-            padding: 10px 14px;
-            margin: 14px 0 0
+            border-radius: 0.875rem;
+            padding: 0.625rem 0.875rem;
+            margin: 0.875rem 0 0
         }
 
         .card {
             background: linear-gradient(180deg, var(--soft), #fff 160px);
             border: 2px solid var(--line);
-            border-radius: 22px;
-            padding: 22px
+            border-radius: 1.375rem;
+            padding: 1.375rem
         }
 
         .two {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px
+            gap: 0.875rem
         }
 
         .inputrow label {
             display: block;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 0.9375rem;
             color: var(--navy);
-            margin-bottom: 6px
+            margin-bottom: 0.375rem
         }
 
         .inputrow input,
         .inputrow select {
             width: 100%;
             border: 2px solid var(--line2);
-            border-radius: 14px;
+            border-radius: 0.875rem;
             font: inherit;
             font-weight: 700;
             color: var(--navy);
-            padding: 11px 14px;
+            height: 3.25rem;
+            padding: 0 0.875rem;
             background: #fff;
             transition: .15s
         }
 
         .q {
-            margin: 22px 0
+            margin: 1.375rem 0
         }
 
         .q>strong {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 0.625rem;
+            font-size: 1.0625rem;
             color: var(--navy);
             font-weight: 800
         }
@@ -736,7 +872,8 @@
         .options {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px
+            gap: 0.5rem;
+            max-width: 48rem
         }
 
         .options label {
@@ -745,14 +882,15 @@
             white-space: nowrap;
             border: 2px solid var(--line2);
             border-radius: 999px;
-            padding: 9px 14px 9px 12px;
+            padding: 0.5625rem 0.875rem 0.5625rem 0.75rem;
             cursor: pointer;
             background: #fff;
+            font-size: 1.0625rem;
             font-weight: 700;
             transition: .15s;
             display: flex;
             align-items: center;
-            gap: 8px
+            gap: 0.5rem
         }
 
         .options label:hover {
@@ -769,22 +907,22 @@
 
         .options input {
             accent-color: var(--accent-d);
-            width: 18px;
-            height: 18px;
+            width: 1.125rem;
+            height: 1.125rem;
             margin: 0
         }
 
         .notice {
             background: var(--soft);
             border: 2px solid var(--tint);
-            border-radius: 18px;
-            padding: 16px 18px;
-            margin-top: 20px
+            border-radius: 1.125rem;
+            padding: 1rem 1.125rem;
+            margin-top: 1.25rem
         }
 
         .notice strong {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 0.625rem;
             color: var(--navy);
             font-weight: 800
         }
@@ -793,8 +931,8 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 18px
+            gap: 0.625rem;
+            margin-top: 1.125rem
         }
 
         .feedback {
@@ -802,8 +940,8 @@
             color: var(--muted);
             white-space: pre-line;
             flex: 1;
-            min-width: 200px;
-            border-radius: 14px;
+            min-width: 12.5rem;
+            border-radius: 0.875rem;
             padding: 0
         }
 
@@ -811,7 +949,7 @@
             background: var(--okbg);
             color: var(--ok);
             border: 1px solid #bce8d2;
-            padding: 10px 14px;
+            padding: 0.625rem 0.875rem;
             animation: pop .3s ease
         }
 
@@ -819,7 +957,7 @@
             background: var(--trybg);
             color: var(--try);
             border: 1px solid #ffdfa3;
-            padding: 10px 14px;
+            padding: 0.625rem 0.875rem;
             animation: pop .3s ease
         }
 
@@ -829,7 +967,7 @@
 
         /* ---------- SVG interactives ---------- */
         .grid-draw text {
-            font-size: 19px;
+            font-size: 26px;
             font-weight: 800;
             fill: var(--navy)
         }
@@ -856,7 +994,7 @@
         }
 
         .piece-label {
-            font-size: 23px;
+            font-size: 1.4375rem;
             font-weight: 900;
             fill: #23425c;
             pointer-events: none
@@ -864,20 +1002,20 @@
 
         .legend {
             display: flex;
-            gap: 14px;
+            gap: 0.875rem;
             flex-wrap: wrap;
-            font-size: 13px;
+            font-size: 0.8125rem;
             color: var(--muted);
-            margin-top: 8px
+            margin-top: 0.5rem
         }
 
         .legend i {
             display: inline-block;
-            width: 18px;
-            height: 5px;
-            border-radius: 3px;
+            width: 1.125rem;
+            height: 0.3125rem;
+            border-radius: 0.1875rem;
             vertical-align: middle;
-            margin-right: 5px
+            margin-right: 0.3125rem
         }
 
         .frame,
@@ -913,18 +1051,18 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin-top: 16px;
-            font-size: 14.5px;
+            margin-top: 1rem;
+            font-size: 1.125rem;
             background: #fff;
             border: 2px solid var(--line);
-            border-radius: 16px;
+            border-radius: 1rem;
             overflow: hidden
         }
 
         .table th,
         .table td {
             border-bottom: 1px solid var(--line);
-            padding: 10px;
+            padding: 0.625rem;
             text-align: center
         }
 
@@ -949,17 +1087,17 @@
         .statrow {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-top: 14px
+            gap: 0.5rem;
+            margin-top: 0.875rem
         }
 
         .stat {
             background: #fff;
             border: 2px solid var(--tint);
-            padding: 10px 4px;
-            border-radius: 16px;
+            padding: 0.625rem 0.25rem;
+            border-radius: 1rem;
             text-align: center;
-            font-size: 12.5px;
+            font-size: 0.7813rem;
             font-weight: 700;
             line-height: 1.3;
             color: var(--muted)
@@ -967,26 +1105,10 @@
 
         .stat strong {
             display: block;
-            margin-top: 4px;
-            font-size: 18px;
+            margin-top: 0.25rem;
+            font-size: 1.125rem;
             font-weight: 900;
             color: var(--accent-d)
-        }
-
-        .presets {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 0 0 14px
-        }
-
-        .presets button {
-            background: var(--soft);
-            border-color: var(--tint);
-            color: var(--accent-d);
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 15px
         }
 
         .scroll {
@@ -996,31 +1118,47 @@
         footer {
             color: var(--muted);
             text-align: center;
-            font-size: 14px;
+            font-size: 0.875rem;
             font-weight: 600;
-            padding: 8px 20px 36px
+            padding: 0.5rem 1.25rem 2.25rem
         }
 
         /* ---------- Responsive ---------- */
-        @media(max-width:980px) {
-            .layout {
-                grid-template-columns: 1fr
+        @media(max-width:1500px) {
+            .d3 {
+                display: none
             }
         }
 
         .conclude {
-            margin-top: 28px
+            margin-top: 1.75rem
         }
 
+        /* Labels start on the same top line, boxes sit on the same bottom line, even when one label wraps */
         .conclude-row {
             display: grid;
             grid-template-columns: 1fr 1fr auto;
-            gap: 14px;
-            align-items: end
+            gap: 1.25rem
+        }
+
+        .conclude-row .inputrow {
+            display: flex;
+            flex-direction: column
+        }
+
+        /* Divider so the two conclusion questions are not mixed up */
+        .conclude-row .inputrow+.inputrow {
+            border-left: 2px dashed var(--mid);
+            padding-left: 1.25rem
+        }
+
+        .conclude-row .inputrow label {
+            flex: 1
         }
 
         .conclude-row .primary {
-            margin-bottom: 4px
+            align-self: end;
+            margin-bottom: 0.25rem
         }
 
         .conclude .action:has(.feedback.plain:empty) {
@@ -1029,32 +1167,23 @@
 
         @media(max-width:680px) {
             header {
-                padding-top: 22px;
-                padding-bottom: 80px
-            }
-
-            .d3 {
-                display: none
+                padding-top: 1.375rem;
+                padding-bottom: 5rem
             }
 
             .kicker {
-                font-size: 10.5px;
+                font-size: 0.6563rem;
                 letter-spacing: .6px;
-                padding: 3px 10px
+                padding: 0.1875rem 0.625rem
             }
 
             header p {
-                font-size: 14.5px
-            }
-
-            .presets button {
-                font-size: 14px;
-                padding: 7px 12px
+                font-size: 0.9063rem
             }
 
             .hrow {
                 flex-wrap: wrap;
-                gap: 14px
+                gap: 0.875rem
             }
 
             .htext {
@@ -1062,92 +1191,56 @@
                 min-width: 0
             }
 
+            h1 {
+                font-size: 1.05rem;
+                text-wrap: balance
+            }
+
             .mascot {
-                width: 56px;
-                height: 56px;
-                font-size: 30px;
-                border-radius: 18px
-            }
-
-            .stars {
-                margin-left: 0;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 12px;
-                padding: 10px 16px
-            }
-
-            .star-text {
-                margin-top: 0
+                width: 3.5rem;
+                height: 3.5rem;
+                font-size: 1.875rem;
+                border-radius: 1.125rem
             }
 
             .toolbar {
-                padding: 12px
+                padding: 0.625rem
             }
 
-            .toolbar input {
-                min-width: 0
+            .tb-info {
+                flex-basis: 100%;
+                justify-content: center
             }
 
-            .toolbar button {
-                width: 100%
+            .tb-actions {
+                flex: 1;
+                flex-wrap: wrap
             }
 
-            .tabs {
-                gap: 8px
+            .tb-actions button:first-child {
+                flex-basis: 100%
             }
 
-            .tab {
-                flex-direction: column;
-                text-align: center;
-                padding: 12px 6px;
-                gap: 6px;
-                border-radius: 16px
-            }
-
-            .tab .ic {
-                width: 44px;
-                height: 44px;
-                font-size: 22px;
-                border-radius: 14px
-            }
-
-            .tab .no {
-                font-size: 10.5px;
-                letter-spacing: .5px
-            }
-
-            .tab span.sub {
-                display: none
-            }
-
-            .tab strong {
-                font-size: 13.5px
-            }
-
-            .tab.done:after {
-                width: 20px;
-                height: 20px;
-                font-size: 12px;
-                top: 8px;
-                right: 8px
+            .tb-actions button {
+                flex: 1;
+                white-space: nowrap;
+                font-size: 0.875rem;
+                padding: 0.5rem 0.375rem
             }
 
             .sheet {
-                border-radius: 22px
+                border-radius: 1.375rem
             }
 
             .room-ic {
-                width: 48px;
-                height: 48px;
-                font-size: 24px;
-                border-radius: 14px
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.5rem;
+                border-radius: 0.875rem
             }
 
             .card {
-                padding: 16px
+                padding: 1rem
             }
 
             .statrow {
@@ -1176,6 +1269,22 @@
             .conclude-row {
                 grid-template-columns: 1fr
             }
+
+            .table {
+                font-size: 0.9375rem
+            }
+
+            .table th,
+            .table td {
+                padding: 0.5rem 0.25rem
+            }
+
+            .conclude-row .inputrow+.inputrow {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 2px dashed var(--mid);
+                padding-top: 1rem
+            }
         }
 
         @media(prefers-reduced-motion:reduce) {
@@ -1192,7 +1301,144 @@
         }
 
         .pgroup {
+            display: none;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 2px dashed var(--line2);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--navy)
+        }
+
+        .pgroup b {
+            font-size: 14px
+        }
+
+        /* Applied to the cloned page html2canvas renders into the PDF */
+        .pdf-mode {
+            background: #fff
+        }
+
+        .pdf-mode * {
+            animation: none !important;
+            transition: none !important
+        }
+
+        /* Paper needs less air than touch screens: tighter spacing leaves room for bigger text */
+        .pdf-mode .sheet {
+            box-shadow: none;
+            border: 0;
+            padding: 0.75rem 1rem
+        }
+
+        .pdf-mode .sheet-head {
+            margin: 0 0 0.5rem
+        }
+
+        .pdf-mode .layout {
+            gap: 1rem
+        }
+
+        .pdf-mode .step {
+            margin: 0.875rem 0 0.5rem
+        }
+
+        .pdf-mode .lead {
+            margin-bottom: 0.375rem
+        }
+
+        .pdf-mode .visual {
+            padding: 0.25rem;
+            box-shadow: none
+        }
+
+        .pdf-mode .visual svg {
+            max-height: 24rem !important
+        }
+
+        /* Góc công nghệ has the most content below its drawing */
+        .pdf-mode .s3 .visual svg {
+            max-height: 19rem !important
+        }
+
+        .pdf-mode .card {
+            padding: 0.875rem 1.125rem
+        }
+
+        .pdf-mode .q {
+            margin: 0.875rem 0
+        }
+
+        .pdf-mode .q>strong {
+            margin-bottom: 0.375rem
+        }
+
+        .pdf-mode .options label {
+            flex: 0 1 auto;
+            min-width: 9rem;
+            padding: 0.3125rem 1rem
+        }
+
+        .pdf-mode .inputrow input,
+        .pdf-mode .inputrow select {
+            height: 2.5rem;
+            padding: 0 0.75rem
+        }
+
+        .pdf-mode .action {
+            margin-top: 0.625rem
+        }
+
+        .pdf-mode .feedback.good,
+        .pdf-mode .feedback.try {
+            padding: 0.375rem 0.75rem
+        }
+
+        .pdf-mode .statrow {
+            margin-top: 0.75rem
+        }
+
+        .pdf-mode .stat {
+            padding: 0.25rem
+        }
+
+        .pdf-mode .table {
+            margin-top: 0.625rem;
+            font-size: 0.9063rem
+        }
+
+        .pdf-mode .table th,
+        .pdf-mode .table td {
+            padding: 0.25rem
+        }
+
+        .pdf-mode .notice {
+            margin-top: 0.875rem;
+            padding: 0.75rem 1rem
+        }
+
+        .pdf-mode .notice strong {
+            margin-bottom: 0.5rem
+        }
+
+        .pdf-mode .conclude {
+            margin-top: 0.875rem
+        }
+
+        /* html2canvas reads pseudo-elements from the live page, so this one is hidden there while capturing */
+        .pdf-capturing .sheet:before {
             display: none
+        }
+
+        .pdf-mode .pgroup {
+            display: flex
+        }
+
+        .pdf-mode .action button,
+        .pdf-mode .conclude-row button,
+        .pdf-mode .hint {
+            display: none !important
         }
 
         @media print {
@@ -1202,20 +1448,22 @@
             }
 
             header,
-            .tabs,
+            .home,
+            .pdf-pop,
             .toolbar,
             footer,
-            .presets,
             .action button,
             .conclude-row button,
-            .stars,
             .hint {
                 display: none !important
             }
 
+            html {
+                font-size: 12.5px
+            }
+
             body {
                 background: #fff;
-                font-size: 12.5px;
                 line-height: 1.4
             }
 
@@ -1226,31 +1474,21 @@
             }
 
             .sheet {
-                display: block !important;
-                break-after: page;
-                break-inside: avoid;
                 box-shadow: none;
                 padding: 12px 14px;
                 animation: none
             }
 
-            .sheet:last-of-type {
-                break-after: auto
+            .visual,
+            .q,
+            .table,
+            .notice,
+            .statrow {
+                break-inside: avoid
             }
 
             .pgroup {
-                display: flex !important;
-                justify-content: space-between;
-                gap: 12px;
-                border-bottom: 2px dashed var(--line2);
-                padding-bottom: 6px;
-                margin-bottom: 8px;
-                font-size: 13px;
-                color: var(--navy)
-            }
-
-            .pgroup b {
-                font-size: 14px
+                display: flex
             }
 
             .layout {
@@ -1312,7 +1550,8 @@
             }
 
             .table {
-                margin-top: 6px
+                margin-top: 6px;
+                font-size: 0.9063rem
             }
 
             .table th,
@@ -1337,52 +1576,47 @@
         <span class="deco d2" aria-hidden="true"></span><span class="deco d3" aria-hidden="true"></span>
         <span class="deco spark sp1" aria-hidden="true"></span><span class="deco spark sp2"
             aria-hidden="true"></span><span class="deco spark sp3" aria-hidden="true"></span>
-        <svg class="deco tri-art" viewBox="0 0 300 260" aria-hidden="true">
-            <polygon points="120,20 20,240 290,240" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)"
-                stroke-width="3" stroke-linejoin="round" />
-            <path d="M88 72L102 78M38 182L52 188M156 80L169 70M241 190L254 180" stroke="rgba(255,255,255,.55)"
-                stroke-width="3" stroke-linecap="round" />
-            <line x1="70" y1="130" x2="205" y2="130" stroke="#ffd166" stroke-width="5" stroke-linecap="round" />
-            <g fill="#fff">
-                <circle cx="120" cy="20" r="5" />
-                <circle cx="20" cy="240" r="5" />
-                <circle cx="290" cy="240" r="5" />
-            </g>
-            <g fill="#ffd166" stroke="#fff" stroke-width="2">
-                <circle cx="70" cy="130" r="7" />
-                <circle cx="205" cy="130" r="7" />
-            </g>
-        </svg>
         <div class="hrow">
             <div class="mascot" aria-hidden="true">🔬</div>
             <div class="htext">
                 <div class="kicker">PHIẾU HỌC TẬP TƯƠNG TÁC • TOÁN 8</div>
-                <h1>Phòng nghiên cứu: Đường trung bình của tam giác</h1>
-            </div>
-            <div class="stars" id="stars" data-count="0" aria-live="polite">
-                <div class="star-row" aria-hidden="true"><span>★</span><span>★</span><span>★</span></div>
-                <div class="star-text"><b><span id="starCount">0</span>/3</b> phòng hoàn thành</div>
+                <h1>Phòng nghiên cứu:<br>Đường trung bình của tam giác</h1>
             </div>
         </div>
     </header>
     <div class="wrap">
-        <div class="toolbar"><label for="group">👥 Nhóm nghiên cứu</label><input id="group"
-                placeholder="Ví dụ: Nhóm 1 - Lớp 8A" /><button type="button" class="ghost" onclick="printSheet()">🖨️ In
-                / Lưu
-                PDF</button></div>
-        <div class="tabs" role="tablist">
-            <button class="tab active" data-tab="1" role="tab" aria-selected="true"><span class="ic">👀</span>
-                <div><span class="no">Phòng 01</span><strong>Góc trực quan</strong></div>
-            </button>
-            <button class="tab" data-tab="2" role="tab" aria-selected="false"><span class="ic">🧩</span>
-                <div><span class="no">Phòng 02</span><strong>Góc thực nghiệm</strong></div>
-            </button>
-            <button class="tab" data-tab="3" role="tab" aria-selected="false"><span class="ic">💻</span>
-                <div><span class="no">Phòng 03</span><strong>Góc công nghệ</strong></div>
-            </button>
+        <section class="home" id="home">
+            <h2>Chào nhóm nghiên cứu! 👋</h2>
+            <p class="home-sub">Điền tên nhóm, sau đó chọn góc mà nhóm sẽ thực hiện.</p>
+            <label class="home-label" for="group"><span class="bubble">1</span>Tên nhóm</label>
+            <div class="home-field"><input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi chọn góc.</span>
+            </div>
+            <div class="home-label"><span class="bubble">2</span>Chọn góc nghiên cứu</div>
+            <div class="rooms" role="group" aria-label="Chọn góc nghiên cứu">
+                <button class="room s1" data-room="1"><span class="ic">👀</span><span class="txt"><span class="no">Phòng
+                            01</span><strong>Góc trực quan</strong></span><span class="go"><span class="go-t">Bắt đầu
+                        </span>→</span></button>
+                <button class="room s2" data-room="2"><span class="ic">🧩</span><span class="txt"><span class="no">Phòng
+                            02</span><strong>Góc thực nghiệm</strong></span><span class="go"><span class="go-t">Bắt đầu
+                        </span>→</span></button>
+                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Phòng
+                            03</span><strong>Góc công nghệ</strong></span><span class="go"><span class="go-t">Bắt đầu
+                        </span>→</span></button>
+            </div>
+        </section>
+
+        <div class="toolbar" id="toolbar" hidden>
+            <span class="tb-info"><span class="tb-room" id="roomLabel"></span><span>👥 Nhóm: <b
+                        id="gLabel"></b></span></span>
+            <div class="tb-actions">
+                <button type="button" onclick="goHome()">↩ Đổi phòng nghiên cứu</button>
+                <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
+                <button type="button" class="ghost" onclick="printSheet()">🖨️ In</button>
+            </div>
         </div>
 
-        <section class="sheet s1 active" id="s1">
+        <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
                     8</span><span>Nhóm: <b class="gname">………………</b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
@@ -1421,8 +1655,8 @@
                                     <circle cx="200" cy="360" r="6" />
                                     <circle cx="520" cy="360" r="6" />
                                 </g>
-                                <text x="272" y="30">A</text><text x="176" y="386">B</text><text x="528"
-                                    y="386">C</text><text x="212" y="206">M</text><text x="412" y="206">N</text>
+                                <text x="270" y="30">A</text><text x="170" y="390">B</text><text x="530"
+                                    y="390">C</text><text x="204" y="209">M</text><text x="412" y="209">N</text>
                             </g>
                         </svg></div>
                     <p class="hint">💡 Mỗi ô vuông biểu diễn 1 đơn vị. Hãy tự đếm số ô theo phương ngang để xác định độ
@@ -1464,55 +1698,56 @@
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Dùng bốn tam giác bằng nhau để ghép thành tam giác
                         ABC.</div>
-                    <div class="visual"><svg id="puzzle" viewBox="0 0 720 570"
-                            aria-label="Ghép tam giác ABC từ 4 mảnh tam giác bằng nhau" style="max-height:620px">
-                            <text x="20" y="32" fill="#9c6232" font-weight="800" font-size="21">VÙNG GHÉP</text>
-                            <text x="20" y="383" fill="#9c6232" font-weight="800" font-size="21"
+                    <div class="visual"><svg id="puzzle" viewBox="0 0 900 520"
+                            aria-label="Ghép tam giác ABC từ 4 mảnh tam giác bằng nhau"
+                            style="max-height:min(82vh, 42rem)">
+                            <text x="20" y="32" fill="#9c6232" font-weight="800" font-size="24">VÙNG GHÉP</text>
+                            <text x="20" y="350" fill="#9c6232" font-weight="800" font-size="24"
                                 dominant-baseline="central">4 tam giác - chạm, chọn, kéo thả, xoay</text>
                             <g id="stackBtn" class="svg-btn" role="button" tabindex="0"
                                 aria-label="Chồng 4 tam giác lên nhau">
-                                <rect x="466" y="360" width="234" height="46" rx="12" fill="#bd6d24" /><text
-                                    id="stackBtnText" x="583" y="383" fill="#fff" font-weight="800" font-size="20"
+                                <rect id="stackBtnRect" x="646" y="10" width="234" height="46" rx="12" fill="#bd6d24" />
+                                <text id="stackBtnText" x="763" y="33" fill="#fff" font-weight="800" font-size="20"
                                     text-anchor="middle" dominant-baseline="central">⧉ Chồng 4 tam giác</text>
                             </g>
                             <g id="bigTri" class="frame">
-                                <polygon points="-50,-120 -150,60 200,60" fill="#f8fafc" stroke="#647d91"
+                                <polygon points="-60,-144 -180,72 240,72" fill="#f8fafc" stroke="#647d91"
                                     stroke-width="3" stroke-dasharray="8 5" />
                             </g>
                             <g id="pieceLayer">
                                 <g class="piece" data-piece="1">
-                                    <polygon points="-25,-60 -75,30 100,30" fill="#fff3c4" />
+                                    <polygon points="-30,-72 -90,36 120,36" fill="#fff3c4" />
                                     <g class="piece-edges">
-                                        <path d="M-25 -60L-75 30" stroke="#d9483b" />
-                                        <path d="M-75 30H100" stroke="#2a6fdb" />
-                                        <path d="M100 30L-25 -60" stroke="#1e9a5a" />
+                                        <path d="M-30 -72L-90 36" stroke="#d9483b" />
+                                        <path d="M-90 36H120" stroke="#2a6fdb" />
+                                        <path d="M120 36L-30 -72" stroke="#1e9a5a" />
                                     </g><text class="piece-label" text-anchor="middle"
                                         dominant-baseline="central">1</text>
                                 </g>
                                 <g class="piece" data-piece="2">
-                                    <polygon points="-25,-60 -75,30 100,30" fill="#fbe7d3" />
+                                    <polygon points="-30,-72 -90,36 120,36" fill="#fbe7d3" />
                                     <g class="piece-edges">
-                                        <path d="M-25 -60L-75 30" stroke="#d9483b" />
-                                        <path d="M-75 30H100" stroke="#2a6fdb" />
-                                        <path d="M100 30L-25 -60" stroke="#1e9a5a" />
+                                        <path d="M-30 -72L-90 36" stroke="#d9483b" />
+                                        <path d="M-90 36H120" stroke="#2a6fdb" />
+                                        <path d="M120 36L-30 -72" stroke="#1e9a5a" />
                                     </g><text class="piece-label" text-anchor="middle"
                                         dominant-baseline="central">2</text>
                                 </g>
                                 <g class="piece" data-piece="3">
-                                    <polygon points="-25,-60 -75,30 100,30" fill="#dff3f1" />
+                                    <polygon points="-30,-72 -90,36 120,36" fill="#dff3f1" />
                                     <g class="piece-edges">
-                                        <path d="M-25 -60L-75 30" stroke="#d9483b" />
-                                        <path d="M-75 30H100" stroke="#2a6fdb" />
-                                        <path d="M100 30L-25 -60" stroke="#1e9a5a" />
+                                        <path d="M-30 -72L-90 36" stroke="#d9483b" />
+                                        <path d="M-90 36H120" stroke="#2a6fdb" />
+                                        <path d="M120 36L-30 -72" stroke="#1e9a5a" />
                                     </g><text class="piece-label" text-anchor="middle"
                                         dominant-baseline="central">3</text>
                                 </g>
                                 <g class="piece" data-piece="4">
-                                    <polygon points="-25,-60 -75,30 100,30" fill="#ebe5fb" />
+                                    <polygon points="-30,-72 -90,36 120,36" fill="#ebe5fb" />
                                     <g class="piece-edges">
-                                        <path d="M-25 -60L-75 30" stroke="#d9483b" />
-                                        <path d="M-75 30H100" stroke="#2a6fdb" />
-                                        <path d="M100 30L-25 -60" stroke="#1e9a5a" />
+                                        <path d="M-30 -72L-90 36" stroke="#d9483b" />
+                                        <path d="M-90 36H120" stroke="#2a6fdb" />
+                                        <path d="M120 36L-30 -72" stroke="#1e9a5a" />
                                     </g><text class="piece-label" text-anchor="middle"
                                         dominant-baseline="central">4</text>
                                 </g>
@@ -1523,12 +1758,12 @@
                                     <circle id="dotN" r="8" />
                                     <circle id="dotP" r="8" />
                                 </g>
-                                <g fill="#b85f1b" font-size="20" font-weight="bold"><text id="lblM" text-anchor="middle"
+                                <g fill="#b85f1b" font-size="25" font-weight="bold"><text id="lblM" text-anchor="middle"
                                         dominant-baseline="central">M</text><text id="lblN" text-anchor="middle"
                                         dominant-baseline="central">N</text><text id="lblP" text-anchor="middle"
                                         dominant-baseline="central">P</text></g>
                             </g>
-                            <g fill="#24445d" font-size="19" font-weight="bold" style="pointer-events:none"><text
+                            <g fill="#24445d" font-size="25" font-weight="bold" style="pointer-events:none"><text
                                     id="lblA" text-anchor="middle" dominant-baseline="central">A</text><text id="lblB"
                                     text-anchor="middle" dominant-baseline="central">B</text><text id="lblC"
                                     text-anchor="middle" dominant-baseline="central">C</text></g>
@@ -1549,12 +1784,12 @@
                 </div>
                 <div class="col card">
                     <div class="step"><span class="bubble">2</span>Nhận xét hình đã ghép.</div>
-                    <div class="q"><strong>Câu 1. M có phải là trung điểm của AB không?</strong>
+                    <div class="q"><strong>Câu 1. M là trung điểm của AB: </strong>
                         <div class="options"><label><input type="radio" name="midM"
                                     value="true">Đúng</label><label><input type="radio" name="midM"
                                     value="false">Sai</label></div>
                     </div>
-                    <div class="q"><strong>Câu 2. N có phải là trung điểm của AC không?</strong>
+                    <div class="q"><strong>Câu 2. N là trung điểm của AC: </strong>
                         <div class="options"><label><input type="radio" name="midN"
                                     value="true">Đúng</label><label><input type="radio" name="midN"
                                     value="false">Sai</label></div>
@@ -1586,13 +1821,10 @@
             </div>
             <div class="layout">
                 <div class="col">
-                    <div class="step"><span class="bubble">1</span>Kéo điểm A hoặc chọn hình mẫu để quan sát.</div>
-                    <div class="presets"><button onclick="preset('acute')">🔺 Tam giác nhọn</button><button
-                            onclick="preset('right')">📐 Tam giác vuông</button><button onclick="preset('obtuse')">🔻
-                            Tam giác tù</button></div>
+                    <div class="step"><span class="bubble">1</span>Kéo điểm A để thay đổi tam giác và quan sát.</div>
                     <div class="visual"><svg id="lab" viewBox="0 0 720 405"
                             aria-label="Tam giác ABC có thể kéo đỉnh A; hiển thị trung điểm M N"
-                            style="max-height:405px;touch-action:none">
+                            style="touch-action:none">
                             <rect x="10" y="10" width="700" height="380" fill="#fcfbff" rx="14" />
                             <path id="triabc" d="" fill="#f1ebff66" stroke="#354d6a" stroke-width="4" />
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
@@ -1604,8 +1836,8 @@
                             <circle id="pointN" r="6" fill="#df8d33" />
                             <circle id="pointA" cx="350" cy="80" r="14" fill="#4d8bc1" stroke="white" stroke-width="4"
                                 style="cursor:grab" />
-                            <g fill="#25405c" font-weight="bold" font-size="22"><text id="labelA" x="360"
-                                    y="70">A</text><text x="113" y="363">B</text><text x="579" y="363">C</text><text
+                            <g fill="#25405c" font-weight="bold" font-size="27"><text id="labelA" x="360"
+                                    y="70">A</text><text x="108" y="368">B</text><text x="579" y="368">C</text><text
                                     id="labelM">M</text><text id="labelN">N</text></g>
                         </svg></div>
                     <div class="statrow">
@@ -1650,8 +1882,8 @@
             <div class="card conclude">
                 <div class="step" style="margin-top:0"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
-                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC luôn bằng</label><input id="ratio3"
-                            inputmode="decimal" placeholder="Số thập phân"></div>
+                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC luôn bằng (kết quả ghi dưới dạng số thập
+                            phân)</label><input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1"></div>
                     <div class="inputrow"><label for="rel3">MN và BC luôn</label><select id="rel3">
                             <option value="">Chọn kết luận</option>
                             <option value="parallel">Song song</option>
@@ -1666,23 +1898,91 @@
         </section>
     </div>
     <footer>Đường trung bình của tam giác – Toán 8</footer>
+    <div class="pdf-pop" id="pdfPop" role="dialog" aria-modal="true" aria-labelledby="popTitle" hidden>
+        <div class="pop-box">
+            <div class="pop-title" id="popTitle"></div>
+            <p class="pop-text" id="popText"></p>
+            <div class="pop-actions" id="popActions">
+                <a class="primary" id="pdfDl" href="#" download>💾 Tải file PDF</a>
+                <button type="button" id="pdfShare" onclick="sharePdf()">📤 Chia sẻ / Lưu vào Tệp</button>
+                <a id="pdfOpen" href="#" target="_blank" rel="noopener">👁️ Mở xem PDF</a>
+                <p class="pop-tip">iPhone/iPad: chọn “Chia sẻ” → “Lưu vào Tệp”, hoặc “Mở xem PDF” rồi bấm nút chia
+                    sẻ.</p>
+            </div>
+            <button type="button" class="pop-close" onclick="closePop()">Đóng</button>
+        </div>
+    </div>
     <script>
         const $ = id => document.getElementById(id);
-        document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { const n = t.dataset.tab; document.querySelectorAll('.tab').forEach(q => { q.classList.toggle('active', q === t); q.setAttribute('aria-selected', q === t ? 'true' : 'false') }); document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', s.id === 's' + n)) }));
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
+        // Home screen: enter group name, then pick one room
+        const ROOMS = { 1: 'Góc trực quan', 2: 'Góc thực nghiệm', 3: 'Góc công nghệ' }; let current = null;
+        function showRoom(n) { current = n; $('home').hidden = n !== null; $('toolbar').hidden = n === null; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', s.id === 's' + n)); syncGroup(); pickLayout(); window.scrollTo(0, 0) }
+        function chooseRoom(n) { if (!$('group').value.trim()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
+        function goHome() { showRoom(null) }
+        document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
+        $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
         // Group name for print / PDF
-        function syncGroup() { const g = $('group').value.trim(); document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.title = (g ? g + ' – ' : '') + 'Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8' }
-        function printSheet() { syncGroup(); window.print() }
-        $('group').addEventListener('input', syncGroup); window.addEventListener('beforeprint', syncGroup);
-        // Feedback + star tracking
-        const doneRooms = new Set();
-        function say(room, id, ok, total, good, bad) { const el = $(id); el.className = 'feedback ' + (ok === total ? 'good' : 'try'); el.textContent = (ok === total ? '🎉 ' : '💪 ') + 'Đúng ' + ok + '/' + total + '. ' + (ok === total ? good : bad); if (ok === total) { doneRooms.add(room); document.querySelector('.tab[data-tab="' + room + '"]').classList.add('done'); $('starCount').textContent = doneRooms.size; $('stars').dataset.count = doneRooms.size } }
+        function syncGroup() { const g = $('group').value.trim(), room = ROOMS[current]; document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); $('gLabel').textContent = g; $('roomLabel').textContent = room || ''; $('roomLabel').className = 'tb-room s' + current; document.title = room ? fileBase() : 'Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8' }
+        $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
+        // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
+        const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
+        const IN_APP_TIP = 'Nếu không tải được: bấm ••• → “Mở bằng trình duyệt” (Safari/Chrome) rồi thử lại.';
+        const PDF_LIBS = ['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
+        let pdfLibs = null, pdfUrl = null, pdfFile = null;
+        function beforeOutput() { picked = null; renderPuzzle(); syncGroup() }
+        function printSheet() { if (IN_APP) { openPop('ℹ️ Không in được trong ứng dụng này', IN_APP_TIP + '\nHoặc dùng nút 📄 Lưu PDF.', false); return } beforeOutput(); window.print() }
+        window.addEventListener('beforeprint', beforeOutput);
+        function openPop(title, text, ready) { $('popTitle').textContent = title; $('popText').textContent = text; $('popActions').hidden = !ready; $('pdfPop').hidden = false }
+        function closePop() { $('pdfPop').hidden = true }
+        $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget) closePop() });
+        function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
+        // File name: <tên nhóm>_<tên góc>.pdf (the print dialog names its PDF after document.title the same way)
+        function fileBase() { return ($('group').value.trim() + '_' + ROOMS[current]).replace(/[\\/:*?"<>|]+/g, '-') }
+        function pdfName() { return fileBase() + '.pdf' }
+        // Page is rendered `width` px wide with a `font` px root, then fitted to A4's 190mm: ~11pt text, every room still on one page.
+        const PDF_VIEW = { width: 960, font: 19 };
+        function renderSheet(n) {
+            // Same page on every device; html2canvas inlines the phone-sized svg styles, so restore them. The puzzle uses its shorter one-row layout.
+            const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
+            root.classList.add('pdf-capturing'); useLayout(LAYOUTS.wide);
+            return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
+        }
+        function buildPdf(canvas) {
+            const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', compress: true }), M = 10, W = 190, H = 277;
+            let w = W, h = canvas.height * W / canvas.width;
+            if (h <= H * 1.25) { if (h > H) { w *= H / h; h = H } pdf.addImage(canvas.toDataURL('image/jpeg', .92), 'JPEG', M + (W - w) / 2, M, w, h); return pdf }
+            const pagePx = Math.floor(H * canvas.width / W);
+            for (let y = 0; y < canvas.height; y += pagePx) { const ph = Math.min(pagePx, canvas.height - y), c = document.createElement('canvas'); c.width = canvas.width; c.height = ph; const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, ph); ctx.drawImage(canvas, 0, y, canvas.width, ph, 0, 0, canvas.width, ph); if (y) pdf.addPage(); pdf.addImage(c.toDataURL('image/jpeg', .92), 'JPEG', M, M, W, ph * W / canvas.width) }
+            return pdf
+        }
+        async function savePdf() {
+            if (!current) return; beforeOutput();
+            openPop('⏳ Đang tạo file PDF…', 'Vui lòng đợi vài giây.', false);
+            try {
+                pdfLibs = pdfLibs || Promise.all(PDF_LIBS.map(loadScript)); await pdfLibs;
+                if (document.fonts) await document.fonts.ready;
+                const blob = buildPdf(await renderSheet(current)).output('blob'), name = pdfName();
+                if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+                pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
+                $('pdfDl').href = $('pdfOpen').href = pdfUrl; $('pdfDl').download = name;
+                $('pdfShare').hidden = !(navigator.canShare && navigator.canShare({ files: [pdfFile] }));
+                openPop('✅ File PDF đã sẵn sàng', name + (IN_APP ? '\n\n' + IN_APP_TIP : ''), true)
+            } catch (e) { pdfLibs = null; openPop('⚠️ Chưa tạo được PDF', 'Hãy kiểm tra kết nối mạng rồi thử lại, hoặc dùng nút 🖨️ In.', false) }
+        }
+        // Share needs a fresh tap (iOS rejects share() after the async build), so it has its own button.
+        async function sharePdf() { try { await navigator.share({ files: [pdfFile], title: pdfFile.name }) } catch (e) { } }
+        // Feedback; a fully correct room gets a ✓ on its home card
+        function say(room, id, ok, total, good, bad) { const el = $(id); el.className = 'feedback ' + (ok === total ? 'good' : 'try'); el.textContent = (ok === total ? '🎉 ' : '💪 ') + 'Đúng ' + ok + '/' + total + '. ' + (ok === total ? good : bad); if (ok === total) document.querySelector('.room[data-room="' + room + '"]').classList.add('done') }
         function check1() { let ok = 0; ok += Number($('mn').value) === 4; ok += Number($('bc').value) === 8; ok += radio('dir') === 'parallel'; ok += radio('ratio') === '0.5'; say(1, 'msg1', ok, 4, 'Nhóm đã phát hiện đúng hai mối quan hệ!', 'Hãy đếm lại số ô vuông và so sánh MN, BC.') }
         // SVG puzzle. Pieces and triangle ABC can be dragged and rotated; any piece fits any slot when position and direction match.
         const puzzle = $('puzzle'), pieceLayer = $('pieceLayer'), midLayer = $('midLayer'), bigTri = $('bigTri'), rotLine = $('rotLine'), rotKnob = $('rotKnob'), stackBtn = $('stackBtn'), pieces = [...puzzle.querySelectorAll('[data-piece]')];
-        const PUZ_W = 720, PUZ_H = 570, FRAME_HOME = { x: 360, y: 225, rot: 0 }, PIECE_HOME = { 1: { x: 90, y: 505, rot: 0 }, 2: { x: 265, y: 505, rot: 0 }, 3: { x: 440, y: 505, rot: 0 }, 4: { x: 615, y: 505, rot: 0 } };
-        const VERTS = { A: [-50, -120], B: [-150, 60], C: [200, 60] }, MIDS = { M: [-100, -30], N: [75, -30], P: [25, 60] }, SLOTS = [[-25, -60, 0], [-75, 30, 0], [100, 30, 0], [0, 0, 180]];
-        const STACK_POSE = { x: 360, y: 500, rot: 0 };
+        // Two arrangements: pieces in one row (wide screens) or 2x2 (phones, iPad portrait); pickLayout() uses whichever draws the shapes larger.
+        const LAYOUTS = { wide: { w: 900, h: 520, frame: [450, 222], pieces: [[98, 462], [324, 462], [550, 462], [776, 462]], stack: [450, 462] }, narrow: { w: 640, h: 650, frame: [320, 222], pieces: [[180, 462], [430, 462], [180, 590], [430, 590]], stack: [320, 526] } };
+        const VERTS = { A: [-60, -144], B: [-180, 72], C: [240, 72] }, MIDS = { M: [-120, -36], N: [90, -36], P: [30, 72] }, SLOTS = [[-30, -72, 0], [-90, 36, 0], [120, 36, 0], [0, 0, 180]];
+        let L = LAYOUTS.wide;
+        function pieceHome(id) { const [x, y] = L.pieces[id - 1]; return { x, y, rot: 0 } }
+        function stackPose() { return { x: L.stack[0], y: L.stack[1], rot: 0 } }
         let frame, state, slotOf, picked = null, gesture = null, stacked = false, animating = false, animRun = 0;
         function rotPt(x, y, deg) { const r = deg * Math.PI / 180, c = Math.cos(r), s = Math.sin(r); return { x: x * c - y * s, y: x * s + y * c } }
         function fromItem(st, x, y) { const p = rotPt(x, y, st.rot); return { x: st.x + p.x, y: st.y + p.y } }
@@ -1690,8 +1990,8 @@
         function slotPose(i) { const [x, y, r] = SLOTS[i], p = fromItem(frame, x, y); return { x: p.x, y: p.y, rot: frame.rot + r } }
         function syncSlots() { for (const id in slotOf) Object.assign(state[id], slotPose(slotOf[id])) }
         function itemOf(el) { return el === bigTri ? frame : state[el.dataset.piece] }
-        function clampPos(st, m) { st.x = Math.max(m, Math.min(PUZ_W - m, st.x)); st.y = Math.max(m, Math.min(PUZ_H - m, st.y)) }
-        function renderPuzzle() { bigTri.setAttribute('transform', `translate(${frame.x} ${frame.y}) rotate(${frame.rot})`); for (const k in VERTS) { const [x, y] = VERTS[k], f = 1 + 24 / Math.hypot(x, y), p = fromItem(frame, x * f, y * f); $('lbl' + k).setAttribute('x', p.x); $('lbl' + k).setAttribute('y', p.y) } const done = Object.keys(slotOf).length === 4; midLayer.style.display = done ? '' : 'none'; if (done) for (const k in MIDS) { const [x, y] = MIDS[k], f = 1 + 24 / Math.hypot(x, y), d = fromItem(frame, x, y), p = fromItem(frame, x * f, y * f); $('dot' + k).setAttribute('cx', d.x); $('dot' + k).setAttribute('cy', d.y); $('lbl' + k).setAttribute('x', p.x); $('lbl' + k).setAttribute('y', p.y) } pieces.forEach(el => { const st = state[el.dataset.piece]; el.setAttribute('transform', `translate(${st.x} ${st.y}) rotate(${st.rot})`); el.querySelector('text').setAttribute('transform', `rotate(${-st.rot})`); el.classList.toggle('selected', el === picked) }); bigTri.classList.toggle('selected', bigTri === picked); rotLine.style.display = rotKnob.style.display = picked ? '' : 'none'; if (picked) { const st = itemOf(picked), big = picked === bigTri, reach = big ? 130 : 65, a = fromItem(st, 0, -reach - (big ? 34 : 0)), b = fromItem(st, 0, -reach - (big ? 62 : 38)); b.x = Math.max(20, Math.min(PUZ_W - 20, b.x)); b.y = Math.max(20, Math.min(PUZ_H - 20, b.y)); rotLine.setAttribute('x1', a.x); rotLine.setAttribute('y1', a.y); rotLine.setAttribute('x2', b.x); rotLine.setAttribute('y2', b.y); rotKnob.setAttribute('transform', `translate(${b.x} ${b.y})`) } }
+        function clampPos(st, m) { st.x = Math.max(m, Math.min(L.w - m, st.x)); st.y = Math.max(m, Math.min(L.h - m, st.y)) }
+        function renderPuzzle() { bigTri.setAttribute('transform', `translate(${frame.x} ${frame.y}) rotate(${frame.rot})`); for (const k in VERTS) { const [x, y] = VERTS[k], f = 1 + 24 / Math.hypot(x, y), p = fromItem(frame, x * f, y * f); $('lbl' + k).setAttribute('x', p.x); $('lbl' + k).setAttribute('y', p.y) } const done = Object.keys(slotOf).length === 4; midLayer.style.display = done ? '' : 'none'; if (done) for (const k in MIDS) { const [x, y] = MIDS[k], f = 1 + 24 / Math.hypot(x, y), d = fromItem(frame, x, y), p = fromItem(frame, x * f, y * f); $('dot' + k).setAttribute('cx', d.x); $('dot' + k).setAttribute('cy', d.y); $('lbl' + k).setAttribute('x', p.x); $('lbl' + k).setAttribute('y', p.y) } pieces.forEach(el => { const st = state[el.dataset.piece]; el.setAttribute('transform', `translate(${st.x} ${st.y}) rotate(${st.rot})`); el.querySelector('text').setAttribute('transform', `rotate(${-st.rot})`); el.classList.toggle('selected', el === picked) }); bigTri.classList.toggle('selected', bigTri === picked); rotLine.style.display = rotKnob.style.display = picked ? '' : 'none'; if (picked) { const st = itemOf(picked), big = picked === bigTri, reach = big ? 156 : 78, a = fromItem(st, 0, -reach - (big ? 34 : 0)), b = fromItem(st, 0, -reach - (big ? 62 : 38)); b.x = Math.max(20, Math.min(L.w - 20, b.x)); b.y = Math.max(20, Math.min(L.h - 20, b.y)); rotLine.setAttribute('x1', a.x); rotLine.setAttribute('y1', a.y); rotLine.setAttribute('x2', b.x); rotLine.setAttribute('y2', b.y); rotKnob.setAttribute('transform', `translate(${b.x} ${b.y})`) } }
         function trySnap(id) { const st = state[id]; let near = false; delete slotOf[id]; for (let i = 0; i < SLOTS.length; i++) { if (Object.values(slotOf).includes(i)) continue; const s = slotPose(i); if (Math.hypot(st.x - s.x, st.y - s.y) > 32) continue; if (Math.abs(angDiff(st.rot, s.rot)) <= 20) { Object.assign(st, s); slotOf[id] = i; return 'fit' } near = true } return near ? 'turn' : null }
         function svgPoint(svg, event) { const p = svg.createSVGPoint(); p.x = event.clientX; p.y = event.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()) }
         function updatePuzzle(note) { const n = Object.keys(slotOf).length, tip = note === 'turn' ? 'Mảnh đã gần đúng chỗ nhưng chưa đúng hướng – hãy xoay mảnh. ' : note === 'fit' ? 'Khớp rồi! ' : note === 'pick' ? 'Hãy chạm chọn một mảnh hoặc tam giác ABC trước khi xoay. ' : ''; const el = $('puzzleProgress'); el.className = 'feedback ' + (n === 4 ? 'good' : 'plain'); el.textContent = n === 4 ? '🎉 Đã hoàn thành ghép hình 4/4 mảnh!' : tip + 'Đã ghép ' + n + '/4 mảnh.'; renderPuzzle() }
@@ -1699,14 +1999,29 @@
         function endGesture() { if (!gesture) return; const g = gesture; gesture = null; if (!g.moved) { renderPuzzle(); return } if (g.el === bigTri) { pieces.forEach(p => { if (!(p.dataset.piece in slotOf)) trySnap(p.dataset.piece) }); updatePuzzle() } else updatePuzzle(trySnap(g.el.dataset.piece)) }
         pieces.forEach(el => el.addEventListener('pointerdown', e => startGesture(e, el, 'move'))); bigTri.addEventListener('pointerdown', e => startGesture(e, bigTri, 'move')); rotKnob.addEventListener('pointerdown', e => { if (picked) startGesture(e, picked, 'rotate') });
         puzzle.addEventListener('pointerdown', () => { if (!gesture && picked) { picked = null; renderPuzzle() } });
-        puzzle.addEventListener('pointermove', e => { if (!gesture) return; const g = gesture, pos = svgPoint(puzzle, e), st = itemOf(g.el); if (g.mode === 'move') { const dx = pos.x - g.start.x, dy = pos.y - g.start.y; if (!g.moved && Math.hypot(dx, dy) < 6) return; g.moved = true; st.x = g.orig.x + dx; st.y = g.orig.y + dy; clampPos(st, g.el === bigTri ? 110 : 20) } else { const a = Math.atan2(pos.y - st.y, pos.x - st.x); st.rot = Math.round((g.orig.rot + (a - g.a0) * 180 / Math.PI) / 15) * 15; g.moved = true } if (g.el === bigTri) syncSlots(); else delete slotOf[g.el.dataset.piece]; renderPuzzle() });
+        puzzle.addEventListener('pointermove', e => { if (!gesture) return; const g = gesture, pos = svgPoint(puzzle, e), st = itemOf(g.el); if (g.mode === 'move') { const dx = pos.x - g.start.x, dy = pos.y - g.start.y; if (!g.moved && Math.hypot(dx, dy) < 6) return; g.moved = true; st.x = g.orig.x + dx; st.y = g.orig.y + dy; clampPos(st, g.el === bigTri ? 130 : 20) } else { const a = Math.atan2(pos.y - st.y, pos.x - st.x); st.rot = Math.round((g.orig.rot + (a - g.a0) * 180 / Math.PI) / 15) * 15; g.moved = true } if (g.el === bigTri) syncSlots(); else delete slotOf[g.el.dataset.piece]; renderPuzzle() });
         puzzle.addEventListener('pointerup', endGesture); puzzle.addEventListener('pointercancel', endGesture);
         function rotateSelected(d) { if (animating) return; if (!picked) { updatePuzzle('pick'); return } itemOf(picked).rot += d; if (picked === bigTri) { syncSlots(); updatePuzzle() } else updatePuzzle(trySnap(picked.dataset.piece)) }
-        function resetPuzzle() { animRun++; animating = false; setStacked(false); frame = { ...FRAME_HOME }; state = {}; for (const id in PIECE_HOME) state[id] = { ...PIECE_HOME[id] }; slotOf = {}; picked = null; gesture = null; pieces.forEach(p => pieceLayer.appendChild(p)); updatePuzzle() }
+        function resetPuzzle() { animRun++; animating = false; setStacked(false); frame = { x: L.frame[0], y: L.frame[1], rot: 0 }; state = {}; pieces.forEach(p => state[p.dataset.piece] = pieceHome(p.dataset.piece)); slotOf = {}; picked = null; gesture = null; pieces.forEach(p => pieceLayer.appendChild(p)); updatePuzzle() }
         function setStacked(v) { stacked = v; $('stackBtnText').textContent = v ? '↔ Tách 4 tam giác' : '⧉ Chồng 4 tam giác'; stackBtn.setAttribute('aria-label', v ? 'Tách 4 tam giác ra' : 'Chồng 4 tam giác lên nhau') }
         function animatePieces(target, done) { const run = ++animRun, from = {}, t0 = performance.now(); animating = true; picked = null; for (const id in state) from[id] = { ...state[id] }; (function step(now) { if (run !== animRun) return; let busy = false; pieces.forEach((el, i) => { const id = el.dataset.piece, f = from[id], to = target(id), t = Math.max(0, Math.min(1, (now - t0 - i * 220) / 650)), k = t * t * (3 - 2 * t); if (t < 1) busy = true; state[id].x = f.x + (to.x - f.x) * k; state[id].y = f.y + (to.y - f.y) * k; state[id].rot = f.rot + angDiff(to.rot, f.rot) * k }); renderPuzzle(); if (busy) requestAnimationFrame(step); else { animating = false; done() } })(t0) }
-        function toggleStack() { if (animating) return; pieces.forEach(p => pieceLayer.appendChild(p)); if (stacked) { animatePieces(id => PIECE_HOME[id], () => { setStacked(false); updatePuzzle() }); return } slotOf = {}; animatePieces(() => STACK_POSE, () => { setStacked(true); updatePuzzle() }) }
+        function toggleStack() { if (animating) return; pieces.forEach(p => pieceLayer.appendChild(p)); if (stacked) { animatePieces(pieceHome, () => { setStacked(false); updatePuzzle() }); return } slotOf = {}; animatePieces(stackPose, () => { setStacked(true); updatePuzzle() }) }
         stackBtn.addEventListener('pointerdown', e => e.stopPropagation()); stackBtn.addEventListener('click', toggleStack); stackBtn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleStack() } });
+        function pickLayout() {
+            const w = puzzle.getBoundingClientRect().width; if (!w) return;
+            const maxH = Math.min(innerHeight * .82, 42 * parseFloat(getComputedStyle(document.documentElement).fontSize)), fit = l => Math.min(w / l.w, maxH / l.h);
+            useLayout(fit(LAYOUTS.narrow) > fit(LAYOUTS.wide) ? LAYOUTS.narrow : LAYOUTS.wide)
+        }
+        function useLayout(next) {
+            if (next === L) return;
+            // Things still at their old home move to the new home; anything the group already moved is kept inside the new area.
+            const prev = L, at = (st, [x, y]) => Math.abs(st.x - x) < 1 && Math.abs(st.y - y) < 1; L = next;
+            puzzle.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`); $('stackBtnRect').setAttribute('x', L.w - 254); $('stackBtnText').setAttribute('x', L.w - 137);
+            if (at(frame, prev.frame)) { frame.x = L.frame[0]; frame.y = L.frame[1] } else clampPos(frame, 130);
+            pieces.forEach((el, i) => { const id = el.dataset.piece, st = state[id]; if (id in slotOf) return; if (stacked) Object.assign(st, stackPose()); else if (at(st, prev.pieces[i])) Object.assign(st, pieceHome(id)); else clampPos(st, 20) });
+            syncSlots(); renderPuzzle()
+        }
+        window.addEventListener('resize', pickLayout);
         resetPuzzle();
         function check2() { let ok = 0; ok += Object.keys(slotOf).length === 4; ok += radio('midM') === 'true'; ok += radio('midN') === 'true'; ok += radio('expdir') === 'parallel'; ok += radio('explen') === '0.5'; say(2, 'msg2', ok, 5, 'Nhóm đã khám phá được tính chất!', 'Hãy hoàn thành ghép hình và so sánh MN, BC.') }
         // Dynamic geometry lab
@@ -1716,9 +2031,10 @@
         function mid(p, q) { return { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 } }
         function angle(u, v, w) { let a = { x: u.x - v.x, y: u.y - v.y }, b = { x: w.x - v.x, y: w.y - v.y }; return Math.acos(Math.max(-1, Math.min(1, (a.x * b.x + a.y * b.y) / (Math.hypot(a.x, a.y) * Math.hypot(b.x, b.y))))) * 180 / Math.PI }
         function typeOfTriangle() { let angles = [angle(B, A, C), angle(A, B, C), angle(A, C, B)]; let diff = Math.min(...angles.map(a => Math.abs(a - 90))); if (diff < 0.2) return 'Vuông'; if (angles.some(a => a > 90)) return 'Tù'; return 'Nhọn' }
-        function geometry() { let M = mid(A, B), N = mid(A, C); $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`); $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);[['pointA', A], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });[['labelA', A, -14, -15], ['labelM', M, -28, 5], ['labelN', N, 13, 5]].forEach(([id, p, dx, dy]) => { $(id).setAttribute('x', p.x + dx); $(id).setAttribute('y', p.y + dy) }); let ang = angle(A, M, N); $('triangleType').textContent = typeOfTriangle(); $('lenMN').textContent = fmtLen(dist(M, N)); $('lenBC').textContent = fmtLen(dist(B, C)); $('angle1').textContent = ang.toFixed(1).replace('.', ',') + '°'; $('angle2').textContent = angle(A, B, C).toFixed(1).replace('.', ',') + '°'; }
-        let moving = false; const point = $('pointA'), lab = $('lab'); point.addEventListener('pointerdown', e => { e.preventDefault(); moving = true; point.setPointerCapture(e.pointerId) }); point.addEventListener('pointermove', e => { if (!moving) return; const pos = svgPoint(lab, e); A = { x: Math.max(172, Math.min(526, pos.x)), y: Math.max(37, Math.min(283, pos.y)) }; geometry() }); point.addEventListener('pointerup', () => moving = false); point.addEventListener('pointercancel', () => moving = false);
-        function preset(type) { A = type === 'acute' ? { x: 350, y: 62 } : type === 'right' ? { x: 350, y: 114 } : { x: 350, y: 220 }; geometry() }
+        function geometry() { let M = mid(A, B), N = mid(A, C); $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`); $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);[['pointA', A], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });[['labelA', A, -14, -15], ['labelM', M, -34, 7], ['labelN', N, 13, 7]].forEach(([id, p, dx, dy]) => { $(id).setAttribute('x', p.x + dx); $(id).setAttribute('y', p.y + dy) }); let ang = angle(A, M, N); $('triangleType').textContent = typeOfTriangle(); $('lenMN').textContent = fmtLen(dist(M, N)); $('lenBC').textContent = fmtLen(dist(B, C)); $('angle1').textContent = ang.toFixed(1).replace('.', ',') + '°'; $('angle2').textContent = angle(A, B, C).toFixed(1).replace('.', ',') + '°'; }
+        let moving = false; const point = $('pointA'), lab = $('lab'); point.addEventListener('pointerdown', e => { e.preventDefault(); moving = true; point.setPointerCapture(e.pointerId) }); point.addEventListener('pointermove', e => { if (!moving) return; const pos = svgPoint(lab, e); A = dragA(pos); geometry() }); point.addEventListener('pointerup', () => moving = false); point.addEventListener('pointercancel', () => moving = false);
+        // A may go straight above B or C (right angle at B / C). Near those edges, and near the circle on diameter BC (right angle at A), it snaps so "Vuông" is easy to hit.
+        function dragA(p) { let x = Math.max(B.x, Math.min(C.x, p.x)), y = Math.max(37, Math.min(283, p.y)); if (x - B.x < 4) x = B.x; if (C.x - x < 4) x = C.x; const O = mid(B, C), r = dist(B, C) / 2, d = Math.hypot(x - O.x, y - O.y); if (x > B.x && x < C.x && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d } return { x, y } }
         function addObservation() { if (observations.length >= 3) { $('obsMsg').textContent = 'Đã đủ ba lần. Có thể xóa bảng để thử lại.'; return } let M = mid(A, B), N = mid(A, C); observations.push({ type: typeOfTriangle(), mn: fmtLen(dist(M, N)), bc: fmtLen(dist(B, C)), a: angle(A, M, N).toFixed(1), b: angle(A, B, C).toFixed(1) }); renderRows() }
         function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${o.type}</td><td>${o.mn}</td><td>${o.bc}</td><td>${o.a.replace('.', ',')}°</td><td>${o.b.replace('.', ',')}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         function check3() { let r = parseFloat($('ratio3').value.replace(',', '.')); let ok = 0; ok += observations.length === 3; ok += Math.abs(r - .5) < 0.00001; ok += $('rel3').value === 'parallel'; ok += radio('angles') === 'equal'; say(3, 'msg3', ok, 4, 'Nhóm đã kiểm chứng tính bất biến!', 'Hãy thử đủ 3 dạng tam giác và đọc lại số đo.') }
