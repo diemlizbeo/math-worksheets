@@ -1,0 +1,90 @@
+/**
+ * Lưu kết quả các nhóm vào Google Sheet cho trang "Ba phòng nghiên cứu".
+ *
+ * Cài đặt (một lần):
+ *  1. Tạo một Google Sheet mới → Tiện ích mở rộng (Extensions) → Apps Script.
+ *  2. Xoá code mẫu, dán toàn bộ file này vào, bấm Lưu.
+ *  3. Triển khai (Deploy) → Tùy chọn triển khai mới (New deployment) → loại "Ứng dụng web" (Web app):
+ *       - Thực thi với tư cách (Execute as): Tôi (Me)
+ *       - Người có quyền truy cập (Who has access): Bất kỳ ai (Anyone)
+ *     Bấm Triển khai, cấp quyền, rồi sao chép "URL ứng dụng web" (kết thúc bằng /exec).
+ *  4. Dán URL đó vào SHEET_API trong index.html.
+ * Khi sửa file này, phải Deploy → Quản lý triển khai → sửa (bút chì) → Phiên bản mới, để URL cũ dùng code mới.
+ *
+ * Mỗi dòng của trang tính "Kết quả" là một nhóm làm một phòng; nhóm bấm kiểm tra lại thì dòng đó được cập nhật.
+ * Cột cuối là dữ liệu trang web đọc lại (để tải PDF) — xem thoải mái nhưng đừng sửa.
+ */
+const SHEET_NAME = 'Kết quả';
+const HEAD = ['Ngày', 'Giờ', 'Tên nhóm', 'Phòng nghiên cứu', 'Đúng', 'Tổng', 'Điểm (thang 10)', 'Số lần kiểm tra', 'Các lựa chọn', 'Cập nhật lúc', 'Mã', 'Dữ liệu (không sửa)'];
+const COL_ID = 11, COL_DATA = 12;
+const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' };
+
+function getSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) {
+    sh = ss.insertSheet(SHEET_NAME);
+    sh.getRange(1, 1, 1, HEAD.length).setValues([HEAD]).setFontWeight('bold').setBackground('#eef5ff');
+    sh.setFrozenRows(1);
+    sh.setColumnWidth(3, 180); sh.setColumnWidth(9, 360); sh.setColumnWidth(12, 120);
+  }
+  return sh;
+}
+
+function json_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Keep only the fields the page uses, with sane sizes; the page shows them escaped.
+function clean_(r) {
+  if (!r || typeof r !== 'object') return null;
+  const str = (v, n) => String(v == null ? '' : v).trim().slice(0, n);
+  const room = Number(r.room), ok = Number(r.ok), total = Number(r.total);
+  if (!ROOMS[room] || !Number.isInteger(total) || total < 1 || total > 10 || !Number.isInteger(ok) || ok < 0 || ok > total) return null;
+  const id = str(r.id, 40), day = str(r.day, 10), group = str(r.group, 80);
+  if (!id || !group || !/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
+  const answers = r.answers && typeof r.answers === 'object' ? r.answers : {};
+  if (JSON.stringify(answers).length > 20000) return null;
+  return { id, group, room, ok, total, day, at: str(r.at, 30), updatedAt: new Date().toISOString(), tries: Math.max(1, Number(r.tries) | 0), answers };
+}
+
+// GET …/exec → every saved result, as the page's records.
+function doGet() {
+  const sh = getSheet_(), n = sh.getLastRow() - 1;
+  if (n < 1) return json_([]);
+  const list = [];
+  sh.getRange(2, COL_DATA, n, 1).getValues().forEach(([cell]) => { try { list.push(JSON.parse(cell)) } catch (e) { } });
+  return json_(list);
+}
+
+// POST …/exec with one result (JSON as plain text) → add its row, or update it if the group checked again.
+function doPost(e) {
+  let rec = null, view = {};
+  try { const body = JSON.parse(e.postData.contents); rec = clean_(body); view = body.view || {} } catch (err) { }
+  if (!rec) return json_({ error: 'invalid' });
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const sh = getSheet_(), n = sh.getLastRow() - 1;
+    const ids = n > 0 ? sh.getRange(2, COL_ID, n, 1).getValues().map(([v]) => String(v)) : [];
+    const i = ids.indexOf(rec.id);
+    if (i >= 0) {
+      // Keep the first check's date
+      try { const old = JSON.parse(sh.getRange(i + 2, COL_DATA).getValue()); rec.at = old.at || rec.at; rec.day = old.day || rec.day } catch (err) { }
+    }
+    // A leading ' keeps a cell as plain text, so Sheets does not turn it into a date, number or formula
+    const text = s => "'" + String(s == null ? '' : s);
+    const v = (k, n) => text(String(view[k] == null ? '' : view[k]).slice(0, n));
+    const row = [v('date', 10), v('time', 5), text(rec.group), ROOMS[rec.room], rec.ok, rec.total, Math.round(rec.ok / rec.total * 100) / 10, rec.tries, v('choices', 2000),
+      text(Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm')), text(rec.id), text(JSON.stringify(rec))];
+    if (i >= 0) {
+      // A re-check keeps the date and time of the first check
+      const first = sh.getRange(i + 2, 1, 1, 2).getDisplayValues()[0];
+      if (first[0]) { row[0] = text(first[0]); row[1] = text(first[1]) }
+      sh.getRange(i + 2, 1, 1, row.length).setValues([row]);
+    } else sh.appendRow(row);
+    return json_({ ok: true });
+  } finally {
+    lock.releaseLock();
+  }
+}

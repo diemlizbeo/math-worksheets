@@ -514,6 +514,416 @@
             }
         }
 
+        /* ---------- Result screen (stars) ---------- */
+        .result h2 {
+            margin-top: 0.75rem
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.75rem 0 0.25rem;
+            font-size: clamp(2.5rem, 6vw, 3.75rem);
+            line-height: 1
+        }
+
+        .star {
+            color: #dfe5ef
+        }
+
+        .star.on {
+            color: #ffc23d;
+            text-shadow: 0 4px 0 #e59a12;
+            animation: starIn .5s both
+        }
+
+        @keyframes starIn {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(-90deg)
+            }
+
+            70% {
+                transform: scale(1.25)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .res-score {
+            margin: 0.5rem 0 0;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--navy)
+        }
+
+        .res-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+            margin-top: 1.125rem
+        }
+
+        /* ---------- Results table (home + result screen) ---------- */
+        .stats {
+            max-width: 80rem;
+            margin: 1.25rem auto 0;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 1.75rem;
+            padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+            box-shadow: var(--shadow)
+        }
+
+        .stats-open {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.0625rem
+        }
+
+        .stats-back {
+            margin-bottom: 0.875rem
+        }
+
+        .stats-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem
+        }
+
+        .stats h3 {
+            margin: 0;
+            font-size: 1.375rem;
+            font-weight: 900;
+            color: var(--navy)
+        }
+
+        .stats h3 small {
+            font-size: 0.875rem;
+            color: var(--muted);
+            font-weight: 700
+        }
+
+        .stats-tools {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 800;
+            color: var(--navy)
+        }
+
+        .stats-tools input {
+            font: inherit;
+            font-weight: 700;
+            color: var(--navy);
+            height: 2.75rem;
+            padding: 0 0.75rem;
+            border: 2px solid var(--line2);
+            border-radius: 0.875rem;
+            background: #fff
+        }
+
+        .stats-tools button {
+            padding: 0.5rem 0.875rem
+        }
+
+        .stats-note {
+            margin: 0.5rem 0 0;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--try)
+        }
+
+        .stats .rtable {
+            min-width: 40rem;
+            margin-top: 0.875rem;
+            font-size: 0.9375rem;
+            border: 1px solid var(--line2);
+            border-radius: 1rem
+        }
+
+        .stats .rtable th,
+        .stats .rtable td {
+            padding: 0.625rem 0.75rem;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line2)
+        }
+
+        /* Column dividers */
+        .stats .rtable th+th,
+        .stats .rtable td+td {
+            border-left: 1px solid var(--line2)
+        }
+
+        .stats .rtable th {
+            background: #eef3fb;
+            color: var(--navy);
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            vertical-align: middle;
+            border-bottom: 2px solid var(--line2)
+        }
+
+        .stats .rtable th:nth-child(4),
+        .stats .rtable th:nth-child(6),
+        .stats .rtable td.c {
+            text-align: center
+        }
+
+        /* Short columns stay on one line; the choices column takes the rest of the width */
+        .stats .rtable td:first-child,
+        .stats .rtable td.c,
+        .stats .rtable td:nth-child(3) {
+            white-space: nowrap
+        }
+
+        .stats .rtable td:nth-child(2) {
+            min-width: 7rem;
+            max-width: 12rem
+        }
+
+        .stats .rtable td:nth-child(5) {
+            min-width: 16rem
+        }
+
+        .stats .rtable tbody tr:hover td {
+            background: #f5f9ff
+        }
+
+        .stats .rtable td.empty {
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #718193;
+            font-weight: 700
+        }
+
+        .stats .rtable small {
+            display: block;
+            margin-top: 0.25rem;
+            color: var(--muted);
+            font-size: 0.8125rem;
+            font-weight: 700
+        }
+
+        .r-date,
+        .r-group {
+            color: var(--navy);
+            font-weight: 900;
+            overflow-wrap: anywhere
+        }
+
+        .stats .rtable .tb-room {
+            display: inline-block;
+            font-size: 0.75rem;
+            line-height: 1.35;
+            padding: 0.25rem 0.625rem
+        }
+
+        .stats .rtable .pts {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: 900;
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            color: var(--try);
+            background: var(--trybg);
+            border: 1px solid #ffdfa3
+        }
+
+        .stats .rtable .pts.full {
+            color: var(--ok);
+            background: var(--okbg);
+            border-color: #bce8d2
+        }
+
+        /* Each answer: mark | question | the group's choice */
+        .picks {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 0.3125rem;
+            font-size: 0.875rem;
+            line-height: 1.4
+        }
+
+        .picks li {
+            display: grid;
+            grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1fr);
+            gap: 0.5rem;
+            align-items: start
+        }
+
+        .picks li+li {
+            border-top: 1px dashed var(--line);
+            padding-top: 0.3125rem
+        }
+
+        .picks i {
+            font-style: normal;
+            font-weight: 900;
+            font-size: 0.75rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: var(--ok)
+        }
+
+        .picks .n i {
+            background: #d64535
+        }
+
+        .picks span {
+            color: var(--muted);
+            font-weight: 700
+        }
+
+        .picks b {
+            color: var(--navy);
+            font-weight: 800
+        }
+
+        .picks .n b {
+            color: #c0392b
+        }
+
+        .stats .rtable tr.mine td {
+            background: #fff8e1
+        }
+
+        .stats .rtable .pdf-btn {
+            white-space: nowrap;
+            font-size: 0.8125rem;
+            padding: 0.4375rem 0.625rem;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, .2)
+        }
+
+        /* Tablets and phones: each result is a card — date | group | room | score on top, then choices and the PDF button */
+        @media(max-width:1100px) {
+            .stats .rtable {
+                min-width: 0;
+                border: 0;
+                border-radius: 0;
+                overflow: visible;
+                background: none
+            }
+
+            .stats .rtable thead {
+                display: none
+            }
+
+            .stats .rtable,
+            .stats .rtable tbody {
+                display: block
+            }
+
+            .stats .rtable tr {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                margin-bottom: 0.875rem;
+                border: 1px solid var(--line2);
+                border-radius: 1rem;
+                overflow: hidden;
+                background: #fff;
+                box-shadow: var(--shadow-sm)
+            }
+
+            .stats .rtable tr td {
+                display: block;
+                min-width: 0;
+                max-width: none;
+                white-space: normal;
+                text-align: left;
+                border: 0;
+                padding: 0.625rem 0.875rem
+            }
+
+            .stats .rtable tr td.c {
+                text-align: left
+            }
+
+            .stats .rtable tr td:nth-child(n) {
+                min-width: 0;
+                max-width: none
+            }
+
+            .stats .rtable tr td+td {
+                border-left: 1px solid var(--line)
+            }
+
+            .stats .rtable tr td:nth-child(n+5),
+            .stats .rtable tr td.empty {
+                grid-column: 1/-1;
+                border-left: 0;
+                border-top: 1px solid var(--line)
+            }
+
+            .stats .rtable tr td.empty {
+                border-top: 0
+            }
+
+            .stats .rtable tr td:last-child.c {
+                text-align: right
+            }
+
+            .stats .rtable td[data-label]:before {
+                content: attr(data-label);
+                display: block;
+                margin-bottom: 0.25rem;
+                font-size: 0.6875rem;
+                font-weight: 900;
+                letter-spacing: .04em;
+                text-transform: uppercase;
+                color: var(--muted)
+            }
+
+            .stats .rtable .pdf-btn {
+                font-size: 0.9375rem;
+                padding: 0.5rem 1.25rem
+            }
+        }
+
+        @media(max-width:640px) {
+            .stats .rtable tr {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .stats .rtable tr td:nth-child(3) {
+                border-left: 0
+            }
+
+            .stats .rtable tr td:nth-child(n+3) {
+                border-top: 1px solid var(--line)
+            }
+
+            .stats .rtable .pdf-btn {
+                width: 100%
+            }
+        }
+
+        /* A sheet being drawn into a PDF from the results table: rendered, but off screen */
+        .sheet.pdf-ghost {
+            display: block;
+            position: fixed;
+            left: -300vw;
+            top: 0;
+            width: 960px
+        }
+
         /* ---------- PDF popup ---------- */
         .pdf-pop {
             position: fixed;
@@ -1357,7 +1767,7 @@
             max-height: 24rem !important
         }
 
-        /* Góc công nghệ has the most content below its drawing */
+        /* Phòng công nghệ has the most content below its drawing */
         .pdf-mode .s3 .visual svg {
             max-height: 19rem !important
         }
@@ -1449,6 +1859,7 @@
 
             header,
             .home,
+            .stats,
             .pdf-pop,
             .toolbar,
             footer,
@@ -1587,22 +1998,60 @@
     <div class="wrap">
         <section class="home" id="home">
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên nhóm, sau đó chọn góc mà nhóm sẽ thực hiện.</p>
+            <p class="home-sub">Điền tên nhóm, sau đó chọn phòng nghiên cứu mà nhóm sẽ thực hiện.</p>
             <label class="home-label" for="group"><span class="bubble">1</span>Tên nhóm</label>
             <div class="home-field"><input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi chọn góc.</span>
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi chọn phòng.</span>
             </div>
-            <div class="home-label"><span class="bubble">2</span>Chọn góc nghiên cứu</div>
-            <div class="rooms" role="group" aria-label="Chọn góc nghiên cứu">
+            <div class="home-label"><span class="bubble">2</span>Chọn phòng nghiên cứu</div>
+            <div class="rooms" role="group" aria-label="Chọn phòng nghiên cứu">
                 <button class="room s1" data-room="1"><span class="ic">👀</span><span class="txt"><span class="no">Phòng
-                            01</span><strong>Góc trực quan</strong></span><span class="go"><span class="go-t">Bắt đầu
+                            01: </span><strong>Trực quan</strong></span><span class="go"><span class="go-t">Bắt đầu
                         </span>→</span></button>
                 <button class="room s2" data-room="2"><span class="ic">🧩</span><span class="txt"><span class="no">Phòng
-                            02</span><strong>Góc thực nghiệm</strong></span><span class="go"><span class="go-t">Bắt đầu
+                            02:</span><strong>Thực nghiệm</strong></span><span class="go"><span class="go-t">Bắt đầu
                         </span>→</span></button>
                 <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Phòng
-                            03</span><strong>Góc công nghệ</strong></span><span class="go"><span class="go-t">Bắt đầu
+                            03:</span><strong>Công nghệ</strong></span><span class="go"><span class="go-t">Bắt đầu
                         </span>→</span></button>
+            </div>
+            <button type="button" class="ghost stats-open" onclick="openStats()">📊 Xem kết quả các nhóm</button>
+        </section>
+
+        <section class="home result" id="result" hidden>
+            <span class="tb-room" id="resRoom"></span>
+            <h2 id="resTitle"></h2>
+            <div class="stars" id="resStars"></div>
+            <p class="res-score" id="resScore"></p>
+            <p class="home-sub" id="resMsg"></p>
+            <div class="res-actions"><button type="button" onclick="showView('sheet')">✏️ Quay lại bài làm</button><button
+                    type="button" class="primary" onclick="goHome()">🏠 Về trang chủ</button></div>
+        </section>
+
+        <section class="stats" id="stats" hidden>
+            <button type="button" class="stats-back" id="statsBack" onclick="goHome()">↩ Về trang chủ</button>
+            <div class="stats-head">
+                <h3>📊 Kết quả các nhóm <small id="statsCount"></small></h3>
+                <div class="stats-tools"><label for="fDay">Ngày</label><input type="date" id="fDay"><button type="button"
+                        onclick="setDay(localDay(new Date()))">Hôm nay</button><button type="button"
+                        onclick="setDay('')">Tất cả</button><button type="button" class="ghost" onclick="loadStats()">🔄
+                        Làm mới</button></div>
+            </div>
+            <p class="stats-note" id="statsNote" hidden></p>
+            <div class="scroll">
+                <table class="table rtable">
+                    <thead>
+                        <tr>
+                            <th>Ngày thực hiện</th>
+                            <th>Tên nhóm</th>
+                            <th>Phòng nghiên cứu</th>
+                            <th>Số câu đúng</th>
+                            <th>Các lựa chọn</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsRows"></tbody>
+                </table>
             </div>
         </section>
 
@@ -1618,10 +2067,10 @@
 
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b></span></div>
+                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
-                    <h2>Góc trực quan</h2>
+                    <h2>Phòng trực quan</h2>
                 </div>
             </div>
             <div class="layout">
@@ -1680,7 +2129,7 @@
                                     value="0.5">1/2</label><label><input type="radio" name="ratio"
                                     value="2">2</label><label><input type="radio" name="ratio" value="1">1</label></div>
                     </div>
-                    <div class="action"><button class="primary" onclick="check1()">✅ Kiểm tra kết quả</button><span
+                    <div class="action"><button class="primary" onclick="check(1)">✅ Kiểm tra kết quả</button><span
                             id="msg1" class="feedback plain" aria-live="polite"></span></div>
                 </div>
             </div>
@@ -1688,10 +2137,10 @@
 
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b></span></div>
+                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">🧩</span>
                 <div><span class="room-no">Phòng nghiên cứu 02</span>
-                    <h2>Góc thực nghiệm</h2>
+                    <h2>Phòng thực nghiệm</h2>
                 </div>
             </div>
             <div class="layout">
@@ -1805,7 +2254,7 @@
                                 BC</label><label><input type="radio" name="explen" value="0.5">Bằng một nửa
                                 BC</label><label><input type="radio" name="explen" value="2">Gấp đôi BC</label></div>
                     </div>
-                    <div class="action"><button class="primary" onclick="check2()">✅ Kiểm tra kết quả</button><span
+                    <div class="action"><button class="primary" onclick="check(2)">✅ Kiểm tra kết quả</button><span
                             id="msg2" class="feedback plain" aria-live="polite"></span></div>
                 </div>
             </div>
@@ -1813,10 +2262,10 @@
 
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b></span></div>
+                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">💻</span>
                 <div><span class="room-no">Phòng nghiên cứu 03</span>
-                    <h2>Góc công nghệ</h2>
+                    <h2>Phòng công nghệ</h2>
                 </div>
             </div>
             <div class="layout">
@@ -1890,7 +2339,7 @@
                             <option value="cut">Cắt nhau</option>
                             <option value="perp">Vuông góc</option>
                         </select></div>
-                    <button class="primary" onclick="check3()">✅ Kiểm tra kết quả</button>
+                    <button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button>
                 </div>
                 <div class="action" style="margin-top:12px"><span class="feedback plain" id="msg3"
                         aria-live="polite"></span></div>
@@ -1916,14 +2365,23 @@
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
         // Home screen: enter group name, then pick one room
-        const ROOMS = { 1: 'Góc trực quan', 2: 'Góc thực nghiệm', 3: 'Góc công nghệ' }; let current = null;
-        function showRoom(n) { current = n; $('home').hidden = n !== null; $('toolbar').hidden = n === null; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', s.id === 's' + n)); syncGroup(); pickLayout(); window.scrollTo(0, 0) }
-        function chooseRoom(n) { if (!$('group').value.trim()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
+        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' }; let current = null;
+        // Views: 'home' (group name + rooms), 'sheet' (the room's worksheet), 'result' (stars + results table), 'stats' (results table opened from home).
+        function showView(v) { $('home').hidden = v !== 'home'; $('result').hidden = v !== 'result'; $('stats').hidden = v !== 'result' && v !== 'stats'; $('statsBack').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
+        function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
+        function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
+        function chooseRoom(n) { if (!groupName()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
         function goHome() { showRoom(null) }
         document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
         $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
-        // Group name for print / PDF
-        function syncGroup() { const g = $('group').value.trim(), room = ROOMS[current]; document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); $('gLabel').textContent = g; $('roomLabel').textContent = room || ''; $('roomLabel').className = 'tb-room s' + current; document.title = room ? fileBase() : 'Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8' }
+        // Group name and date for print / PDF
+        function groupName() { return $('group').value.trim() }
+        function pad(n) { return String(n).padStart(2, '0') }
+        function localDay(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) }
+        function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
+        function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
+        function setSheetInfo(g, date) { document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
+        function syncGroup() { const g = groupName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date())); $('gLabel').textContent = g; $('roomLabel').textContent = room || ''; $('roomLabel').className = 'tb-room s' + current; document.title = room ? fileBase(g, current) : 'Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8' }
         $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
         const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
@@ -1937,16 +2395,15 @@
         function closePop() { $('pdfPop').hidden = true }
         $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget) closePop() });
         function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
-        // File name: <tên nhóm>_<tên góc>.pdf (the print dialog names its PDF after document.title the same way)
-        function fileBase() { return ($('group').value.trim() + '_' + ROOMS[current]).replace(/[\\/:*?"<>|]+/g, '-') }
-        function pdfName() { return fileBase() + '.pdf' }
+        // File name: <tên nhóm>_<tên phòng>.pdf (the print dialog names its PDF after document.title the same way)
+        function fileBase(g, n) { return (g + '_' + ROOMS[n]).replace(/[\\/:*?"<>|]+/g, '-') }
         // Page is rendered `width` px wide with a `font` px root, then fitted to A4's 190mm: ~11pt text, every room still on one page.
         const PDF_VIEW = { width: 960, font: 19 };
         function renderSheet(n) {
             // Same page on every device; html2canvas inlines the phone-sized svg styles, so restore them. The puzzle uses its shorter one-row layout.
             const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
             root.classList.add('pdf-capturing'); useLayout(LAYOUTS.wide);
-            return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
+            return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('#home, #result, #stats').forEach(e => e.hidden = true); doc.querySelectorAll('.pdf-ghost').forEach(e => e.classList.remove('pdf-ghost')); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
         }
         function buildPdf(canvas) {
             const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', compress: true }), M = 10, W = 190, H = 277;
@@ -1956,25 +2413,26 @@
             for (let y = 0; y < canvas.height; y += pagePx) { const ph = Math.min(pagePx, canvas.height - y), c = document.createElement('canvas'); c.width = canvas.width; c.height = ph; const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, ph); ctx.drawImage(canvas, 0, y, canvas.width, ph, 0, 0, canvas.width, ph); if (y) pdf.addPage(); pdf.addImage(c.toDataURL('image/jpeg', .92), 'JPEG', M, M, W, ph * W / canvas.width) }
             return pdf
         }
-        async function savePdf() {
-            if (!current) return; beforeOutput();
+        // Without `rec`: the room on screen. With a saved result: its sheet is filled with that group's answers, drawn, then put back as it was.
+        async function savePdf(rec) {
+            const n = rec ? rec.room : current; if (!n) return; beforeOutput();
             openPop('⏳ Đang tạo file PDF…', 'Vui lòng đợi vài giây.', false);
+            let undo = null;
             try {
                 pdfLibs = pdfLibs || Promise.all(PDF_LIBS.map(loadScript)); await pdfLibs;
                 if (document.fonts) await document.fonts.ready;
-                const blob = buildPdf(await renderSheet(current)).output('blob'), name = pdfName();
+                if (rec) undo = fillRecord(rec);
+                const canvas = await renderSheet(n); if (undo) { undo(); undo = null }
+                const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n) + (rec ? '_' + rec.day : '') + '.pdf';
                 if (pdfUrl) URL.revokeObjectURL(pdfUrl);
                 pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
                 $('pdfDl').href = $('pdfOpen').href = pdfUrl; $('pdfDl').download = name;
                 $('pdfShare').hidden = !(navigator.canShare && navigator.canShare({ files: [pdfFile] }));
                 openPop('✅ File PDF đã sẵn sàng', name + (IN_APP ? '\n\n' + IN_APP_TIP : ''), true)
-            } catch (e) { pdfLibs = null; openPop('⚠️ Chưa tạo được PDF', 'Hãy kiểm tra kết nối mạng rồi thử lại, hoặc dùng nút 🖨️ In.', false) }
+            } catch (e) { if (undo) undo(); pdfLibs = null; openPop('⚠️ Chưa tạo được PDF', 'Hãy kiểm tra kết nối mạng rồi thử lại, hoặc dùng nút 🖨️ In.', false) }
         }
         // Share needs a fresh tap (iOS rejects share() after the async build), so it has its own button.
         async function sharePdf() { try { await navigator.share({ files: [pdfFile], title: pdfFile.name }) } catch (e) { } }
-        // Feedback; a fully correct room gets a ✓ on its home card
-        function say(room, id, ok, total, good, bad) { const el = $(id); el.className = 'feedback ' + (ok === total ? 'good' : 'try'); el.textContent = (ok === total ? '🎉 ' : '💪 ') + 'Đúng ' + ok + '/' + total + '. ' + (ok === total ? good : bad); if (ok === total) document.querySelector('.room[data-room="' + room + '"]').classList.add('done') }
-        function check1() { let ok = 0; ok += Number($('mn').value) === 4; ok += Number($('bc').value) === 8; ok += radio('dir') === 'parallel'; ok += radio('ratio') === '0.5'; say(1, 'msg1', ok, 4, 'Nhóm đã phát hiện đúng hai mối quan hệ!', 'Hãy đếm lại số ô vuông và so sánh MN, BC.') }
         // SVG puzzle. Pieces and triangle ABC can be dragged and rotated; any piece fits any slot when position and direction match.
         const puzzle = $('puzzle'), pieceLayer = $('pieceLayer'), midLayer = $('midLayer'), bigTri = $('bigTri'), rotLine = $('rotLine'), rotKnob = $('rotKnob'), stackBtn = $('stackBtn'), pieces = [...puzzle.querySelectorAll('[data-piece]')];
         // Two arrangements: pieces in one row (wide screens) or 2x2 (phones, iPad portrait); pickLayout() uses whichever draws the shapes larger.
@@ -2023,7 +2481,6 @@
         }
         window.addEventListener('resize', pickLayout);
         resetPuzzle();
-        function check2() { let ok = 0; ok += Object.keys(slotOf).length === 4; ok += radio('midM') === 'true'; ok += radio('midN') === 'true'; ok += radio('expdir') === 'parallel'; ok += radio('explen') === '0.5'; say(2, 'msg2', ok, 5, 'Nhóm đã khám phá được tính chất!', 'Hãy hoàn thành ghép hình và so sánh MN, BC.') }
         // Dynamic geometry lab
         const B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let A = { x: 350, y: 80 }; let observations = [];
         function dist(p, q) { return Math.hypot(p.x - q.x, p.y - q.y) }
@@ -2036,9 +2493,131 @@
         // A may go straight above B or C (right angle at B / C). Near those edges, and near the circle on diameter BC (right angle at A), it snaps so "Vuông" is easy to hit.
         function dragA(p) { let x = Math.max(B.x, Math.min(C.x, p.x)), y = Math.max(37, Math.min(283, p.y)); if (x - B.x < 4) x = B.x; if (C.x - x < 4) x = C.x; const O = mid(B, C), r = dist(B, C) / 2, d = Math.hypot(x - O.x, y - O.y); if (x > B.x && x < C.x && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d } return { x, y } }
         function addObservation() { if (observations.length >= 3) { $('obsMsg').textContent = 'Đã đủ ba lần. Có thể xóa bảng để thử lại.'; return } let M = mid(A, B), N = mid(A, C); observations.push({ type: typeOfTriangle(), mn: fmtLen(dist(M, N)), bc: fmtLen(dist(B, C)), a: angle(A, M, N).toFixed(1), b: angle(A, B, C).toFixed(1) }); renderRows() }
-        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${o.type}</td><td>${o.mn}</td><td>${o.bc}</td><td>${o.a.replace('.', ',')}°</td><td>${o.b.replace('.', ',')}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
-        function check3() { let r = parseFloat($('ratio3').value.replace(',', '.')); let ok = 0; ok += observations.length === 3; ok += Math.abs(r - .5) < 0.00001; ok += $('rel3').value === 'parallel'; ok += radio('angles') === 'equal'; say(3, 'msg3', ok, 4, 'Nhóm đã kiểm chứng tính bất biến!', 'Hãy thử đủ 3 dạng tam giác và đọc lại số đo.') }
+        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.type)}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         geometry();
+        // ---------- Checking ----------
+        // Each room lists its questions once: read the sheet (get), mark it (ok), show it in the results table (show), and fill a sheet back for a PDF (set).
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';') }
+        function setRadio(n, v) { document.querySelectorAll('input[name="' + n + '"]').forEach(i => i.checked = i.value === v) }
+        function radioText(n, v) { const i = document.querySelector('input[name="' + n + '"][value="' + CSS.escape(String(v)) + '"]'); return v != null && i ? i.parentElement.textContent.replace(/\s+/g, ' ').trim() : '—' }
+        function obsList(v) { return Array.isArray(v) ? v.filter(o => o && typeof o === 'object').slice(0, 3) : [] }
+        const typed = (id, label, want) => ({ key: id, label, get: () => $(id).value.trim(), ok: v => v !== '' && v != null && Number(v) === want, show: v => v || '—', set: v => $(id).value = v || '' });
+        const choice = (name, label, want) => ({ key: name, label, get: () => radio(name), ok: v => v === want, show: v => radioText(name, v), set: v => setRadio(name, v) });
+        const CHECKS = {
+            1: {
+                good: 'Nhóm đã phát hiện đúng hai mối quan hệ!', bad: 'Hãy đếm lại số ô vuông và so sánh MN, BC.', items: [
+                    typed('mn', 'MN', 4), typed('bc', 'BC', 8), choice('dir', 'MN và BC', 'parallel'), choice('ratio', 'MN/BC', '0.5')]
+            },
+            2: {
+                good: 'Nhóm đã khám phá được tính chất!', bad: 'Hãy hoàn thành ghép hình và so sánh MN, BC.', items: [
+                    { key: 'puzzle', label: 'Ghép hình', get: () => Object.keys(slotOf).length === 4, ok: v => v === true, show: v => v ? 'Đã ghép xong 4/4' : 'Chưa ghép xong', set: v => { resetPuzzle(); if (v) { pieces.forEach((p, i) => slotOf[p.dataset.piece] = i); syncSlots(); updatePuzzle() } } },
+                    choice('midM', 'M là trung điểm AB', 'true'), choice('midN', 'N là trung điểm AC', 'true'), choice('expdir', 'MN và BC', 'parallel'), choice('explen', 'MN so với BC', '0.5')]
+            },
+            3: {
+                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 dạng tam giác và đọc lại số đo.', items: [
+                    { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
+                    choice('angles', '∠AMN và ∠ABC', 'equal'),
+                    { key: 'ratio3', label: 'MN/BC luôn bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' },
+                    { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' }]
+            }
+        };
+        function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback ' + (all ? 'good' : 'try'); el.textContent = (all ? '🎉 ' : '💪 ') + 'Đúng ' + ok + '/' + total + '. ' + (all ? c.good : c.bad) }
+        // One saved result per group and room while the page is open: checking again updates it (and counts the tries).
+        const visits = {}; let lastId = null;
+        function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }
+        function check(n) {
+            const c = CHECKS[n], answers = {}, total = c.items.length; let ok = 0;
+            c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
+            say(n, ok, total);
+            // A fully correct room gets a ✓ on its home card
+            if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
+            const key = groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
+            v.tries++; lastId = v.id;
+            const rec = { id: v.id, group: groupName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
+            // Readable columns for the Google Sheet (the page itself uses the fields above)
+            rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
+            showResult(rec); saveResult(rec).then(() => loadStats())
+        }
+        function showResult(r) {
+            const all = r.ok === r.total, half = r.ok * 2 >= r.total;
+            $('resRoom').textContent = ROOMS[r.room] + ' • ' + r.group; $('resRoom').className = 'tb-room s' + r.room;
+            $('resTitle').textContent = all ? '🎉 Xuất sắc!' : half ? '👍 Làm tốt lắm!' : '💪 Cố gắng thêm nhé!';
+            $('resStars').innerHTML = Array.from({ length: r.total }, (_, i) => `<span class="star${i < r.ok ? ' on' : ''}" style="animation-delay:${i * .15}s">★</span>`).join('');
+            $('resStars').setAttribute('aria-label', r.ok + ' trên ' + r.total + ' sao');
+            $('resScore').textContent = 'Đúng ' + r.ok + '/' + r.total;
+            $('resMsg').textContent = all ? CHECKS[r.room].good : CHECKS[r.room].bad + ' Bấm “Quay lại bài làm” để sửa.';
+            setDay(r.day); showView('result')
+        }
+        // Put a saved result into its sheet (answers, group, date, score) for the PDF; returns a function that restores the sheet.
+        function fillRecord(r) {
+            const n = r.room, items = CHECKS[n].items, sheet = $('s' + n), msg = $('msg' + n), ans = r.answers || {}, d = new Date(r.at);
+            const before = { vals: items.map(it => it.get()), msg: [msg.className, msg.textContent], obsMsg: $('obsMsg').textContent, puzzle: n === 2 && { L, frame: { ...frame }, state: JSON.parse(JSON.stringify(state)), slotOf: { ...slotOf }, stacked }, shown: sheet.classList.contains('active') };
+            items.forEach(it => it.set(ans[it.key]));
+            say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d));
+            if (!before.shown) sheet.classList.add('active', 'pdf-ghost');
+            return () => {
+                items.forEach((it, i) => it.set(before.vals[i])); $('obsMsg').textContent = before.obsMsg;
+                const p = before.puzzle; if (p) { useLayout(p.L); frame = p.frame; state = p.state; slotOf = p.slotOf; setStacked(p.stacked); updatePuzzle() }
+                [msg.className, msg.textContent] = before.msg;
+                sheet.classList.remove('pdf-ghost'); if (!before.shown) sheet.classList.remove('active');
+                syncGroup()
+            }
+        }
+        // ---------- Results store: Google Sheets ----------
+        // Every group's result is written to one Google Sheet by the Apps Script in google-apps-script/Code.gs,
+        // and the results table reads that sheet. Paste the script's Web app URL (…/exec) here:
+        const SHEET_API = 'https://script.google.com/macros/s/AKfycbyN_EiWbpT4Yoicsqu0nFB-0co-R2WuEUQ14_kyFlUABnxg0cXHRwEmFUy-31azKq-4/exec';
+        // A result that could not be sent (no network) waits here and is sent again on the next check or 🔄 Làm mới.
+        const PENDING_KEY = 'tw-pending';
+        let results = [], offline = false, loading = false;
+        function readPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY)) || [] } catch (e) { return [] } }
+        function writePending(list) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(list)) } catch (e) { } }
+        function upsert(list, rec) { const i = list.findIndex(x => x.id === rec.id); if (i < 0) list.push(rec); else list[i] = { ...rec, at: list[i].at }; return list }
+        // Plain-text body so the browser sends it straight to Apps Script (no CORS preflight, which Apps Script cannot answer).
+        async function post(rec) {
+            if (!SHEET_API) throw new Error('no SHEET_API');
+            const res = await (await fetch(SHEET_API, { method: 'POST', body: JSON.stringify(rec) })).json();
+            if (res.error && res.error !== 'invalid') throw new Error(res.error)
+        }
+        // Runs one at a time; a result re-checked while sending stays queued.
+        let flushing = Promise.resolve([]);
+        function flush() {
+            return flushing = flushing.then(async () => {
+                const sent = []; for (const rec of readPending()) { try { await post(rec); sent.push(rec.id + rec.updatedAt) } catch (e) { } }
+                const left = readPending().filter(r => !sent.includes(r.id + r.updatedAt)); writePending(left); return left
+            })
+        }
+        async function loadStats() {
+            loading = true; renderStats();
+            try {
+                if (!SHEET_API) throw new Error('no SHEET_API');
+                const left = await flush(), list = await (await fetch(SHEET_API, { cache: 'no-store' })).json();
+                if (!Array.isArray(list)) throw new Error('format');
+                offline = false; results = left.reduce(upsert, list)
+            } catch (e) { offline = true; results = readPending().reduce(upsert, results) }
+            loading = false; renderStats()
+        }
+        async function saveResult(rec) { writePending(upsert(readPending(), rec)); await flush() }
+        // ---------- Results table ----------
+        function setDay(d) { $('fDay').value = d; renderStats() }
+        $('fDay').addEventListener('input', renderStats);
+        function renderStats() {
+            const day = $('fDay').value, list = results.filter(r => CHECKS[r.room] && (!day || r.day === day)).sort((a, b) => String(b.updatedAt || b.at).localeCompare(String(a.updatedAt || a.at)));
+            $('statsCount').textContent = loading ? '(đang tải…)' : '(' + list.length + ' kết quả' + (day ? ' ngày ' + day.split('-').reverse().join('/') : '') + ')';
+            $('statsNote').hidden = !offline;
+            $('statsNote').textContent = !SHEET_API ? '⚠️ Chưa kết nối Google Sheets: dán link Web app của Apps Script vào SHEET_API trong index.html.' : '⚠️ Không kết nối được Google Sheets – kết quả chưa gửi được sẽ tự gửi lại khi bấm 🔄 Làm mới.';
+            $('statsRows').innerHTML = list.length ? list.map(r => {
+                const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
+                const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
+                // data-label: column name shown on phones, where each row becomes a card
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Phòng nghiên cứu"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
+                    + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
+                    + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
+            }).join('') : `<tr><td colspan="6" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
+        }
+        $('statsRows').addEventListener('click', e => { const b = e.target.closest('[data-pdf]'), r = b && results.find(x => x.id === b.dataset.pdf); if (r) savePdf(r) });
+        // Send any result left over from a lost connection
+        setDay(localDay(new Date())); flush();
     </script>
 </body>
 
