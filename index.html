@@ -55,7 +55,8 @@
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
             --maxw: 90rem;
-            --gutter: clamp(12px, 2.5vw, 40px)
+            /* Narrow side margins leave more width for big, readable text */
+            --gutter: clamp(8px, 1.4vw, 24px)
         }
 
         body {
@@ -514,62 +515,7 @@
             }
         }
 
-        /* ---------- Result screen (stars) ---------- */
-        .result h2 {
-            margin-top: 0.75rem
-        }
-
-        .stars {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 0.75rem 0 0.25rem;
-            font-size: clamp(2.5rem, 6vw, 3.75rem);
-            line-height: 1
-        }
-
-        .star {
-            color: #dfe5ef
-        }
-
-        .star.on {
-            color: #ffc23d;
-            text-shadow: 0 4px 0 #e59a12;
-            animation: starIn .5s both
-        }
-
-        @keyframes starIn {
-            from {
-                opacity: 0;
-                transform: scale(0) rotate(-90deg)
-            }
-
-            70% {
-                transform: scale(1.25)
-            }
-
-            to {
-                opacity: 1;
-                transform: none
-            }
-        }
-
-        .res-score {
-            margin: 0.5rem 0 0;
-            font-size: 1.25rem;
-            font-weight: 900;
-            color: var(--navy)
-        }
-
-        .res-actions {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.625rem;
-            margin-top: 1.125rem
-        }
-
-        /* ---------- Results table (home + result screen) ---------- */
+        /* ---------- Results table (opened from home) ---------- */
         .stats {
             max-width: 80rem;
             margin: 1.25rem auto 0;
@@ -580,10 +526,37 @@
             box-shadow: var(--shadow)
         }
 
+        /* Icon-only button in the home card's top-right corner */
+        .home {
+            position: relative
+        }
+
+        .home h2 {
+            padding: 0 3rem
+        }
+
         .stats-open {
-            margin-top: 1.25rem;
-            padding: 0.75rem 1.5rem;
-            font-size: 1.0625rem
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 2.875rem;
+            height: 2.875rem;
+            padding: 0;
+            display: grid;
+            place-items: center;
+            font-size: 1.375rem;
+            line-height: 1
+        }
+
+        @media(max-width:600px) {
+            .stats-open {
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 2.375rem;
+                height: 2.375rem;
+                font-size: 1.125rem;
+                border-radius: 0.75rem
+            }
         }
 
         .stats-back {
@@ -1093,7 +1066,7 @@
             background: #fff;
             border: 1px solid var(--line);
             border-radius: 1.625rem;
-            padding: clamp(1rem, 2.5vw, 2.25rem);
+            padding: clamp(0.75rem, 1.8vw, 1.75rem);
             box-shadow: var(--shadow);
             display: none
         }
@@ -1130,7 +1103,7 @@
             display: flex;
             align-items: center;
             gap: 0.875rem;
-            margin: 0.25rem 0 1.625rem
+            margin: 0.25rem 0 1.125rem
         }
 
         .room-ic {
@@ -1168,14 +1141,21 @@
             font-weight: 600
         }
 
-        /* One column on every screen: illustration on top, questions below */
+        /* Phones: one column, illustration on top, questions below.
+           Tablets and computers: illustration on the left, questions on the right (see the media queries further down). */
         .layout {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
-            gap: 1.75rem
+            gap: 1.5rem;
+            align-items: start
         }
 
-        .col>.step:first-child {
+        .col>.step:first-child,
+        .card>.step:first-child {
+            margin-top: 0
+        }
+
+        .step+.q {
             margin-top: 0
         }
 
@@ -1219,6 +1199,11 @@
             height: auto;
             max-height: min(72vh, 34rem);
             touch-action: none
+        }
+
+        /* pickLayout() reads this height to choose the puzzle's arrangement */
+        .visual #puzzle {
+            max-height: min(82vh, 42rem)
         }
 
         .hint {
@@ -1496,7 +1481,7 @@
 
         .statrow {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 0.5rem;
             margin-top: 0.875rem
         }
@@ -1541,13 +1526,14 @@
         }
 
         .conclude {
-            margin-top: 1.75rem
+            margin-top: 1.5rem
         }
 
         /* Labels start on the same top line, boxes sit on the same bottom line, even when one label wraps */
+        /* "MN và BC luôn" is the short question, so its column is narrower */
         .conclude-row {
             display: grid;
-            grid-template-columns: 1fr 1fr auto;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
             gap: 1.25rem
         }
 
@@ -1563,16 +1549,65 @@
         }
 
         .conclude-row .inputrow label {
-            flex: 1
+            flex: 1;
+            font-size: 1.0625rem
         }
 
-        .conclude-row .primary {
-            align-self: end;
-            margin-bottom: 0.25rem
+        /* ---------- Two columns: illustration left, questions right ---------- */
+        @media(min-width:740px) {
+            .layout {
+                grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
+                gap: clamp(1rem, 1.6vw, 1.5rem)
+            }
+
+            /* The illustration is kept small enough to stay on screen next to the questions */
+            .visual svg {
+                max-height: max(15rem, min(34rem, 100vh - 13rem))
+            }
+
+            /* The puzzle is dragged by hand, so it may take more of the screen */
+            .visual #puzzle {
+                max-height: max(16rem, min(40rem, 100vh - 10rem))
+            }
         }
 
-        .conclude .action:has(.feedback.plain:empty) {
-            display: none
+        /* Illustration stays in view while the group scrolls through the questions */
+        @media(min-width:740px) and (min-height:560px) {
+            .layout>.col:first-child {
+                position: sticky;
+                top: 0.75rem
+            }
+        }
+
+        /* Tablets: narrower columns; the drag-and-drop puzzle gets half the width so its pieces are easy to touch */
+        @media(min-width:740px) and (max-width:1099px) {
+            .s2 .layout {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+            }
+
+            .statrow {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .card {
+                padding: 1rem
+            }
+
+            .table {
+                font-size: 1rem
+            }
+
+            .table th,
+            .table td {
+                padding: 0.5rem 0.375rem
+            }
+        }
+
+        /* Computers: the illustration takes less than half the width */
+        @media(min-width:1100px) {
+            .layout {
+                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr)
+            }
         }
 
         @media(max-width:680px) {
@@ -1662,21 +1697,23 @@
             }
         }
 
-        @media(max-width:680px) {
+        /* Conclusion questions one under the other on phones */
+        @media(max-width:600px) {
             .conclude-row {
-                grid-template-columns: 1fr 1fr
+                grid-template-columns: 1fr;
+                gap: 1rem
             }
 
-            .conclude-row .primary {
-                grid-column: 1/-1;
-                justify-self: start
+            .conclude-row .inputrow+.inputrow {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 2px dashed var(--mid);
+                padding-top: 1rem
             }
         }
 
         @media(max-width:420px) {
-
-            .two,
-            .conclude-row {
+            .two {
                 grid-template-columns: 1fr
             }
 
@@ -1687,13 +1724,6 @@
             .table th,
             .table td {
                 padding: 0.5rem 0.25rem
-            }
-
-            .conclude-row .inputrow+.inputrow {
-                border-left: 0;
-                padding-left: 0;
-                border-top: 2px dashed var(--mid);
-                padding-top: 1rem
             }
         }
 
@@ -1746,8 +1776,18 @@
             margin: 0 0 0.5rem
         }
 
+        /* PDF keeps one column: illustration on top, questions below */
         .pdf-mode .layout {
+            grid-template-columns: minmax(0, 1fr);
             gap: 1rem
+        }
+
+        .pdf-mode .layout>.col {
+            position: static !important
+        }
+
+        .pdf-mode .statrow {
+            grid-template-columns: repeat(4, minmax(0, 1fr))
         }
 
         .pdf-mode .step {
@@ -1846,7 +1886,6 @@
         }
 
         .pdf-mode .action button,
-        .pdf-mode .conclude-row button,
         .pdf-mode .hint {
             display: none !important
         }
@@ -1864,7 +1903,6 @@
             .toolbar,
             footer,
             .action button,
-            .conclude-row button,
             .hint {
                 display: none !important
             }
@@ -1905,6 +1943,10 @@
             .layout {
                 grid-template-columns: 1fr;
                 gap: 6px
+            }
+
+            .layout>.col {
+                position: static !important
             }
 
             .conclude {
@@ -1997,6 +2039,8 @@
     </header>
     <div class="wrap">
         <section class="home" id="home">
+            <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
+                aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
             <p class="home-sub">Điền tên nhóm, sau đó chọn phòng nghiên cứu mà nhóm sẽ thực hiện.</p>
             <label class="home-label" for="group"><span class="bubble">1</span>Tên nhóm</label>
@@ -2015,25 +2059,14 @@
                             03:</span><strong>Công nghệ</strong></span><span class="go"><span class="go-t">Bắt đầu
                         </span>→</span></button>
             </div>
-            <button type="button" class="ghost stats-open" onclick="openStats()">📊 Xem kết quả các nhóm</button>
-        </section>
-
-        <section class="home result" id="result" hidden>
-            <span class="tb-room" id="resRoom"></span>
-            <h2 id="resTitle"></h2>
-            <div class="stars" id="resStars"></div>
-            <p class="res-score" id="resScore"></p>
-            <p class="home-sub" id="resMsg"></p>
-            <div class="res-actions"><button type="button" onclick="showView('sheet')">✏️ Quay lại bài làm</button><button
-                    type="button" class="primary" onclick="goHome()">🏠 Về trang chủ</button></div>
         </section>
 
         <section class="stats" id="stats" hidden>
-            <button type="button" class="stats-back" id="statsBack" onclick="goHome()">↩ Về trang chủ</button>
+            <button type="button" class="stats-back" onclick="goHome()">↩ Về trang chủ</button>
             <div class="stats-head">
                 <h3>📊 Kết quả các nhóm <small id="statsCount"></small></h3>
-                <div class="stats-tools"><label for="fDay">Ngày</label><input type="date" id="fDay"><button type="button"
-                        onclick="setDay(localDay(new Date()))">Hôm nay</button><button type="button"
+                <div class="stats-tools"><label for="fDay">Ngày</label><input type="date" id="fDay"><button
+                        type="button" onclick="setDay(localDay(new Date()))">Hôm nay</button><button type="button"
                         onclick="setDay('')">Tất cả</button><button type="button" class="ghost" onclick="loadStats()">🔄
                         Làm mới</button></div>
             </div>
@@ -2077,15 +2110,15 @@
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Quan sát tam giác ABC trên lưới ô vuông.</div>
                     <p class="lead">M, N lần lượt là trung điểm của AB và AC. Hãy trả lời các câu hỏi sau.</p>
-                    <div class="visual"><svg viewBox="0 0 720 400"
+                    <div class="visual"><svg viewBox="80 0 560 400"
                             aria-label="Tam giác ABC vẽ trên lưới vuông, có M và N là trung điểm">
                             <defs>
                                 <pattern id="squares" width="40" height="40" patternUnits="userSpaceOnUse">
                                     <path d="M40 0H0V40" stroke="#b4c8dc" stroke-width="1.6" fill="none" />
                                 </pattern>
                             </defs>
-                            <rect x="40" y="0" width="640" height="400" fill="url(#squares)" />
-                            <rect x="40" y="1" width="640" height="398" fill="none" stroke="#b4c8dc" stroke-width="2" />
+                            <rect x="80" y="0" width="560" height="400" fill="url(#squares)" />
+                            <rect x="81" y="1" width="558" height="398" fill="none" stroke="#b4c8dc" stroke-width="2" />
                             <g class="grid-draw">
                                 <polygon points="280,40 200,360 520,360" fill="#e6f5ff55" stroke="#233d54"
                                     stroke-width="4" />
@@ -2113,16 +2146,16 @@
                 </div>
                 <div class="col card">
                     <div class="step"><span class="bubble">2</span>Điền số ô vuông và so sánh.</div>
+                    <div class="q"><strong>MN và BC có vị trí tương đối như thế nào?</strong>
+                        <div class="options"><label><input type="radio" name="dir" value="parallel">Song
+                                song</label><label><input type="radio" name="dir" value="cut">Cắt
+                                nhau</label><label><input type="radio" name="dir" value="perp">Vuông góc</label></div>
+                    </div>
                     <div class="two">
                         <div class="inputrow"><label for="mn">Độ dài MN (đơn vị)</label><input id="mn" type="number"
                                 inputmode="numeric" placeholder="Điền số" /></div>
                         <div class="inputrow"><label for="bc">Độ dài BC (đơn vị)</label><input id="bc" type="number"
                                 inputmode="numeric" placeholder="Điền số" /></div>
-                    </div>
-                    <div class="q"><strong>MN và BC có vị trí tương đối như thế nào?</strong>
-                        <div class="options"><label><input type="radio" name="dir" value="parallel">Song
-                                song</label><label><input type="radio" name="dir" value="cut">Cắt
-                                nhau</label><label><input type="radio" name="dir" value="perp">Vuông góc</label></div>
                     </div>
                     <div class="q"><strong>Tỉ số MN/BC bằng:</strong>
                         <div class="options"><label><input type="radio" name="ratio"
@@ -2148,10 +2181,9 @@
                     <div class="step"><span class="bubble">1</span>Dùng bốn tam giác bằng nhau để ghép thành tam giác
                         ABC.</div>
                     <div class="visual"><svg id="puzzle" viewBox="0 0 900 520"
-                            aria-label="Ghép tam giác ABC từ 4 mảnh tam giác bằng nhau"
-                            style="max-height:min(82vh, 42rem)">
+                            aria-label="Ghép tam giác ABC từ 4 mảnh tam giác bằng nhau">
                             <text x="20" y="32" fill="#9c6232" font-weight="800" font-size="24">VÙNG GHÉP</text>
-                            <text x="20" y="350" fill="#9c6232" font-weight="800" font-size="24"
+                            <text id="puzzleCap" x="20" y="350" fill="#9c6232" font-weight="800" font-size="24"
                                 dominant-baseline="central">4 tam giác - chạm, chọn, kéo thả, xoay</text>
                             <g id="stackBtn" class="svg-btn" role="button" tabindex="0"
                                 aria-label="Chồng 4 tam giác lên nhau">
@@ -2271,10 +2303,10 @@
             <div class="layout">
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Kéo điểm A để thay đổi tam giác và quan sát.</div>
-                    <div class="visual"><svg id="lab" viewBox="0 0 720 405"
+                    <div class="visual"><svg id="lab" viewBox="85 0 530 385"
                             aria-label="Tam giác ABC có thể kéo đỉnh A; hiển thị trung điểm M N"
                             style="touch-action:none">
-                            <rect x="10" y="10" width="700" height="380" fill="#fcfbff" rx="14" />
+                            <rect x="88" y="3" width="524" height="379" fill="#fcfbff" rx="14" />
                             <path id="triabc" d="" fill="#f1ebff66" stroke="#354d6a" stroke-width="4" />
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
                             <g fill="#204769">
@@ -2290,7 +2322,6 @@
                                     id="labelM">M</text><text id="labelN">N</text></g>
                         </svg></div>
                     <div class="statrow">
-                        <div class="stat">Dạng tam giác<strong id="triangleType">Nhọn</strong></div>
                         <div class="stat">Độ dài MN<strong id="lenMN">—</strong></div>
                         <div class="stat">Độ dài BC<strong id="lenBC">—</strong></div>
                         <div class="stat">Góc AMN<strong id="angle1">—</strong></div>
@@ -2307,7 +2338,6 @@
                             <thead>
                                 <tr>
                                     <th>Lần</th>
-                                    <th>Dạng</th>
                                     <th>MN</th>
                                     <th>BC</th>
                                     <th>∠AMN</th>
@@ -2316,7 +2346,7 @@
                             </thead>
                             <tbody id="obsRows">
                                 <tr>
-                                    <td colspan="6" style="color:#718193">Chưa ghi số đo nào</td>
+                                    <td colspan="5" style="color:#718193">Chưa ghi số đo nào</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2328,21 +2358,21 @@
                     </div>
                 </div>
             </div>
+            <!-- Conclusion spans the full width under the drawing and the questions -->
             <div class="card conclude">
-                <div class="step" style="margin-top:0"><span class="bubble">3</span>Rút ra kết luận.</div>
+                <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
-                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC luôn bằng (kết quả ghi dưới dạng số thập
-                            phân)</label><input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1"></div>
                     <div class="inputrow"><label for="rel3">MN và BC luôn</label><select id="rel3">
                             <option value="">Chọn kết luận</option>
                             <option value="parallel">Song song</option>
                             <option value="cut">Cắt nhau</option>
                             <option value="perp">Vuông góc</option>
                         </select></div>
-                    <button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button>
+                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC luôn bằng (kết quả ghi dưới dạng số thập
+                            phân)</label><input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1"></div>
                 </div>
-                <div class="action" style="margin-top:12px"><span class="feedback plain" id="msg3"
-                        aria-live="polite"></span></div>
+                <div class="action"><button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button><span
+                        id="msg3" class="feedback plain" aria-live="polite"></span></div>
             </div>
         </section>
     </div>
@@ -2366,8 +2396,8 @@
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
         // Home screen: enter group name, then pick one room
         const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' }; let current = null;
-        // Views: 'home' (group name + rooms), 'sheet' (the room's worksheet), 'result' (stars + results table), 'stats' (results table opened from home).
-        function showView(v) { $('home').hidden = v !== 'home'; $('result').hidden = v !== 'result'; $('stats').hidden = v !== 'result' && v !== 'stats'; $('statsBack').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
+        // Views: 'home' (group name + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
+        function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
         function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
         function chooseRoom(n) { if (!groupName()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
@@ -2403,7 +2433,7 @@
             // Same page on every device; html2canvas inlines the phone-sized svg styles, so restore them. The puzzle uses its shorter one-row layout.
             const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
             root.classList.add('pdf-capturing'); useLayout(LAYOUTS.wide);
-            return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('#home, #result, #stats').forEach(e => e.hidden = true); doc.querySelectorAll('.pdf-ghost').forEach(e => e.classList.remove('pdf-ghost')); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
+            return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('#home, #stats').forEach(e => e.hidden = true); doc.querySelectorAll('.pdf-ghost').forEach(e => e.classList.remove('pdf-ghost')); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
         }
         function buildPdf(canvas) {
             const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', compress: true }), M = 10, W = 190, H = 277;
@@ -2435,8 +2465,12 @@
         async function sharePdf() { try { await navigator.share({ files: [pdfFile], title: pdfFile.name }) } catch (e) { } }
         // SVG puzzle. Pieces and triangle ABC can be dragged and rotated; any piece fits any slot when position and direction match.
         const puzzle = $('puzzle'), pieceLayer = $('pieceLayer'), midLayer = $('midLayer'), bigTri = $('bigTri'), rotLine = $('rotLine'), rotKnob = $('rotKnob'), stackBtn = $('stackBtn'), pieces = [...puzzle.querySelectorAll('[data-piece]')];
-        // Two arrangements: pieces in one row (wide screens) or 2x2 (phones, iPad portrait); pickLayout() uses whichever draws the shapes larger.
-        const LAYOUTS = { wide: { w: 900, h: 520, frame: [450, 222], pieces: [[98, 462], [324, 462], [550, 462], [776, 462]], stack: [450, 462] }, narrow: { w: 640, h: 650, frame: [320, 222], pieces: [[180, 462], [430, 462], [180, 590], [430, 590]], stack: [320, 526] } };
+        // Three arrangements: pieces in one row (wide), two beside ABC and two below (mid), or 2x2 below ABC (narrow); pickLayout() uses whichever draws the shapes largest in the box. cap: y of the "4 tam giác" caption.
+        const LAYOUTS = {
+            wide: { w: 900, h: 520, frame: [450, 222], pieces: [[98, 462], [324, 462], [550, 462], [776, 462]], stack: [450, 462], cap: 350 },
+            mid: { w: 730, h: 490, frame: [230, 222], pieces: [[590, 180], [590, 320], [130, 440], [360, 440]], stack: [245, 440], cap: 350 },
+            narrow: { w: 520, h: 600, frame: [232, 222], pieces: [[130, 432], [360, 432], [130, 554], [360, 554]], stack: [245, 493], cap: 338 }
+        };
         const VERTS = { A: [-60, -144], B: [-180, 72], C: [240, 72] }, MIDS = { M: [-120, -36], N: [90, -36], P: [30, 72] }, SLOTS = [[-30, -72, 0], [-90, 36, 0], [120, 36, 0], [0, 0, 180]];
         let L = LAYOUTS.wide;
         function pieceHome(id) { const [x, y] = L.pieces[id - 1]; return { x, y, rot: 0 } }
@@ -2467,14 +2501,15 @@
         stackBtn.addEventListener('pointerdown', e => e.stopPropagation()); stackBtn.addEventListener('click', toggleStack); stackBtn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleStack() } });
         function pickLayout() {
             const w = puzzle.getBoundingClientRect().width; if (!w) return;
-            const maxH = Math.min(innerHeight * .82, 42 * parseFloat(getComputedStyle(document.documentElement).fontSize)), fit = l => Math.min(w / l.w, maxH / l.h);
-            useLayout(fit(LAYOUTS.narrow) > fit(LAYOUTS.wide) ? LAYOUTS.narrow : LAYOUTS.wide)
+            // Height cap from the CSS (smaller when the puzzle sits in the left column)
+            const cap = parseFloat(getComputedStyle(puzzle).maxHeight), maxH = cap > 0 ? cap : innerHeight * .82, fit = l => Math.min(w / l.w, maxH / l.h);
+            useLayout(Object.values(LAYOUTS).reduce((a, b) => fit(b) > fit(a) ? b : a))
         }
         function useLayout(next) {
             if (next === L) return;
             // Things still at their old home move to the new home; anything the group already moved is kept inside the new area.
             const prev = L, at = (st, [x, y]) => Math.abs(st.x - x) < 1 && Math.abs(st.y - y) < 1; L = next;
-            puzzle.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`); $('stackBtnRect').setAttribute('x', L.w - 254); $('stackBtnText').setAttribute('x', L.w - 137);
+            puzzle.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`); $('stackBtnRect').setAttribute('x', L.w - 254); $('stackBtnText').setAttribute('x', L.w - 137); $('puzzleCap').setAttribute('y', L.cap);
             if (at(frame, prev.frame)) { frame.x = L.frame[0]; frame.y = L.frame[1] } else clampPos(frame, 130);
             pieces.forEach((el, i) => { const id = el.dataset.piece, st = state[id]; if (id in slotOf) return; if (stacked) Object.assign(st, stackPose()); else if (at(st, prev.pieces[i])) Object.assign(st, pieceHome(id)); else clampPos(st, 20) });
             syncSlots(); renderPuzzle()
@@ -2488,12 +2523,12 @@
         function mid(p, q) { return { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 } }
         function angle(u, v, w) { let a = { x: u.x - v.x, y: u.y - v.y }, b = { x: w.x - v.x, y: w.y - v.y }; return Math.acos(Math.max(-1, Math.min(1, (a.x * b.x + a.y * b.y) / (Math.hypot(a.x, a.y) * Math.hypot(b.x, b.y))))) * 180 / Math.PI }
         function typeOfTriangle() { let angles = [angle(B, A, C), angle(A, B, C), angle(A, C, B)]; let diff = Math.min(...angles.map(a => Math.abs(a - 90))); if (diff < 0.2) return 'Vuông'; if (angles.some(a => a > 90)) return 'Tù'; return 'Nhọn' }
-        function geometry() { let M = mid(A, B), N = mid(A, C); $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`); $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);[['pointA', A], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });[['labelA', A, -14, -15], ['labelM', M, -34, 7], ['labelN', N, 13, 7]].forEach(([id, p, dx, dy]) => { $(id).setAttribute('x', p.x + dx); $(id).setAttribute('y', p.y + dy) }); let ang = angle(A, M, N); $('triangleType').textContent = typeOfTriangle(); $('lenMN').textContent = fmtLen(dist(M, N)); $('lenBC').textContent = fmtLen(dist(B, C)); $('angle1').textContent = ang.toFixed(1).replace('.', ',') + '°'; $('angle2').textContent = angle(A, B, C).toFixed(1).replace('.', ',') + '°'; }
+        function geometry() { let M = mid(A, B), N = mid(A, C); $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`); $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);[['pointA', A], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });[['labelA', A, -14, -15], ['labelM', M, -34, 7], ['labelN', N, 13, 7]].forEach(([id, p, dx, dy]) => { $(id).setAttribute('x', p.x + dx); $(id).setAttribute('y', p.y + dy) }); let ang = angle(A, M, N); $('lenMN').textContent = fmtLen(dist(M, N)); $('lenBC').textContent = fmtLen(dist(B, C)); $('angle1').textContent = ang.toFixed(1).replace('.', ',') + '°'; $('angle2').textContent = angle(A, B, C).toFixed(1).replace('.', ',') + '°'; }
         let moving = false; const point = $('pointA'), lab = $('lab'); point.addEventListener('pointerdown', e => { e.preventDefault(); moving = true; point.setPointerCapture(e.pointerId) }); point.addEventListener('pointermove', e => { if (!moving) return; const pos = svgPoint(lab, e); A = dragA(pos); geometry() }); point.addEventListener('pointerup', () => moving = false); point.addEventListener('pointercancel', () => moving = false);
         // A may go straight above B or C (right angle at B / C). Near those edges, and near the circle on diameter BC (right angle at A), it snaps so "Vuông" is easy to hit.
         function dragA(p) { let x = Math.max(B.x, Math.min(C.x, p.x)), y = Math.max(37, Math.min(283, p.y)); if (x - B.x < 4) x = B.x; if (C.x - x < 4) x = C.x; const O = mid(B, C), r = dist(B, C) / 2, d = Math.hypot(x - O.x, y - O.y); if (x > B.x && x < C.x && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d } return { x, y } }
-        function addObservation() { if (observations.length >= 3) { $('obsMsg').textContent = 'Đã đủ ba lần. Có thể xóa bảng để thử lại.'; return } let M = mid(A, B), N = mid(A, C); observations.push({ type: typeOfTriangle(), mn: fmtLen(dist(M, N)), bc: fmtLen(dist(B, C)), a: angle(A, M, N).toFixed(1), b: angle(A, B, C).toFixed(1) }); renderRows() }
-        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.type)}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
+        function addObservation() { if (observations.length >= 3) return; let M = mid(A, B), N = mid(A, C); observations.push({ type: typeOfTriangle(), mn: fmtLen(dist(M, N)), bc: fmtLen(dist(B, C)), a: angle(A, M, N).toFixed(1), b: angle(A, B, C).toFixed(1) }); renderRows() }
+        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="5" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         geometry();
         // ---------- Checking ----------
         // Each room lists its questions once: read the sheet (get), mark it (ok), show it in the results table (show), and fill a sheet back for a PDF (set).
@@ -2506,7 +2541,7 @@
         const CHECKS = {
             1: {
                 good: 'Nhóm đã phát hiện đúng hai mối quan hệ!', bad: 'Hãy đếm lại số ô vuông và so sánh MN, BC.', items: [
-                    typed('mn', 'MN', 4), typed('bc', 'BC', 8), choice('dir', 'MN và BC', 'parallel'), choice('ratio', 'MN/BC', '0.5')]
+                    choice('dir', 'MN và BC', 'parallel'), typed('mn', 'MN', 4), typed('bc', 'BC', 8), choice('ratio', 'MN/BC', '0.5')]
             },
             2: {
                 good: 'Nhóm đã khám phá được tính chất!', bad: 'Hãy hoàn thành ghép hình và so sánh MN, BC.', items: [
@@ -2514,14 +2549,15 @@
                     choice('midM', 'M là trung điểm AB', 'true'), choice('midN', 'N là trung điểm AC', 'true'), choice('expdir', 'MN và BC', 'parallel'), choice('explen', 'MN so với BC', '0.5')]
             },
             3: {
-                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 dạng tam giác và đọc lại số đo.', items: [
+                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 tam giác và đọc lại số đo.', items: [
                     { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
                     choice('angles', '∠AMN và ∠ABC', 'equal'),
-                    { key: 'ratio3', label: 'MN/BC luôn bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' },
-                    { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' }]
+                    { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
+                    { key: 'ratio3', label: 'MN/BC luôn bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
             }
         };
-        function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback ' + (all ? 'good' : 'try'); el.textContent = (all ? '🎉 ' : '💪 ') + 'Đúng ' + ok + '/' + total + '. ' + (all ? c.good : c.bad) }
+        // Score next to the "Kiểm tra kết quả" button; the box pops again on every check so a re-check is noticed.
+        function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : c.bad) }
         // One saved result per group and room while the page is open: checking again updates it (and counts the tries).
         const visits = {}; let lastId = null;
         function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }
@@ -2536,29 +2572,20 @@
             const rec = { id: v.id, group: groupName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
             // Readable columns for the Google Sheet (the page itself uses the fields above)
             rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
-            showResult(rec); saveResult(rec).then(() => loadStats())
-        }
-        function showResult(r) {
-            const all = r.ok === r.total, half = r.ok * 2 >= r.total;
-            $('resRoom').textContent = ROOMS[r.room] + ' • ' + r.group; $('resRoom').className = 'tb-room s' + r.room;
-            $('resTitle').textContent = all ? '🎉 Xuất sắc!' : half ? '👍 Làm tốt lắm!' : '💪 Cố gắng thêm nhé!';
-            $('resStars').innerHTML = Array.from({ length: r.total }, (_, i) => `<span class="star${i < r.ok ? ' on' : ''}" style="animation-delay:${i * .15}s">★</span>`).join('');
-            $('resStars').setAttribute('aria-label', r.ok + ' trên ' + r.total + ' sao');
-            $('resScore').textContent = 'Đúng ' + r.ok + '/' + r.total;
-            $('resMsg').textContent = all ? CHECKS[r.room].good : CHECKS[r.room].bad + ' Bấm “Quay lại bài làm” để sửa.';
-            setDay(r.day); showView('result')
+            // The group stays in the room; the score is shown next to the button by say()
+            saveResult(rec)
         }
         // Put a saved result into its sheet (answers, group, date, score) for the PDF; returns a function that restores the sheet.
         function fillRecord(r) {
             const n = r.room, items = CHECKS[n].items, sheet = $('s' + n), msg = $('msg' + n), ans = r.answers || {}, d = new Date(r.at);
-            const before = { vals: items.map(it => it.get()), msg: [msg.className, msg.textContent], obsMsg: $('obsMsg').textContent, puzzle: n === 2 && { L, frame: { ...frame }, state: JSON.parse(JSON.stringify(state)), slotOf: { ...slotOf }, stacked }, shown: sheet.classList.contains('active') };
+            const before = { vals: items.map(it => it.get()), msg: [msg.className, msg.innerHTML], obsMsg: $('obsMsg').textContent, puzzle: n === 2 && { L, frame: { ...frame }, state: JSON.parse(JSON.stringify(state)), slotOf: { ...slotOf }, stacked }, shown: sheet.classList.contains('active') };
             items.forEach(it => it.set(ans[it.key]));
             say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d));
             if (!before.shown) sheet.classList.add('active', 'pdf-ghost');
             return () => {
                 items.forEach((it, i) => it.set(before.vals[i])); $('obsMsg').textContent = before.obsMsg;
                 const p = before.puzzle; if (p) { useLayout(p.L); frame = p.frame; state = p.state; slotOf = p.slotOf; setStacked(p.stacked); updatePuzzle() }
-                [msg.className, msg.textContent] = before.msg;
+                [msg.className, msg.innerHTML] = before.msg;
                 sheet.classList.remove('pdf-ghost'); if (!before.shown) sheet.classList.remove('active');
                 syncGroup()
             }
