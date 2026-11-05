@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8</title>
+    <title>Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -48,14 +48,12 @@
             display: none !important
         }
 
-        /* Everything is sized in rem, so the whole page grows with the screen: 18px on phones, ~21px on iPad landscape, 26px on a projector. */
         html {
             scroll-behavior: smooth;
             font-size: clamp(18px, 0.7vw + 13px, 26px);
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
             --maxw: 90rem;
-            /* Narrow side margins leave more width for big, readable text */
             --gutter: clamp(8px, 1.4vw, 24px)
         }
 
@@ -70,11 +68,7 @@
 
         /* ---------- Header ---------- */
         header {
-            background:
-                radial-gradient(640px 320px at 8% -10%, rgba(96, 165, 250, .65), transparent 65%),
-                radial-gradient(520px 340px at 88% 10%, rgba(192, 132, 252, .6), transparent 65%),
-                radial-gradient(480px 260px at 55% 130%, rgba(45, 212, 191, .45), transparent 65%),
-                linear-gradient(120deg, #1e3a8a 0%, #2c4fd0 45%, #5a3bcf 100%);
+            background: radial-gradient(640px 320px at 8% -10%, rgba(96, 165, 250, .65), transparent 65%), radial-gradient(520px 340px at 88% 10%, rgba(192, 132, 252, .6), transparent 65%), radial-gradient(480px 260px at 55% 130%, rgba(45, 212, 191, .45), transparent 65%), linear-gradient(120deg, #1e3a8a 0%, #2c4fd0 45%, #5a3bcf 100%);
             color: #fff;
             padding: 1.25rem max(var(--gutter), calc((100% - var(--maxw))/2)) 3.75rem;
             position: relative;
@@ -85,9 +79,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background:
-                linear-gradient(rgba(255, 255, 255, .09) 1px, transparent 1px) 0 0/28px 28px,
-                linear-gradient(90deg, rgba(255, 255, 255, .09) 1px, transparent 1px) 0 0/28px 28px;
+            background: linear-gradient(rgba(255, 255, 255, .09) 1px, transparent 1px) 0 0/28px 28px, linear-gradient(90deg, rgba(255, 255, 255, .09) 1px, transparent 1px) 0 0/28px 28px;
             -webkit-mask-image: radial-gradient(ellipse 75% 100% at 45% 20%, #000 25%, transparent 80%);
             mask-image: radial-gradient(ellipse 75% 100% at 45% 20%, #000 25%, transparent 80%);
             pointer-events: none
@@ -372,13 +364,19 @@
             gap: clamp(0.75rem, 2vw, 1.25rem)
         }
 
+        /* Chỉ còn một nhiệm vụ hiển thị: căn giữa */
+        .rooms {
+            grid-template-columns: minmax(0, 24rem);
+            justify-content: center
+        }
+
         .room {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.25rem;
-            padding: 1rem 1rem 1rem;
+            padding: 1rem;
             border: 2px solid var(--line);
             border-radius: 1.5rem;
             background: linear-gradient(180deg, var(--soft), #fff 75%);
@@ -515,7 +513,7 @@
             }
         }
 
-        /* ---------- Results table (opened from home) ---------- */
+        /* ---------- Results table ---------- */
         .stats {
             max-width: 80rem;
             margin: 1.25rem auto 0;
@@ -526,7 +524,6 @@
             box-shadow: var(--shadow)
         }
 
-        /* Icon-only button in the home card's top-right corner */
         .home {
             position: relative
         }
@@ -631,7 +628,6 @@
             border-bottom: 1px solid var(--line2)
         }
 
-        /* Column dividers */
         .stats .rtable th+th,
         .stats .rtable td+td {
             border-left: 1px solid var(--line2)
@@ -654,7 +650,6 @@
             text-align: center
         }
 
-        /* Short columns stay on one line; the choices column takes the rest of the width */
         .stats .rtable td:first-child,
         .stats .rtable td.c,
         .stats .rtable td:nth-child(3) {
@@ -720,7 +715,6 @@
             border-color: #bce8d2
         }
 
-        /* Each answer: mark | question | the group's choice */
         .picks {
             list-style: none;
             margin: 0;
@@ -785,7 +779,6 @@
             box-shadow: 0 3px 0 rgba(0, 0, 0, .2)
         }
 
-        /* Tablets and phones: each result is a card — date | group | room | score on top, then choices and the PDF button */
         @media(max-width:1100px) {
             .stats .rtable {
                 min-width: 0;
@@ -888,7 +881,6 @@
             }
         }
 
-        /* A sheet being drawn into a PDF from the results table: rendered, but off screen */
         .sheet.pdf-ghost {
             display: block;
             position: fixed;
@@ -1051,7 +1043,6 @@
             --mid: #f9cb9e
         }
 
-        /* --mid: accent mixed with white, written out because html2canvas (PDF) can't parse color-mix() */
         .s3 {
             --accent: var(--purple);
             --accent-d: var(--purple-d);
@@ -1141,8 +1132,6 @@
             font-weight: 600
         }
 
-        /* Phones: one column, illustration on top, questions below.
-           Tablets and computers: illustration on the left, questions on the right (see the media queries further down). */
         .layout {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
@@ -1201,7 +1190,6 @@
             touch-action: none
         }
 
-        /* pickLayout() reads this height to choose the puzzle's arrangement */
         .visual #puzzle {
             max-height: min(82vh, 42rem)
         }
@@ -1529,8 +1517,6 @@
             margin-top: 1.5rem
         }
 
-        /* Labels start on the same top line, boxes sit on the same bottom line, even when one label wraps */
-        /* "MN và BC luôn" is the short question, so its column is narrower */
         .conclude-row {
             display: grid;
             grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -1542,7 +1528,6 @@
             flex-direction: column
         }
 
-        /* Divider so the two conclusion questions are not mixed up */
         .conclude-row .inputrow+.inputrow {
             border-left: 2px dashed var(--mid);
             padding-left: 1.25rem
@@ -1553,25 +1538,21 @@
             font-size: 1.0625rem
         }
 
-        /* ---------- Two columns: illustration left, questions right ---------- */
         @media(min-width:740px) {
             .layout {
                 grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
                 gap: clamp(1rem, 1.6vw, 1.5rem)
             }
 
-            /* The illustration is kept small enough to stay on screen next to the questions */
             .visual svg {
                 max-height: max(15rem, min(34rem, 100vh - 13rem))
             }
 
-            /* The puzzle is dragged by hand, so it may take more of the screen */
             .visual #puzzle {
                 max-height: max(16rem, min(40rem, 100vh - 10rem))
             }
         }
 
-        /* Illustration stays in view while the group scrolls through the questions */
         @media(min-width:740px) and (min-height:560px) {
             .layout>.col:first-child {
                 position: sticky;
@@ -1579,7 +1560,6 @@
             }
         }
 
-        /* Tablets: narrower columns; the drag-and-drop puzzle gets half the width so its pieces are easy to touch */
         @media(min-width:740px) and (max-width:1099px) {
             .s2 .layout {
                 grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
@@ -1603,7 +1583,6 @@
             }
         }
 
-        /* Computers: the illustration takes less than half the width */
         @media(min-width:1100px) {
             .layout {
                 grid-template-columns: minmax(0, 2fr) minmax(0, 3fr)
@@ -1697,7 +1676,6 @@
             }
         }
 
-        /* Conclusion questions one under the other on phones */
         @media(max-width:600px) {
             .conclude-row {
                 grid-template-columns: 1fr;
@@ -1755,7 +1733,6 @@
             font-size: 14px
         }
 
-        /* Applied to the cloned page html2canvas renders into the PDF */
         .pdf-mode {
             background: #fff
         }
@@ -1765,7 +1742,6 @@
             transition: none !important
         }
 
-        /* Paper needs less air than touch screens: tighter spacing leaves room for bigger text */
         .pdf-mode .sheet {
             box-shadow: none;
             border: 0;
@@ -1776,7 +1752,6 @@
             margin: 0 0 0.5rem
         }
 
-        /* PDF keeps one column: illustration on top, questions below */
         .pdf-mode .layout {
             grid-template-columns: minmax(0, 1fr);
             gap: 1rem
@@ -1807,7 +1782,6 @@
             max-height: 24rem !important
         }
 
-        /* Phòng công nghệ has the most content below its drawing */
         .pdf-mode .s3 .visual svg {
             max-height: 19rem !important
         }
@@ -1876,7 +1850,6 @@
             margin-top: 0.875rem
         }
 
-        /* html2canvas reads pseudo-elements from the live page, so this one is hidden there while capturing */
         .pdf-capturing .sheet:before {
             display: none
         }
@@ -2033,7 +2006,7 @@
             <div class="mascot" aria-hidden="true">🔬</div>
             <div class="htext">
                 <div class="kicker">PHIẾU HỌC TẬP TƯƠNG TÁC • TOÁN 8</div>
-                <h1>Phòng nghiên cứu:<br>Đường trung bình của tam giác</h1>
+                <h1>Nhiệm vụ 2: Biến hóa hình học</h1>
             </div>
         </div>
     </header>
@@ -2042,22 +2015,23 @@
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên nhóm, sau đó chọn phòng nghiên cứu mà nhóm sẽ thực hiện.</p>
+            <p class="home-sub">Điền tên nhóm, sau đó bấm bắt đầu nhiệm vụ.</p>
             <label class="home-label" for="group"><span class="bubble">1</span>Tên nhóm</label>
             <div class="home-field"><input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi chọn phòng.</span>
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi bắt đầu.</span>
             </div>
-            <div class="home-label"><span class="bubble">2</span>Chọn phòng nghiên cứu</div>
-            <div class="rooms" role="group" aria-label="Chọn phòng nghiên cứu">
-                <button class="room s1" data-room="1"><span class="ic">👀</span><span class="txt"><span class="no">Phòng
-                            01: </span><strong>Trực quan</strong></span><span class="go"><span class="go-t">Bắt đầu
-                        </span>→</span></button>
-                <button class="room s2" data-room="2"><span class="ic">🧩</span><span class="txt"><span class="no">Phòng
-                            02:</span><strong>Thực nghiệm</strong></span><span class="go"><span class="go-t">Bắt đầu
-                        </span>→</span></button>
-                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Phòng
-                            03:</span><strong>Công nghệ</strong></span><span class="go"><span class="go-t">Bắt đầu
-                        </span>→</span></button>
+            <div class="home-label"><span class="bubble">2</span>Chọn nhiệm vụ</div>
+            <div class="rooms" role="group" aria-label="Chọn nhiệm vụ">
+                <!-- Phòng 1 và 2 đang được ẩn (giữ nguyên code, bỏ thuộc tính hidden để hiện lại) -->
+                <button class="room s1" data-room="1" hidden><span class="ic">👀</span><span class="txt"><span
+                            class="no">Phòng 01: </span><strong>Trực quan</strong></span><span class="go"><span
+                            class="go-t">Bắt đầu </span>→</span></button>
+                <button class="room s2" data-room="2" hidden><span class="ic">🧩</span><span class="txt"><span
+                            class="no">Phòng 02:</span><strong>Thực nghiệm</strong></span><span class="go"><span
+                            class="go-t">Bắt đầu </span>→</span></button>
+                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Nhiệm
+                            vụ 2:</span><strong>Biến hóa hình học</strong></span><span class="go"><span class="go-t">Bắt
+                            đầu </span>→</span></button>
             </div>
         </section>
 
@@ -2077,7 +2051,7 @@
                         <tr>
                             <th>Ngày thực hiện</th>
                             <th>Tên nhóm</th>
-                            <th>Phòng nghiên cứu</th>
+                            <th>Nhiệm vụ</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
                             <th>PDF</th>
@@ -2089,15 +2063,15 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span class="tb-room" id="roomLabel"></span><span>👥 Nhóm: <b
-                        id="gLabel"></b></span></span>
+            <span class="tb-info"><span>👥 Nhóm: <b id="gLabel"></b></span></span>
             <div class="tb-actions">
-                <button type="button" onclick="goHome()">↩ Đổi phòng nghiên cứu</button>
+                <button type="button" onclick="goHome()">↩ Về trang chủ</button>
                 <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
                 <button type="button" class="ghost" onclick="printSheet()">🖨️ In</button>
             </div>
         </div>
 
+        <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
                     8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
@@ -2168,6 +2142,7 @@
             </div>
         </section>
 
+        <!-- ================= PHÒNG 2 (đang ẩn) ================= -->
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
                     8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
@@ -2292,46 +2267,53 @@
             </div>
         </section>
 
+        <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
-            <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
+            <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
                     8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
-            <div class="sheet-head"><span class="room-ic" aria-hidden="true">💻</span>
-                <div><span class="room-no">Phòng nghiên cứu 03</span>
-                    <h2>Phòng công nghệ</h2>
-                </div>
+            <div class="sheet-head">
+
             </div>
             <div class="layout">
                 <div class="col">
-                    <div class="step"><span class="bubble">1</span>Kéo điểm A để thay đổi tam giác và quan sát.</div>
+                    <div class="step"><span class="bubble">1</span>Khám phá hình học:</div>
+                    <p class="lead" style="margin-left:0">Di chuyển một đỉnh bất kì của tam giác ABC.<br>Quan sát sự
+                        thay đổi độ dài hai đoạn thẳng MN, BC và số đo hai góc AMN, ABC.</p>
                     <div class="visual"><svg id="lab" viewBox="85 0 530 385"
-                            aria-label="Tam giác ABC có thể kéo đỉnh A; hiển thị trung điểm M N"
+                            aria-label="Tam giác ABC có thể kéo các đỉnh A, B, C; hiển thị trung điểm M N"
                             style="touch-action:none">
                             <rect x="88" y="3" width="524" height="379" fill="#fcfbff" rx="14" />
                             <path id="triabc" d="" fill="#f1ebff66" stroke="#354d6a" stroke-width="4" />
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
-                            <g fill="#204769">
-                                <circle cx="130" cy="334" r="6" />
-                                <circle cx="570" cy="334" r="6" />
-                            </g>
                             <circle id="pointM" r="6" fill="#df8d33" />
                             <circle id="pointN" r="6" fill="#df8d33" />
-                            <circle id="pointA" cx="350" cy="80" r="14" fill="#4d8bc1" stroke="white" stroke-width="4"
-                                style="cursor:grab" />
-                            <g fill="#25405c" font-weight="bold" font-size="27"><text id="labelA" x="360"
-                                    y="70">A</text><text x="108" y="368">B</text><text x="579" y="368">C</text><text
-                                    id="labelM">M</text><text id="labelN">N</text></g>
+                            <g fill="#4d8bc1" stroke="white" stroke-width="4" style="cursor:grab">
+                                <circle id="pointA" cx="350" cy="80" r="14" />
+                                <circle id="pointB" cx="130" cy="334" r="14" />
+                                <circle id="pointC" cx="570" cy="334" r="14" />
+                            </g>
+                            <path id="arcM" fill="#ffe3c2" stroke="#f28c28" stroke-width="3"
+                                style="pointer-events:none" />
+                            <path id="arcB" fill="#ffe3c2" stroke="#f28c28" stroke-width="3"
+                                style="pointer-events:none" />
+                            <g font-size="21" font-style="italic" font-weight="700" fill="#1d2b4f" text-anchor="middle"
+                                style="dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round">
+                                <text id="txtMN"></text><text id="txtBC"></text><text id="txtAM"></text><text
+                                    id="txtAB"></text>
+                            </g>
+                            <g fill="#25405c" font-weight="bold" font-size="27" text-anchor="middle"
+                                style="dominant-baseline:central;pointer-events:none">
+                                <text id="labelA">A</text><text id="labelB">B</text><text id="labelC">C</text>
+                                <text id="labelM">M</text><text id="labelN">N</text>
+                            </g>
                         </svg></div>
-                    <div class="statrow">
-                        <div class="stat">Độ dài MN<strong id="lenMN">—</strong></div>
-                        <div class="stat">Độ dài BC<strong id="lenBC">—</strong></div>
-                        <div class="stat">Góc AMN<strong id="angle1">—</strong></div>
-                        <div class="stat">Góc ABC<strong id="angle2">—</strong></div>
-                    </div>
                 </div>
                 <div class="col">
-                    <div class="step"><span class="bubble">2</span>Lưu số đo sau khi thử ba dạng tam giác.</div>
-                    <div class="action" style="margin-top:0"><button class="primary" onclick="addObservation()">📝 Ghi
-                            lần quan sát</button><button onclick="observations=[];renderRows()">🗑️ Xóa
+                    <div class="step"><span class="bubble">2</span>Ghi nhận kết quả:</div>
+                    <p class="lead" style="margin-left:0">Sau mỗi lần thay đổi hình dạng tam giác, nhấn nút “Lưu số đo”
+                        để ghi lại kết quả vào bảng. Thực hiện ít nhất 3 lần.</p>
+                    <div class="action" style="margin-top:0"><button class="primary" onclick="addObservation()">💾 Lưu
+                            số đo</button><button onclick="observations=[];renderRows()">🗑️ Xóa
                             bảng</button><span id="obsMsg" class="feedback plain"></span></div>
                     <div class="scroll">
                         <table class="table">
@@ -2358,17 +2340,16 @@
                     </div>
                 </div>
             </div>
-            <!-- Conclusion spans the full width under the drawing and the questions -->
             <div class="card conclude">
                 <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
-                    <div class="inputrow"><label for="rel3">MN và BC luôn</label><select id="rel3">
+                    <div class="inputrow"><label for="rel3">MN và BC</label><select id="rel3">
                             <option value="">Chọn kết luận</option>
                             <option value="parallel">Song song</option>
                             <option value="cut">Cắt nhau</option>
                             <option value="perp">Vuông góc</option>
                         </select></div>
-                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC luôn bằng (kết quả ghi dưới dạng số thập
+                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC bằng (kết quả ghi dưới dạng số thập
                             phân)</label><input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1"></div>
                 </div>
                 <div class="action"><button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button><span
@@ -2382,20 +2363,18 @@
             <div class="pop-title" id="popTitle"></div>
             <p class="pop-text" id="popText"></p>
             <div class="pop-actions" id="popActions">
-                <a class="primary" id="pdfDl" href="#" download>💾 Tải file PDF</a>
-                <button type="button" id="pdfShare" onclick="sharePdf()">📤 Chia sẻ / Lưu vào Tệp</button>
-                <a id="pdfOpen" href="#" target="_blank" rel="noopener">👁️ Mở xem PDF</a>
-                <p class="pop-tip">iPhone/iPad: chọn “Chia sẻ” → “Lưu vào Tệp”, hoặc “Mở xem PDF” rồi bấm nút chia
-                    sẻ.</p>
+                <a id="pdfDl" href="#" download hidden></a>
+                <button type="button" class="primary" id="pdfDone" onclick="doneSaved()">✅ Hoàn thành</button>
+                <button type="button" id="pdfShare" onclick="sharePdf()" hidden>📤 Chia sẻ</button>
             </div>
-            <button type="button" class="pop-close" onclick="closePop()">Đóng</button>
+            <button type="button" class="pop-close" id="popClose" onclick="closePop()">Đóng</button>
         </div>
     </div>
     <script>
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
         // Home screen: enter group name, then pick one room
-        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' }; let current = null;
+        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Nhiệm vụ 2 - Biến hóa hình học' }; let current = null;
         // Views: 'home' (group name + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
@@ -2411,26 +2390,26 @@
         function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
         function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
         function setSheetInfo(g, date) { document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
-        function syncGroup() { const g = groupName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date())); $('gLabel').textContent = g; $('roomLabel').textContent = room || ''; $('roomLabel').className = 'tb-room s' + current; document.title = room ? fileBase(g, current) : 'Ba phòng nghiên cứu | Đường trung bình của tam giác – Toán 8' }
-        $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
+        function syncGroup() { const g = groupName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date())); $('gLabel').textContent = g; document.title = room ? fileBase(g, current) : 'Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8' } $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
         const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
         const IN_APP_TIP = 'Nếu không tải được: bấm ••• → “Mở bằng trình duyệt” (Safari/Chrome) rồi thử lại.';
         const PDF_LIBS = ['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
         let pdfLibs = null, pdfUrl = null, pdfFile = null;
         function beforeOutput() { picked = null; renderPuzzle(); syncGroup() }
-        function printSheet() { if (IN_APP) { openPop('ℹ️ Không in được trong ứng dụng này', IN_APP_TIP + '\nHoặc dùng nút 📄 Lưu PDF.', false); return } beforeOutput(); window.print() }
+        function printSheet() { if (IN_APP) { openPop('ℹ️ Không in được trong ứng dụng này', IN_APP_TIP + '\nHoặc dùng nút 📄 Lưu PDF.', false); return } beforeOutput(); printing = true; window.print() }
         window.addEventListener('beforeprint', beforeOutput);
-        function openPop(title, text, ready) { $('popTitle').textContent = title; $('popText').textContent = text; $('popActions').hidden = !ready; $('pdfPop').hidden = false }
+        // Khi đang tạo PDF hoặc đã tải xong thì không có nút Đóng; chỉ thông báo lỗi/thông tin mới có.
+        function openPop(title, text, ready) { $('popTitle').textContent = title; $('popText').textContent = text; $('popActions').hidden = !ready; $('popClose').hidden = ready || title.indexOf('⏳') === 0; $('pdfPop').hidden = false }
         function closePop() { $('pdfPop').hidden = true }
-        $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget) closePop() });
+        // "Đã lưu xong": bài của nhóm → xóa và về trang chủ; PDF của giáo viên → chỉ đóng popup
+        function doneSaved() { if (resetOnClose) { resetOnClose = false; resetAll() } else closePop() }
+        $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget && !$('popClose').hidden) closePop() });
         function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
-        // File name: <tên nhóm>_<tên phòng>.pdf (the print dialog names its PDF after document.title the same way)
+        // File name: <tên nhóm>_<tên phòng>.pdf
         function fileBase(g, n) { return (g + '_' + ROOMS[n]).replace(/[\\/:*?"<>|]+/g, '-') }
-        // Page is rendered `width` px wide with a `font` px root, then fitted to A4's 190mm: ~11pt text, every room still on one page.
         const PDF_VIEW = { width: 960, font: 19 };
         function renderSheet(n) {
-            // Same page on every device; html2canvas inlines the phone-sized svg styles, so restore them. The puzzle uses its shorter one-row layout.
             const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
             root.classList.add('pdf-capturing'); useLayout(LAYOUTS.wide);
             return html2canvas($('s' + n), { scale: 2, backgroundColor: '#ffffff', windowWidth: PDF_VIEW.width, scrollX: 0, scrollY: 0, logging: false, onclone: doc => { doc.documentElement.style.fontSize = PDF_VIEW.font + 'px'; doc.body.classList.add('pdf-mode'); doc.querySelectorAll('#home, #stats').forEach(e => e.hidden = true); doc.querySelectorAll('.pdf-ghost').forEach(e => e.classList.remove('pdf-ghost')); doc.querySelectorAll('svg').forEach((s, i) => { const st = svgs[i] && svgs[i].getAttribute('style'); st ? s.setAttribute('style', st) : s.removeAttribute('style') }) } }).finally(() => { root.classList.remove('pdf-capturing'); pickLayout() })
@@ -2456,16 +2435,18 @@
                 const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n) + (rec ? '_' + rec.day : '') + '.pdf';
                 if (pdfUrl) URL.revokeObjectURL(pdfUrl);
                 pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
-                $('pdfDl').href = $('pdfOpen').href = pdfUrl; $('pdfDl').download = name;
+                $('pdfDl').href = pdfUrl; $('pdfDl').download = name;
                 $('pdfShare').hidden = !(navigator.canShare && navigator.canShare({ files: [pdfFile] }));
-                openPop('✅ File PDF đã sẵn sàng', name + (IN_APP ? '\n\n' + IN_APP_TIP : ''), true)
+                resetOnClose = !rec;
+                // Tải file xuống ngay, không cần mở xem
+                $('pdfDl').click();
+                openPop('✅ Đã tải xuống', name + (IN_APP ? '\n\n' + IN_APP_TIP : ''), true)
             } catch (e) { if (undo) undo(); pdfLibs = null; openPop('⚠️ Chưa tạo được PDF', 'Hãy kiểm tra kết nối mạng rồi thử lại, hoặc dùng nút 🖨️ In.', false) }
         }
         // Share needs a fresh tap (iOS rejects share() after the async build), so it has its own button.
         async function sharePdf() { try { await navigator.share({ files: [pdfFile], title: pdfFile.name }) } catch (e) { } }
-        // SVG puzzle. Pieces and triangle ABC can be dragged and rotated; any piece fits any slot when position and direction match.
+        // SVG puzzle (Phòng 2 – đang ẩn). Pieces and triangle ABC can be dragged and rotated; any piece fits any slot when position and direction match.
         const puzzle = $('puzzle'), pieceLayer = $('pieceLayer'), midLayer = $('midLayer'), bigTri = $('bigTri'), rotLine = $('rotLine'), rotKnob = $('rotKnob'), stackBtn = $('stackBtn'), pieces = [...puzzle.querySelectorAll('[data-piece]')];
-        // Three arrangements: pieces in one row (wide), two beside ABC and two below (mid), or 2x2 below ABC (narrow); pickLayout() uses whichever draws the shapes largest in the box. cap: y of the "4 tam giác" caption.
         const LAYOUTS = {
             wide: { w: 900, h: 520, frame: [450, 222], pieces: [[98, 462], [324, 462], [550, 462], [776, 462]], stack: [450, 462], cap: 350 },
             mid: { w: 730, h: 490, frame: [230, 222], pieces: [[590, 180], [590, 320], [130, 440], [360, 440]], stack: [245, 440], cap: 350 },
@@ -2501,13 +2482,11 @@
         stackBtn.addEventListener('pointerdown', e => e.stopPropagation()); stackBtn.addEventListener('click', toggleStack); stackBtn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleStack() } });
         function pickLayout() {
             const w = puzzle.getBoundingClientRect().width; if (!w) return;
-            // Height cap from the CSS (smaller when the puzzle sits in the left column)
             const cap = parseFloat(getComputedStyle(puzzle).maxHeight), maxH = cap > 0 ? cap : innerHeight * .82, fit = l => Math.min(w / l.w, maxH / l.h);
             useLayout(Object.values(LAYOUTS).reduce((a, b) => fit(b) > fit(a) ? b : a))
         }
         function useLayout(next) {
             if (next === L) return;
-            // Things still at their old home move to the new home; anything the group already moved is kept inside the new area.
             const prev = L, at = (st, [x, y]) => Math.abs(st.x - x) < 1 && Math.abs(st.y - y) < 1; L = next;
             puzzle.setAttribute('viewBox', `0 0 ${L.w} ${L.h}`); $('stackBtnRect').setAttribute('x', L.w - 254); $('stackBtnText').setAttribute('x', L.w - 137); $('puzzleCap').setAttribute('y', L.cap);
             if (at(frame, prev.frame)) { frame.x = L.frame[0]; frame.y = L.frame[1] } else clampPos(frame, 130);
@@ -2516,22 +2495,67 @@
         }
         window.addEventListener('resize', pickLayout);
         resetPuzzle();
-        // Dynamic geometry lab
-        const B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let A = { x: 350, y: 80 }; let observations = [];
+
+        // ---------- Nhiệm vụ 2: Biến hóa hình học ----------
+        // Any vertex can be dragged; the other two stay where they are.
+        let A = { x: 350, y: 80 }, B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let observations = [];
+        function getV(k) { return k === 'A' ? A : k === 'B' ? B : C }
+        function setV(k, p) { if (k === 'A') A = p; else if (k === 'B') B = p; else C = p }
         function dist(p, q) { return Math.hypot(p.x - q.x, p.y - q.y) }
         function fmtLen(px) { return (px / 40).toFixed(1).replace('.', ',') }
         function mid(p, q) { return { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 } }
         function angle(u, v, w) { let a = { x: u.x - v.x, y: u.y - v.y }, b = { x: w.x - v.x, y: w.y - v.y }; return Math.acos(Math.max(-1, Math.min(1, (a.x * b.x + a.y * b.y) / (Math.hypot(a.x, a.y) * Math.hypot(b.x, b.y))))) * 180 / Math.PI }
-        function typeOfTriangle() { let angles = [angle(B, A, C), angle(A, B, C), angle(A, C, B)]; let diff = Math.min(...angles.map(a => Math.abs(a - 90))); if (diff < 0.2) return 'Vuông'; if (angles.some(a => a > 90)) return 'Tù'; return 'Nhọn' }
-        function geometry() { let M = mid(A, B), N = mid(A, C); $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`); $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);[['pointA', A], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });[['labelA', A, -14, -15], ['labelM', M, -34, 7], ['labelN', N, 13, 7]].forEach(([id, p, dx, dy]) => { $(id).setAttribute('x', p.x + dx); $(id).setAttribute('y', p.y + dy) }); let ang = angle(A, M, N); $('lenMN').textContent = fmtLen(dist(M, N)); $('lenBC').textContent = fmtLen(dist(B, C)); $('angle1').textContent = ang.toFixed(1).replace('.', ',') + '°'; $('angle2').textContent = angle(A, B, C).toFixed(1).replace('.', ',') + '°'; }
-        let moving = false; const point = $('pointA'), lab = $('lab'); point.addEventListener('pointerdown', e => { e.preventDefault(); moving = true; point.setPointerCapture(e.pointerId) }); point.addEventListener('pointermove', e => { if (!moving) return; const pos = svgPoint(lab, e); A = dragA(pos); geometry() }); point.addEventListener('pointerup', () => moving = false); point.addEventListener('pointercancel', () => moving = false);
-        // A may go straight above B or C (right angle at B / C). Near those edges, and near the circle on diameter BC (right angle at A), it snaps so "Vuông" is easy to hit.
-        function dragA(p) { let x = Math.max(B.x, Math.min(C.x, p.x)), y = Math.max(37, Math.min(283, p.y)); if (x - B.x < 4) x = B.x; if (C.x - x < 4) x = C.x; const O = mid(B, C), r = dist(B, C) / 2, d = Math.hypot(x - O.x, y - O.y); if (x > B.x && x < C.x && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d } return { x, y } }
-        function addObservation() { if (observations.length >= 3) return; let M = mid(A, B), N = mid(A, C); observations.push({ type: typeOfTriangle(), mn: fmtLen(dist(M, N)), bc: fmtLen(dist(B, C)), a: angle(A, M, N).toFixed(1), b: angle(A, B, C).toFixed(1) }); renderRows() }
+        function typeOfTriangle() { let angles = [angle(B, A, C), angle(A, B, C), angle(A, C, B)]; let diff = Math.min(...angles.map(a => Math.abs(a - 90))); if (diff < 0.3) return 'Vuông'; if (angles.some(a => a > 90)) return 'Tù'; return 'Nhọn' }
+        // Số hiển thị: BC làm tròn 1 chữ số, MN luôn đúng bằng một nửa BC (đã làm tròn); hai góc AMN và ABC dùng chung một giá trị.
+        const fmtN = (v, d) => String(+v.toFixed(d)).replace('.', ',');
+        function unit(a, b) { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy) || 1; return { x: dx / l, y: dy / l } }
+        function arcAt(v, p, q, r) { const u = unit(v, p), w = unit(v, q), s = { x: v.x + u.x * r, y: v.y + u.y * r }, e = { x: v.x + w.x * r, y: v.y + w.y * r }; return `M${v.x},${v.y} L${s.x},${s.y} A${r},${r} 0 0 ${u.x * w.y - u.y * w.x > 0 ? 1 : 0} ${e.x},${e.y} Z` }
+        function bis(v, p, q, d) { const u = unit(v, p), w = unit(v, q); let x = u.x + w.x, y = u.y + w.y, l = Math.hypot(x, y); if (l < 1e-6) { x = -u.y; y = u.x; l = 1 } return { x: v.x + x / l * d, y: v.y + y / l * d } }
+        function sideLabel(P, Q, toward, d) { const m = mid(P, Q), u = unit(P, Q); let nx = -u.y, ny = u.x; if (nx * (toward.x - m.x) + ny * (toward.y - m.y) < 0) { nx = -nx; ny = -ny } return { x: m.x + nx * d, y: m.y + ny * d } }
+        function measures() { const bc = Math.round(dist(B, C) / 40 * 10) / 10; return { bc, mn: bc / 2, ang: angle(A, B, C).toFixed(1) } }
+        function geometry() {
+            const M = mid(A, B), N = mid(A, C), G = { x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3 }, m = measures();
+            $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`);
+            $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);
+            [['pointA', A], ['pointB', B], ['pointC', C], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });
+            [['labelA', A, 28], ['labelB', B, 28], ['labelC', C, 28], ['labelM', M, 22], ['labelN', N, 22]].forEach(([id, p, d]) => {
+                const dx = p.x - G.x, dy = p.y - G.y, l = Math.hypot(dx, dy) || 1;
+                $(id).setAttribute('x', p.x + dx / l * d); $(id).setAttribute('y', p.y + dy / l * d)
+            });
+            $('arcM').setAttribute('d', arcAt(M, A, N, 24)); $('arcB').setAttribute('d', arcAt(B, A, C, 24));
+            const set = (id, p, t) => { $(id).setAttribute('x', p.x); $(id).setAttribute('y', p.y); $(id).textContent = t };
+            set('txtMN', sideLabel(M, N, A, 17), fmtN(m.mn, 2) + 'cm');
+            set('txtBC', sideLabel(B, C, A, 17), fmtN(m.bc, 1) + 'cm');
+            set('txtAM', bis(M, A, N, 52), m.ang.replace('.', ',') + '°');
+            set('txtAB', bis(B, A, C, 52), m.ang.replace('.', ',') + '°')
+        }
+        const lab = $('lab'); let dragging = null;
+        ['A', 'B', 'C'].forEach(k => {
+            const el = $('point' + k);
+            el.addEventListener('pointerdown', e => { e.preventDefault(); dragging = k; el.setPointerCapture(e.pointerId) });
+            el.addEventListener('pointermove', e => { if (dragging !== k) return; setV(k, dragVertex(k, svgPoint(lab, e))); geometry() });
+            el.addEventListener('pointerup', () => dragging = null); el.addEventListener('pointercancel', () => dragging = null)
+        });
+        const clampN = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+        // The dragged vertex snaps so a right angle is easy to hit; a move that would flatten the triangle is ignored.
+        function dragVertex(k, p) {
+            const [U, W] = ['A', 'B', 'C'].filter(x => x !== k).map(getV);
+            let x = clampN(p.x, 110, 590), y = clampN(p.y, 30, 355);
+            const O = mid(U, W), r = dist(U, W) / 2, d = Math.hypot(x - O.x, y - O.y);
+            if (d > 0 && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d }
+            else for (const [P, Q] of [[U, W], [W, U]]) {
+                const ux = Q.x - P.x, uy = Q.y - P.y, len = Math.hypot(ux, uy), t = ((x - P.x) * ux + (y - P.y) * uy) / len;
+                if (Math.abs(t) < 5) { x -= t * ux / len; y -= t * uy / len; break }
+            }
+            x = clampN(x, 110, 590); y = clampN(y, 30, 355);
+            const cross = Math.abs((U.x - x) * (W.y - y) - (U.y - y) * (W.x - x));
+            return cross < 2500 ? getV(k) : { x, y }
+        }
+        function addObservation() { if (observations.length >= 3) return; const m = measures(); observations.push({ type: typeOfTriangle(), mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.ang, b: m.ang }); renderRows() }
         function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="5" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         geometry();
+
         // ---------- Checking ----------
-        // Each room lists its questions once: read the sheet (get), mark it (ok), show it in the results table (show), and fill a sheet back for a PDF (set).
         function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';') }
         function setRadio(n, v) { document.querySelectorAll('input[name="' + n + '"]').forEach(i => i.checked = i.value === v) }
         function radioText(n, v) { const i = document.querySelector('input[name="' + n + '"][value="' + CSS.escape(String(v)) + '"]'); return v != null && i ? i.parentElement.textContent.replace(/\s+/g, ' ').trim() : '—' }
@@ -2553,26 +2577,21 @@
                     { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
                     choice('angles', '∠AMN và ∠ABC', 'equal'),
                     { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
-                    { key: 'ratio3', label: 'MN/BC luôn bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
+                    { key: 'ratio3', label: 'MN/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
             }
         };
-        // Score next to the "Kiểm tra kết quả" button; the box pops again on every check so a re-check is noticed.
         function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : c.bad) }
-        // One saved result per group and room while the page is open: checking again updates it (and counts the tries).
         const visits = {}; let lastId = null;
         function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }
         function check(n) {
             const c = CHECKS[n], answers = {}, total = c.items.length; let ok = 0;
             c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
             say(n, ok, total);
-            // A fully correct room gets a ✓ on its home card
             if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
             const key = groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
             v.tries++; lastId = v.id;
             const rec = { id: v.id, group: groupName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
-            // Readable columns for the Google Sheet (the page itself uses the fields above)
             rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
-            // The group stays in the room; the score is shown next to the button by say()
             saveResult(rec)
         }
         // Put a saved result into its sheet (answers, group, date, score) for the PDF; returns a function that restores the sheet.
@@ -2591,22 +2610,17 @@
             }
         }
         // ---------- Results store: Google Sheets ----------
-        // Every group's result is written to one Google Sheet by the Apps Script in google-apps-script/Code.gs,
-        // and the results table reads that sheet. Paste the script's Web app URL (…/exec) here:
         const SHEET_API = 'https://script.google.com/macros/s/AKfycbyN_EiWbpT4Yoicsqu0nFB-0co-R2WuEUQ14_kyFlUABnxg0cXHRwEmFUy-31azKq-4/exec';
-        // A result that could not be sent (no network) waits here and is sent again on the next check or 🔄 Làm mới.
         const PENDING_KEY = 'tw-pending';
         let results = [], offline = false, loading = false;
         function readPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY)) || [] } catch (e) { return [] } }
         function writePending(list) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(list)) } catch (e) { } }
         function upsert(list, rec) { const i = list.findIndex(x => x.id === rec.id); if (i < 0) list.push(rec); else list[i] = { ...rec, at: list[i].at }; return list }
-        // Plain-text body so the browser sends it straight to Apps Script (no CORS preflight, which Apps Script cannot answer).
         async function post(rec) {
             if (!SHEET_API) throw new Error('no SHEET_API');
             const res = await (await fetch(SHEET_API, { method: 'POST', body: JSON.stringify(rec) })).json();
             if (res.error && res.error !== 'invalid') throw new Error(res.error)
         }
-        // Runs one at a time; a result re-checked while sending stays queued.
         let flushing = Promise.resolve([]);
         function flush() {
             return flushing = flushing.then(async () => {
@@ -2636,15 +2650,30 @@
             $('statsRows').innerHTML = list.length ? list.map(r => {
                 const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
                 const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
-                // data-label: column name shown on phones, where each row becomes a card
-                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Phòng nghiên cứu"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
                     + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
                     + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
             }).join('') : `<tr><td colspan="6" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
         }
         $('statsRows').addEventListener('click', e => { const b = e.target.closest('[data-pdf]'), r = b && results.find(x => x.id === b.dataset.pdf); if (r) savePdf(r) });
-        // Send any result left over from a lost connection
         setDay(localDay(new Date())); flush();
+
+        // ---------- Xóa bài làm sau khi nộp (PDF / in) để nhóm khác tiếp tục ----------
+        let resetOnClose = false, printing = false;
+        function resetAll() {
+            document.querySelectorAll('.feedback').forEach(e => { e.className = 'feedback plain'; e.textContent = '' });
+            $('group').value = '';
+            document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
+            document.querySelectorAll('.inputrow input').forEach(i => i.value = '');
+            $('rel3').value = ''; $('ratio3').value = '';
+            observations = []; renderRows(); $('obsMsg').textContent = '';
+            A = { x: 350, y: 80 }; B = { x: 130, y: 334 }; C = { x: 570, y: 334 }; geometry();
+            resetPuzzle(); $('puzzleProgress').textContent = 'Đã ghép 0/4 mảnh.';
+            document.querySelectorAll('.room.done').forEach(r => r.classList.remove('done'));
+            for (const k in visits) delete visits[k]; lastId = null;
+            $('pdfPop').hidden = true; goHome()
+        }
+        window.addEventListener('afterprint', () => { if (printing) { printing = false; setTimeout(() => { if (confirm('Đã in/lưu xong? Bấm OK để xóa bài làm, nhường máy cho nhóm khác.')) resetAll() }, 300) } });
     </script>
 </body>
 
