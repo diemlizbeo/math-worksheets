@@ -294,12 +294,12 @@
 
         /* ---------- Home ---------- */
         .home {
-            max-width: 68rem;
+            max-width: 62rem;
             margin: 0 auto;
             background: #fff;
             border: 1px solid var(--line);
             border-radius: 1.75rem;
-            padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 4vw, 3rem);
+            padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 4vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
             box-shadow: var(--shadow);
             text-align: center;
             animation: pop .35s ease
@@ -320,66 +320,82 @@
             font-size: 1.0625rem
         }
 
-        .home-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.625rem;
-            font-size: 1.125rem;
-            font-weight: 900;
-            color: var(--navy);
-            margin: 1rem 0 0.625rem
+        /* Hai ô nhập (học sinh, nhóm) nằm cạnh nhau, nhãn căn trái */
+        .home-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.25rem 1.5rem;
+            margin-top: 1.5rem;
+            text-align: left
         }
 
         .home-field {
-            max-width: 34rem;
-            margin: 0 auto
+            min-width: 0
+        }
+
+        .home-label {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.625rem;
+            font-size: 1.0625rem;
+            font-weight: 900;
+            color: var(--navy);
+            margin: 0 0 0.5rem;
+            text-align: left
         }
 
         .home-field input {
             width: 100%;
             font: inherit;
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 800;
-            text-align: center;
+            text-align: left;
             color: var(--navy);
-            padding: 0.875rem 1.25rem;
+            padding: 0.75rem 1rem;
             border: 2px solid var(--line2);
-            border-radius: 1.125rem;
+            border-radius: 1rem;
             background: #f7f9fd;
             transition: .15s
         }
 
         .home-err {
+            grid-column: 1 / -1;
             display: block;
-            margin-top: 0.625rem;
+            margin-top: 0.25rem;
             color: #c0392b;
             font-weight: 700;
             font-size: 0.9375rem
         }
 
+        .home-divider {
+            height: 0;
+            border-top: 2px dashed var(--line2);
+            margin: 1.5rem 0 1.25rem
+        }
+
+        .home-task-label {
+            margin: 0 0 0.75rem
+        }
+
         .rooms {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             gap: clamp(0.75rem, 2vw, 1.25rem)
         }
 
-        /* Chỉ còn một nhiệm vụ hiển thị: căn giữa */
-        .rooms {
-            grid-template-columns: minmax(0, 24rem);
-            justify-content: center
-        }
-
+        /* Thẻ nhiệm vụ nằm ngang, rộng bằng cả khung */
         .room {
             position: relative;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 0.25rem;
-            padding: 1rem;
+            text-align: left;
+            gap: 1.125rem;
+            padding: 1rem 1.375rem;
             border: 2px solid var(--line);
             border-radius: 1.5rem;
-            background: linear-gradient(180deg, var(--soft), #fff 75%);
+            background: linear-gradient(90deg, var(--soft), #fff 80%);
             color: var(--text);
             box-shadow: var(--shadow-sm);
             transition: .2s
@@ -388,21 +404,22 @@
         .room:hover {
             border-color: var(--accent);
             color: var(--text);
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             box-shadow: 0 18px 30px -16px rgba(29, 43, 79, .35)
         }
 
         .room .ic {
-            font-size: 2.25rem;
-            width: 4.25rem;
-            height: 4.25rem;
-            border-radius: 1.5rem;
+            font-size: 2rem;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1.25rem;
             display: grid;
             place-items: center;
             background: #fff;
             border: 2px solid var(--tint);
-            box-shadow: 0 6px 0 var(--tint);
-            margin-bottom: 0.625rem;
+            box-shadow: 0 5px 0 var(--tint);
+            margin: 0;
+            flex: none;
             transition: .25s
         }
 
@@ -412,7 +429,8 @@
 
         .room .txt {
             display: flex;
-            flex-direction: column
+            flex-direction: column;
+            min-width: 0
         }
 
         .room .no {
@@ -431,11 +449,12 @@
         }
 
         .room .go {
-            margin-top: 0.625rem;
+            margin: 0 0 0 auto;
+            flex: none;
             background: var(--accent-d);
             color: #fff;
             border-radius: 999px;
-            padding: 0.5rem 1.25rem;
+            padding: 0.5rem 1.375rem;
             font-size: 0.9375rem;
             font-weight: 800;
             box-shadow: 0 3px 0 rgba(0, 0, 0, .18)
@@ -444,8 +463,8 @@
         .room.done:after {
             content: "✓";
             position: absolute;
-            right: 0.75rem;
-            top: 0.75rem;
+            left: 3.5rem;
+            top: 0.5rem;
             background: var(--ok);
             color: #fff;
             border-radius: 50%;
@@ -458,14 +477,19 @@
             box-shadow: 0 0 0 3px #fff
         }
 
-        @media(max-width:600px) {
-            .rooms {
-                grid-template-columns: 1fr
+        @media(max-width:700px) {
+            .home-form {
+                grid-template-columns: 1fr;
+                gap: 0.25rem
             }
 
+            .home-field+.home-field {
+                margin-top: 0.75rem
+            }
+        }
+
+        @media(max-width:600px) {
             .room {
-                flex-direction: row;
-                text-align: left;
                 gap: 0.75rem;
                 padding: 0.75rem 0.875rem
             }
@@ -475,9 +499,7 @@
                 width: 2.875rem;
                 height: 2.875rem;
                 border-radius: 1rem;
-                box-shadow: 0 4px 0 var(--tint);
-                margin: 0;
-                flex: none
+                box-shadow: 0 4px 0 var(--tint)
             }
 
             .room strong {
@@ -495,8 +517,7 @@
                 padding: 0;
                 display: grid;
                 place-items: center;
-                font-size: 1.125rem;
-                flex: none
+                font-size: 1.125rem
             }
 
             .room .go-t {
@@ -613,7 +634,7 @@
         }
 
         .stats .rtable {
-            min-width: 40rem;
+            min-width: 46rem;
             margin-top: 0.875rem;
             font-size: 0.9375rem;
             border: 1px solid var(--line2);
@@ -644,24 +665,26 @@
             border-bottom: 2px solid var(--line2)
         }
 
-        .stats .rtable th:nth-child(4),
-        .stats .rtable th:nth-child(6),
+        /* Cột: 1 Ngày · 2 Tên nhóm · 3 Tên học sinh · 4 Nhiệm vụ · 5 Số câu đúng · 6 Các lựa chọn · 7 PDF */
+        .stats .rtable th:nth-child(5),
+        .stats .rtable th:nth-child(7),
         .stats .rtable td.c {
             text-align: center
         }
 
         .stats .rtable td:first-child,
         .stats .rtable td.c,
-        .stats .rtable td:nth-child(3) {
+        .stats .rtable td:nth-child(4) {
             white-space: nowrap
         }
 
-        .stats .rtable td:nth-child(2) {
+        .stats .rtable td:nth-child(2),
+        .stats .rtable td:nth-child(3) {
             min-width: 7rem;
             max-width: 12rem
         }
 
-        .stats .rtable td:nth-child(5) {
+        .stats .rtable td:nth-child(6) {
             min-width: 16rem
         }
 
@@ -1517,27 +1540,6 @@
             margin-top: 1.5rem
         }
 
-        .conclude-row {
-            display: grid;
-            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-            gap: 1.25rem
-        }
-
-        .conclude-row .inputrow {
-            display: flex;
-            flex-direction: column
-        }
-
-        .conclude-row .inputrow+.inputrow {
-            border-left: 2px dashed var(--mid);
-            padding-left: 1.25rem
-        }
-
-        .conclude-row .inputrow label {
-            flex: 1;
-            font-size: 1.0625rem
-        }
-
         @media(min-width:740px) {
             .layout {
                 grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
@@ -1676,20 +1678,6 @@
             }
         }
 
-        @media(max-width:600px) {
-            .conclude-row {
-                grid-template-columns: 1fr;
-                gap: 1rem
-            }
-
-            .conclude-row .inputrow+.inputrow {
-                border-left: 0;
-                padding-left: 0;
-                border-top: 2px dashed var(--mid);
-                padding-top: 1rem
-            }
-        }
-
         @media(max-width:420px) {
             .two {
                 grid-template-columns: 1fr
@@ -1709,6 +1697,96 @@
             * {
                 animation: none !important;
                 transition: none !important
+            }
+        }
+
+        /* ---------- Nhiệm vụ 2: hình (trái) nhỏ lại, bảng ghi nhận (phải) rộng ra ---------- */
+        @media screen and (min-width:740px) {
+            body:not(.pdf-mode) .s3 .layout {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+            }
+
+            .s3 .visual svg {
+                max-height: max(16rem, min(40rem, 100vh - 10rem))
+            }
+
+            .s3 .table {
+                font-size: 1.125rem
+            }
+
+            .s3 .table th,
+            .s3 .table td {
+                padding: 0.6rem 0.4rem
+            }
+        }
+
+        /* ---------- Nhiệm vụ 2: bước 3 – ba câu hỏi, mỗi câu một ô riêng đều nhau ---------- */
+        .conclude-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            align-items: stretch
+        }
+
+        .qbox {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-width: 0;
+            background: #fff;
+            border: 2px solid var(--tint);
+            border-radius: 1.125rem;
+            padding: 1rem 1.125rem
+        }
+
+        .qbox>.qt {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            margin: 0;
+            font-size: 1.0625rem;
+            font-weight: 800;
+            line-height: 1.4;
+            color: var(--navy)
+        }
+
+        .qbox>.qt i {
+            flex: none;
+            font-style: normal;
+            font-weight: 900;
+            font-size: 0.9375rem;
+            line-height: 1.5rem;
+            min-width: 1.75rem;
+            text-align: center;
+            border-radius: 0.625rem;
+            background: var(--soft);
+            color: var(--accent-d);
+            border: 2px solid var(--tint)
+        }
+
+        .qbox .options {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            max-width: none
+        }
+
+        .qbox .options label {
+            flex: none;
+            justify-content: flex-start;
+            white-space: normal;
+            border-radius: 0.875rem
+        }
+
+        .qbox .note {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--muted)
+        }
+
+        @media (max-width:900px) {
+            .conclude-row {
+                grid-template-columns: 1fr
             }
         }
 
@@ -1804,6 +1882,11 @@
             padding: 0.3125rem 1rem
         }
 
+        .pdf-mode .qbox .options label {
+            min-width: 0;
+            padding: 0.3125rem 0.875rem
+        }
+
         .pdf-mode .inputrow input,
         .pdf-mode .inputrow select {
             height: 2.5rem;
@@ -1848,6 +1931,15 @@
 
         .pdf-mode .conclude {
             margin-top: 0.875rem
+        }
+
+        .pdf-mode .conclude-row {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        .pdf-mode .qbox {
+            padding: 0.75rem 0.875rem;
+            gap: 0.5rem
         }
 
         .pdf-capturing .sheet:before {
@@ -1905,7 +1997,8 @@
             .q,
             .table,
             .notice,
-            .statrow {
+            .statrow,
+            .qbox {
                 break-inside: avoid
             }
 
@@ -1924,6 +2017,16 @@
 
             .conclude {
                 margin-top: 8px
+            }
+
+            .conclude-row {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px
+            }
+
+            .qbox {
+                padding: 8px 10px;
+                gap: 6px
             }
 
             .sheet-head {
@@ -2015,12 +2118,21 @@
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên nhóm, sau đó bấm bắt đầu nhiệm vụ.</p>
-            <label class="home-label" for="group"><span class="bubble">1</span>Tên nhóm</label>
-            <div class="home-field"><input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm trước khi bắt đầu.</span>
+            <p class="home-sub">Điền tên học sinh và tên nhóm, sau đó chọn nhiệm vụ để bắt đầu.</p>
+            <div class="home-form">
+                <div class="home-field">
+                    <label class="home-label" for="student"><span class="bubble">1</span>Tên học sinh</label>
+                    <input id="student" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off" />
+                </div>
+                <div class="home-field">
+                    <label class="home-label" for="group"><span class="bubble">2</span>Tên nhóm</label>
+                    <input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
+                </div>
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên học sinh và tên nhóm trước khi bắt
+                    đầu.</span>
             </div>
-            <div class="home-label"><span class="bubble">2</span>Chọn nhiệm vụ</div>
+            <div class="home-divider" aria-hidden="true"></div>
+            <div class="home-label home-task-label"><span class="bubble">3</span>Chọn nhiệm vụ</div>
             <div class="rooms" role="group" aria-label="Chọn nhiệm vụ">
                 <!-- Phòng 1 và 2 đang được ẩn (giữ nguyên code, bỏ thuộc tính hidden để hiện lại) -->
                 <button class="room s1" data-room="1" hidden><span class="ic">👀</span><span class="txt"><span
@@ -2051,6 +2163,7 @@
                         <tr>
                             <th>Ngày thực hiện</th>
                             <th>Tên nhóm</th>
+                            <th>Tên học sinh</th>
                             <th>Nhiệm vụ</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
@@ -2063,7 +2176,8 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👥 Nhóm: <b id="gLabel"></b></span></span>
+            <span class="tb-info"><span>👤 Học sinh: <b id="sLabel"></b></span><span>👥 Nhóm: <b
+                        id="gLabel"></b></span></span>
             <div class="tb-actions">
                 <button type="button" onclick="goHome()">↩ Về trang chủ</button>
                 <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
@@ -2074,7 +2188,8 @@
         <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
+                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
                     <h2>Phòng trực quan</h2>
@@ -2145,7 +2260,8 @@
         <!-- ================= PHÒNG 2 (đang ẩn) ================= -->
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
+                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">🧩</span>
                 <div><span class="room-no">Phòng nghiên cứu 02</span>
                     <h2>Phòng thực nghiệm</h2>
@@ -2270,7 +2386,8 @@
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="gname">………………</b> • Ngày: <b class="pdate"></b></span></div>
+                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    <b class="pdate"></b></span></div>
             <div class="sheet-head">
 
             </div>
@@ -2333,24 +2450,34 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="notice"><strong>Nhận xét về hai góc AMN và ABC</strong>
-                        <div class="options"><label><input type="radio" name="angles" value="equal">Bằng
-                                nhau</label><label><input type="radio" name="angles" value="opp">Đối
-                                nhau</label><label><input type="radio" name="angles" value="sum">Bù nhau</label></div>
-                    </div>
                 </div>
             </div>
             <div class="card conclude">
                 <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
-                    <div class="inputrow"><label for="rel3">MN và BC</label><select id="rel3">
+                    <div class="qbox inputrow">
+                        <label class="qt" for="angles"><span>Nhận xét về hai góc AMN và ABC</span></label>
+                        <select id="angles">
+                            <option value="">Chọn kết luận</option>
+                            <option value="equal">Bằng nhau</option>
+                            <option value="comp">Phụ nhau</option>
+                            <option value="sum">Bù nhau</option>
+                        </select>
+                    </div>
+                    <div class="qbox inputrow">
+                        <label class="qt" for="rel3"><span>Vị trí tương đối của MN và BC</span></label>
+                        <select id="rel3">
                             <option value="">Chọn kết luận</option>
                             <option value="parallel">Song song</option>
                             <option value="cut">Cắt nhau</option>
                             <option value="perp">Vuông góc</option>
-                        </select></div>
-                    <div class="inputrow"><label for="ratio3">Tỉ số MN/BC bằng (kết quả ghi dưới dạng số thập
-                            phân)</label><input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1"></div>
+                        </select>
+                    </div>
+                    <div class="qbox inputrow">
+                        <label class="qt" for="ratio3"><span>Tỉ số MN/BC bằng</span></label>
+                        <input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1">
+                        <span class="note">Ghi kết quả dưới dạng số thập phân.</span>
+                    </div>
                 </div>
                 <div class="action"><button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button><span
                         id="msg3" class="feedback plain" aria-live="polite"></span></div>
@@ -2373,24 +2500,28 @@
     <script>
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
-        // Home screen: enter group name, then pick one room
+        // Home screen: enter student + group name, then pick one room
         const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Nhiệm vụ 2 - Biến hóa hình học' }; let current = null;
-        // Views: 'home' (group name + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
+        // Views: 'home' (names + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
         function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
-        function chooseRoom(n) { if (!groupName()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
+        function chooseRoom(n) { if (!groupName() || !studentName()) { $('groupErr').hidden = false; (studentName() ? $('group') : $('student')).focus(); return } showRoom(n) }
         function goHome() { showRoom(null) }
         document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
         $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
-        // Group name and date for print / PDF
+        $('student').addEventListener('keydown', e => { if (e.key === 'Enter') $('group').focus() });
+        // Student / group name and date for print / PDF
         function groupName() { return $('group').value.trim() }
+        function studentName() { return $('student').value.trim() }
         function pad(n) { return String(n).padStart(2, '0') }
         function localDay(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) }
         function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
         function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
-        function setSheetInfo(g, date) { document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
-        function syncGroup() { const g = groupName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date())); $('gLabel').textContent = g; document.title = room ? fileBase(g, current) : 'Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8' } $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
+        function setSheetInfo(g, date, s) { document.querySelectorAll('.sname').forEach(e => e.textContent = s || '………………'); document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
+        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('gLabel').textContent = g; $('sLabel').textContent = s; document.title = room ? fileBase(g, current, s) : 'Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8' }
+        $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
+        $('student').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
         const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
         const IN_APP_TIP = 'Nếu không tải được: bấm ••• → “Mở bằng trình duyệt” (Safari/Chrome) rồi thử lại.';
@@ -2406,8 +2537,8 @@
         function doneSaved() { if (resetOnClose) { resetOnClose = false; resetAll() } else closePop() }
         $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget && !$('popClose').hidden) closePop() });
         function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
-        // File name: <tên nhóm>_<tên phòng>.pdf
-        function fileBase(g, n) { return (g + '_' + ROOMS[n]).replace(/[\\/:*?"<>|]+/g, '-') }
+        // File name: <tên học sinh>_<tên nhóm>_<tên phòng>.pdf
+        function fileBase(g, n, s) { return [s, g, ROOMS[n]].filter(Boolean).join('_').replace(/[\\/:*?"<>|]+/g, '-') }
         const PDF_VIEW = { width: 960, font: 19 };
         function renderSheet(n) {
             const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
@@ -2432,7 +2563,7 @@
                 if (document.fonts) await document.fonts.ready;
                 if (rec) undo = fillRecord(rec);
                 const canvas = await renderSheet(n); if (undo) { undo(); undo = null }
-                const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n) + (rec ? '_' + rec.day : '') + '.pdf';
+                const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n, rec ? rec.student : studentName()) + (rec ? '_' + rec.day : '') + '.pdf';
                 if (pdfUrl) URL.revokeObjectURL(pdfUrl);
                 pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
                 $('pdfDl').href = pdfUrl; $('pdfDl').download = name;
@@ -2575,7 +2706,7 @@
             3: {
                 good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 tam giác và đọc lại số đo.', items: [
                     { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
-                    choice('angles', '∠AMN và ∠ABC', 'equal'),
+                    { key: 'angles', label: '∠AMN và ∠ABC', get: () => $('angles').value, ok: v => v === 'equal', show: v => v ? $('angles').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('angles').value = v || '' },
                     { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
                     { key: 'ratio3', label: 'MN/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
             }
@@ -2588,18 +2719,18 @@
             c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
             say(n, ok, total);
             if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
-            const key = groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
+            const key = studentName() + '|' + groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
             v.tries++; lastId = v.id;
-            const rec = { id: v.id, group: groupName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
+            const rec = { id: v.id, group: groupName(), student: studentName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
             rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
             saveResult(rec)
         }
-        // Put a saved result into its sheet (answers, group, date, score) for the PDF; returns a function that restores the sheet.
+        // Put a saved result into its sheet (answers, student, group, date, score) for the PDF; returns a function that restores the sheet.
         function fillRecord(r) {
             const n = r.room, items = CHECKS[n].items, sheet = $('s' + n), msg = $('msg' + n), ans = r.answers || {}, d = new Date(r.at);
             const before = { vals: items.map(it => it.get()), msg: [msg.className, msg.innerHTML], obsMsg: $('obsMsg').textContent, puzzle: n === 2 && { L, frame: { ...frame }, state: JSON.parse(JSON.stringify(state)), slotOf: { ...slotOf }, stacked }, shown: sheet.classList.contains('active') };
             items.forEach(it => it.set(ans[it.key]));
-            say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d));
+            say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d), r.student);
             if (!before.shown) sheet.classList.add('active', 'pdf-ghost');
             return () => {
                 items.forEach((it, i) => it.set(before.vals[i])); $('obsMsg').textContent = before.obsMsg;
@@ -2650,10 +2781,10 @@
             $('statsRows').innerHTML = list.length ? list.map(r => {
                 const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
                 const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
-                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Tên học sinh"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
                     + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
                     + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
-            }).join('') : `<tr><td colspan="6" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
+            }).join('') : `<tr><td colspan="7" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
         }
         $('statsRows').addEventListener('click', e => { const b = e.target.closest('[data-pdf]'), r = b && results.find(x => x.id === b.dataset.pdf); if (r) savePdf(r) });
         setDay(localDay(new Date())); flush();
@@ -2662,10 +2793,10 @@
         let resetOnClose = false, printing = false;
         function resetAll() {
             document.querySelectorAll('.feedback').forEach(e => { e.className = 'feedback plain'; e.textContent = '' });
-            $('group').value = '';
+            $('student').value = ''; $('group').value = '';
             document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
             document.querySelectorAll('.inputrow input').forEach(i => i.value = '');
-            $('rel3').value = ''; $('ratio3').value = '';
+            $('angles').value = ''; $('rel3').value = ''; $('ratio3').value = '';
             observations = []; renderRows(); $('obsMsg').textContent = '';
             A = { x: 350, y: 80 }; B = { x: 130, y: 334 }; C = { x: 570, y: 334 }; geometry();
             resetPuzzle(); $('puzzleProgress').textContent = 'Đã ghép 0/4 mảnh.';

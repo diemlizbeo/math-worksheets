@@ -1,5 +1,5 @@
 /**
- * Lưu kết quả các nhóm vào Google Sheet cho trang "Ba phòng nghiên cứu".
+ * Lưu kết quả các nhóm vào Google Sheet cho trang "Nhiệm vụ 2 – Biến hóa hình học".
  *
  * Cài đặt (một lần):
  *  1. Tạo một Google Sheet mới → Tiện ích mở rộng (Extensions) → Apps Script.
@@ -12,21 +12,31 @@
  * Khi sửa file này, phải Deploy → Quản lý triển khai → sửa (bút chì) → Phiên bản mới, để URL cũ dùng code mới.
  *
  * Mỗi dòng của trang tính "Kết quả" là một nhóm làm một phòng; nhóm bấm kiểm tra lại thì dòng đó được cập nhật.
+ * Cột "Tên học sinh" nằm ngay sau "Tên nhóm". Nếu trang tính cũ chưa có cột này, code sẽ tự chèn thêm.
  * Cột cuối là dữ liệu trang web đọc lại (để tải PDF) — xem thoải mái nhưng đừng sửa.
  */
 const SHEET_NAME = 'Kết quả';
-const HEAD = ['Ngày', 'Giờ', 'Tên nhóm', 'Phòng nghiên cứu', 'Đúng', 'Tổng', 'Điểm (thang 10)', 'Số lần kiểm tra', 'Các lựa chọn', 'Cập nhật lúc', 'Mã', 'Dữ liệu (không sửa)'];
-const COL_ID = 11, COL_DATA = 12;
+const HEAD = ['Ngày', 'Giờ', 'Tên nhóm', 'Tên học sinh', 'Phòng nghiên cứu', 'Đúng', 'Tổng', 'Điểm (thang 10)', 'Số lần kiểm tra', 'Các lựa chọn', 'Cập nhật lúc', 'Mã', 'Dữ liệu (không sửa)'];
+const COL_ID = 12, COL_DATA = 13;
 const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' };
+
+function styleHead_(sh) {
+  sh.getRange(1, 1, 1, HEAD.length).setValues([HEAD]).setFontWeight('bold').setBackground('#eef5ff');
+}
 
 function getSheet_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
     sh = ss.insertSheet(SHEET_NAME);
-    sh.getRange(1, 1, 1, HEAD.length).setValues([HEAD]).setFontWeight('bold').setBackground('#eef5ff');
+    styleHead_(sh);
     sh.setFrozenRows(1);
-    sh.setColumnWidth(3, 180); sh.setColumnWidth(9, 360); sh.setColumnWidth(12, 120);
+    sh.setColumnWidth(3, 180); sh.setColumnWidth(4, 180); sh.setColumnWidth(10, 360); sh.setColumnWidth(13, 120);
+  } else if (String(sh.getRange(1, 4).getValue()) !== HEAD[3]) {
+    // Trang tính cũ chưa có cột "Tên học sinh": chèn thêm một cột sau "Tên nhóm", các dòng cũ để trống ở cột đó.
+    sh.insertColumnAfter(3);
+    styleHead_(sh);
+    sh.setColumnWidth(4, 180);
   }
   return sh;
 }
@@ -41,11 +51,11 @@ function clean_(r) {
   const str = (v, n) => String(v == null ? '' : v).trim().slice(0, n);
   const room = Number(r.room), ok = Number(r.ok), total = Number(r.total);
   if (!ROOMS[room] || !Number.isInteger(total) || total < 1 || total > 10 || !Number.isInteger(ok) || ok < 0 || ok > total) return null;
-  const id = str(r.id, 40), day = str(r.day, 10), group = str(r.group, 80);
+  const id = str(r.id, 40), day = str(r.day, 10), group = str(r.group, 80), student = str(r.student, 80);
   if (!id || !group || !/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
   const answers = r.answers && typeof r.answers === 'object' ? r.answers : {};
   if (JSON.stringify(answers).length > 20000) return null;
-  return { id, group, room, ok, total, day, at: str(r.at, 30), updatedAt: new Date().toISOString(), tries: Math.max(1, Number(r.tries) | 0), answers };
+  return { id, group, student, room, ok, total, day, at: str(r.at, 30), updatedAt: new Date().toISOString(), tries: Math.max(1, Number(r.tries) | 0), answers };
 }
 
 // GET …/exec → every saved result, as the page's records.
@@ -75,7 +85,7 @@ function doPost(e) {
     // A leading ' keeps a cell as plain text, so Sheets does not turn it into a date, number or formula
     const text = s => "'" + String(s == null ? '' : s);
     const v = (k, n) => text(String(view[k] == null ? '' : view[k]).slice(0, n));
-    const row = [v('date', 10), v('time', 5), text(rec.group), ROOMS[rec.room], rec.ok, rec.total, Math.round(rec.ok / rec.total * 100) / 10, rec.tries, v('choices', 2000),
+    const row = [v('date', 10), v('time', 5), text(rec.group), text(rec.student), ROOMS[rec.room], rec.ok, rec.total, Math.round(rec.ok / rec.total * 100) / 10, rec.tries, v('choices', 2000),
       text(Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm')), text(rec.id), text(JSON.stringify(rec))];
     if (i >= 0) {
       // A re-check keeps the date and time of the first check
