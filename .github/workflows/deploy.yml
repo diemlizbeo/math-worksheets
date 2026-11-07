@@ -1,0 +1,55 @@
+
+name: Deploy Main and Dev
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: dev
+
+      - name: Prepare deployment
+        run: |
+          mkdir -p output
+          cp -r main/. output/
+          mkdir -p output/dev
+          cp -r dev/. output/dev/
+
+          rm -rf output/.git output/.github
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+      - name: Deploy
+        uses: actions/deploy-pages@v4
