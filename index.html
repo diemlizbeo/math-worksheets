@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8</title>
+    <title>Đường trung bình của tam giác – Toán 8</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -531,6 +531,198 @@
                 width: 1.375rem;
                 height: 1.375rem;
                 font-size: 0.75rem
+            }
+        }
+
+        /* ---------- Home: hai ô chọn nhiệm vụ ---------- */
+        .s4 {
+            --accent: var(--orange);
+            --accent-d: var(--orange-d);
+            --soft: var(--orange-s);
+            --tint: var(--orange-t);
+            --mid: #f9cb9e
+        }
+
+        .tasks {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(1rem, 2.5vw, 1.75rem);
+            margin-top: 1.5rem;
+            text-align: center
+        }
+
+        /* Thẻ nhiệm vụ: biểu tượng lớn ở giữa, tiêu đề, nút bắt đầu – mọi thứ căn giữa, hai thẻ cao bằng nhau */
+        .task {
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.125rem;
+            padding: 2.25rem 1.5rem 1.75rem;
+            min-height: 15rem;
+            border: 2px solid var(--tint);
+            border-radius: 1.75rem;
+            background: linear-gradient(180deg, var(--soft) 0%, #fff 78%);
+            box-shadow: var(--shadow-sm);
+            color: var(--text);
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s, border-color .2s
+        }
+
+        /* Dải màu mỏng phía trên */
+        .task:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: .4375rem;
+            background: linear-gradient(90deg, var(--accent), var(--tint));
+            z-index: -1
+        }
+
+        /* Vòng tròn trang trí mờ ở góc dưới */
+        .task:after {
+            content: "";
+            position: absolute;
+            width: 11rem;
+            height: 11rem;
+            right: -3.5rem;
+            bottom: -4.5rem;
+            border-radius: 50%;
+            background: var(--tint);
+            opacity: .45;
+            z-index: -1;
+            transition: transform .35s
+        }
+
+        .task:hover,
+        .task:focus-visible {
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-4px);
+            box-shadow: 0 22px 34px -18px rgba(29, 43, 79, .38);
+            outline: none
+        }
+
+        .task:focus-visible {
+            box-shadow: 0 0 0 4px var(--tint), 0 22px 34px -18px rgba(29, 43, 79, .38)
+        }
+
+        .task:hover:after {
+            transform: scale(1.15)
+        }
+
+        .task .ic {
+            font-size: 3rem;
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            border: 3px solid var(--tint);
+            box-shadow: 0 0 0 .5rem rgba(255, 255, 255, .7), 0 .375rem 0 var(--tint);
+            transition: transform .25s
+        }
+
+        .task:hover .ic {
+            transform: scale(1.08) rotate(-5deg)
+        }
+
+        .task strong {
+            font-size: 1.75rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--navy);
+            text-wrap: balance
+        }
+
+        .task .go {
+            margin-top: .25rem;
+            padding: .5625rem 1.75rem;
+            border-radius: 999px;
+            background: var(--accent-d);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 800;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, .18);
+            transition: transform .2s
+        }
+
+        .task:hover .go {
+            transform: translateX(3px)
+        }
+
+        .task.done:after {
+            content: "✓";
+            right: 1rem;
+            top: 1rem;
+            bottom: auto;
+            width: 1.875rem;
+            height: 1.875rem;
+            border-radius: 50%;
+            background: var(--ok);
+            color: #fff;
+            opacity: 1;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            font-size: 1rem;
+            z-index: 1
+        }
+
+        .task.done:hover:after {
+            transform: none
+        }
+
+        .soon-box {
+            text-align: center;
+            padding: 2.5rem 1rem 3rem;
+            color: var(--muted);
+            font-weight: 700
+        }
+
+        .soon-box .big {
+            font-size: 3.5rem
+        }
+
+        @media(max-width:700px) {
+            .tasks {
+                grid-template-columns: 1fr
+            }
+
+            .task {
+                flex-direction: row;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                min-height: 0;
+                padding: 1.5rem 1.125rem 1.25rem;
+                gap: 1rem
+            }
+
+            .task .ic {
+                width: 4.5rem;
+                height: 4.5rem;
+                font-size: 2.25rem;
+                flex: none
+            }
+
+            .task strong {
+                flex: 1 1 0;
+                min-width: 0;
+                font-size: 1.375rem;
+                text-align: left
+            }
+
+            .task .go {
+                flex: 1 1 100%;
+                margin-top: 0;
+                text-align: center
             }
         }
 
@@ -1700,24 +1892,51 @@
             }
         }
 
-        /* ---------- Nhiệm vụ 2: hình (trái) nhỏ lại, bảng ghi nhận (phải) rộng ra ---------- */
+        /* ---------- Nhiệm vụ 2: hình to (trái), bảng nhỏ gọn (phải) ---------- */
         @media screen and (min-width:740px) {
             body:not(.pdf-mode) .s3 .layout {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+                grid-template-columns: minmax(0, 3fr) minmax(0, 2fr)
             }
 
             .s3 .visual svg {
-                max-height: max(16rem, min(40rem, 100vh - 10rem))
+                max-height: max(18rem, min(48rem, 100vh - 7rem))
             }
+        }
 
-            .s3 .table {
-                font-size: 1.125rem
-            }
+        .s3 .step {
+            font-size: 1rem
+        }
 
-            .s3 .table th,
-            .s3 .table td {
-                padding: 0.6rem 0.4rem
-            }
+        .s3 .lead {
+            font-size: .875rem;
+            line-height: 1.45;
+            margin-bottom: .625rem
+        }
+
+        .s3 .table {
+            font-size: .875rem
+        }
+
+        .s3 .table th,
+        .s3 .table td {
+            padding: .4rem .2rem
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.15;
+            vertical-align: middle
+        }
+
+        .frac span:first-child {
+            border-bottom: 2px solid currentColor;
+            padding: 0 .35em .05em
+        }
+
+        .frac span:last-child {
+            padding: .05em .35em 0
         }
 
         /* ---------- Nhiệm vụ 2: bước 3 – ba câu hỏi, mỗi câu một ô riêng đều nhau ---------- */
@@ -2109,7 +2328,7 @@
             <div class="mascot" aria-hidden="true">🔬</div>
             <div class="htext">
                 <div class="kicker">PHIẾU HỌC TẬP TƯƠNG TÁC • TOÁN 8</div>
-                <h1>Nhiệm vụ 2: Biến hóa hình học</h1>
+                <h1>Đường trung bình của tam giác</h1>
             </div>
         </div>
     </header>
@@ -2118,33 +2337,19 @@
             <!-- Nút xem thống kê đang được ẩn tạm thời (bỏ thuộc tính hidden để hiện lại) -->
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm" hidden>📊</button>
-            <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên học sinh và tên nhóm, sau đó chọn nhiệm vụ để bắt đầu.</p>
-            <div class="home-form">
-                <div class="home-field">
-                    <label class="home-label" for="student"><span class="bubble">1</span>Tên học sinh</label>
-                    <input id="student" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off" />
-                </div>
-                <div class="home-field">
-                    <label class="home-label" for="group"><span class="bubble">2</span>Tên nhóm</label>
-                    <input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
-                </div>
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên học sinh và tên nhóm trước khi bắt
-                    đầu.</span>
-            </div>
-            <div class="home-divider" aria-hidden="true"></div>
-            <div class="home-label home-task-label"><span class="bubble">3</span>Chọn nhiệm vụ</div>
-            <div class="rooms" role="group" aria-label="Chọn nhiệm vụ">
-                <!-- Phòng 1 và 2 đang được ẩn (giữ nguyên code, bỏ thuộc tính hidden để hiện lại) -->
-                <button class="room s1" data-room="1" hidden><span class="ic">👀</span><span class="txt"><span
-                            class="no">Phòng 01: </span><strong>Trực quan</strong></span><span class="go"><span
-                            class="go-t">Bắt đầu </span>→</span></button>
-                <button class="room s2" data-room="2" hidden><span class="ic">🧩</span><span class="txt"><span
-                            class="no">Phòng 02:</span><strong>Thực nghiệm</strong></span><span class="go"><span
-                            class="go-t">Bắt đầu </span>→</span></button>
-                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Nhiệm
-                            vụ 2:</span><strong>Biến hóa hình học</strong></span><span class="go"><span class="go-t">Bắt
-                            đầu </span>→</span></button>
+
+            <div class="tasks" role="group" aria-label="Chọn nhiệm vụ">
+                <button type="button" class="task s3" data-room="3">
+                    <span class="ic" aria-hidden="true">💻</span>
+                    <strong>Phản định lý</strong>
+                    <span class="go">Bắt đầu →</span>
+                </button>
+                <button type="button" class="task s4" data-room="4">
+                    <span class="ic" aria-hidden="true">🌍</span>
+                    <strong>Vận dụng thực tế</strong>
+
+                    <span class="go">Bắt đầu →</span>
+                </button>
             </div>
         </section>
 
@@ -2177,12 +2382,11 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👤 Học sinh: <b id="sLabel"></b></span><span>👥 Nhóm: <b
-                        id="gLabel"></b></span></span>
+            <span class="tb-info"><span class="tb-room" id="roomLabel"></span></span>
             <div class="tb-actions">
                 <button type="button" onclick="goHome()">↩ Về trang chủ</button>
-                <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
-                <button type="button" class="ghost" onclick="printSheet()">🖨️ In</button>
+                <button type="button" class="ghost" onclick="savePdf()" hidden>📄 Lưu PDF</button>
+                <button type="button" class="ghost" onclick="printSheet()" hidden>🖨️ In</button>
             </div>
         </div>
 
@@ -2386,7 +2590,7 @@
 
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
-            <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
+            <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Phản định lý – Đường trung bình của tam giác – Toán
                     8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head">
@@ -2395,21 +2599,31 @@
             <div class="layout">
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Khám phá hình học:</div>
-                    <p class="lead" style="margin-left:0">Di chuyển một đỉnh bất kì của tam giác ABC.<br>Quan sát sự
-                        thay đổi độ dài hai đoạn thẳng MN, BC và số đo hai góc AMN, ABC.</p>
+                    <p class="lead" style="margin-left:0">Kéo điểm M, điểm N hoặc kéo cả đoạn MN. Quan sát độ dài MN, BC
+                        và số đo hai góc AMN, ABC.</p>
                     <div class="visual"><svg id="lab" viewBox="85 0 530 385"
-                            aria-label="Tam giác ABC có thể kéo các đỉnh A, B, C; hiển thị trung điểm M N"
+                            aria-label="Tam giác ABC cố định; kéo M trên AB, N trên AC hoặc kéo cả đoạn MN"
                             style="touch-action:none">
                             <rect x="88" y="3" width="524" height="379" fill="#fcfbff" rx="14" />
                             <path id="triabc" d="" fill="#f1ebff66" stroke="#354d6a" stroke-width="4" />
+                            <path id="tickM" fill="none" stroke="#e2923a" stroke-width="3.5" stroke-linecap="round"
+                                style="pointer-events:none" />
+                            <path id="tickN" fill="none" stroke="#e2923a" stroke-width="3.5" stroke-linecap="round"
+                                style="pointer-events:none" />
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
-                            <circle id="pointM" r="6" fill="#df8d33" />
-                            <circle id="pointN" r="6" fill="#df8d33" />
-                            <g fill="#4d8bc1" stroke="white" stroke-width="4" style="cursor:grab">
-                                <circle id="pointA" cx="350" cy="80" r="14" />
-                                <circle id="pointB" cx="130" cy="334" r="14" />
-                                <circle id="pointC" cx="570" cy="334" r="14" />
+                            <line id="hitMN" x1="0" y1="0" x2="0" y2="0" stroke="transparent" stroke-width="26"
+                                style="cursor:grab" />
+                            <g fill="#4d8bc1" stroke="white" stroke-width="4" style="pointer-events:none">
+                                <circle id="pointA" cx="240" cy="70" r="10" />
+                                <circle id="pointB" cx="130" cy="334" r="10" />
+                                <circle id="pointC" cx="570" cy="334" r="10" />
                             </g>
+                            <circle id="pointM" r="8" fill="#df8d33" stroke="#fff" stroke-width="3"
+                                style="pointer-events:none" />
+                            <circle id="pointN" r="8" fill="#df8d33" stroke="#fff" stroke-width="3"
+                                style="pointer-events:none" />
+                            <circle id="hitM" r="22" fill="transparent" style="cursor:grab" />
+                            <circle id="hitN" r="22" fill="transparent" style="cursor:grab" />
                             <path id="arcM" fill="#ffe3c2" stroke="#f28c28" stroke-width="3"
                                 style="pointer-events:none" />
                             <path id="arcB" fill="#ffe3c2" stroke="#f28c28" stroke-width="3"
@@ -2440,48 +2654,31 @@
                                     <th>Lần</th>
                                     <th>MN</th>
                                     <th>BC</th>
+                                    <th>MN/BC</th>
                                     <th>∠AMN</th>
                                     <th>∠ABC</th>
                                 </tr>
                             </thead>
                             <tbody id="obsRows">
                                 <tr>
-                                    <td colspan="5" style="color:#718193">Chưa ghi số đo nào</td>
+                                    <td colspan="6" style="color:#718193">Chưa ghi số đo nào</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="card conclude">
-                <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
-                <div class="conclude-row">
-                    <div class="qbox inputrow">
-                        <label class="qt" for="angles"><span>Nhận xét về hai góc AMN và ABC</span></label>
-                        <select id="angles">
-                            <option value="">Chọn kết luận</option>
-                            <option value="equal">Bằng nhau</option>
-                            <option value="comp">Phụ nhau</option>
-                            <option value="sum">Bù nhau</option>
-                        </select>
-                    </div>
-                    <div class="qbox inputrow">
-                        <label class="qt" for="rel3"><span>Vị trí tương đối của MN và BC</span></label>
-                        <select id="rel3">
-                            <option value="">Chọn kết luận</option>
-                            <option value="parallel">Song song</option>
-                            <option value="cut">Cắt nhau</option>
-                            <option value="perp">Vuông góc</option>
-                        </select>
-                    </div>
-                    <div class="qbox inputrow">
-                        <label class="qt" for="ratio3"><span>Tỉ số MN/BC bằng</span></label>
-                        <input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1">
-                        <span class="note">Ghi kết quả dưới dạng số thập phân.</span>
-                    </div>
+        </section>
+        <!-- ================= NHIỆM VỤ 3: VẬN DỤNG THỰC TẾ (sẽ làm sau) ================= -->
+        <section class="sheet s4" id="s4">
+            <div class="sheet-head"><span class="room-ic" aria-hidden="true">🌍</span>
+                <div><span class="room-no">Nhiệm vụ 3</span>
+                    <h2>Vận dụng thực tế</h2>
                 </div>
-                <div class="action"><button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button><span
-                        id="msg3" class="feedback plain" aria-live="polite"></span></div>
+            </div>
+            <div class="soon-box">
+                <div class="big" aria-hidden="true">🚧</div>
+                <p>Nội dung đang được xây dựng. Hãy quay lại sau nhé!</p>
             </div>
         </section>
     </div>
@@ -2502,27 +2699,23 @@
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
         // Home screen: enter student + group name, then pick one room
-        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Nhiệm vụ 2 - Biến hóa hình học' }; let current = null;
+        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phản định lý', 4: 'Vận dụng thực tế' }; let current = null;
         // Views: 'home' (names + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
         function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
-        function chooseRoom(n) { if (!groupName() || !studentName()) { $('groupErr').hidden = false; (studentName() ? $('group') : $('student')).focus(); return } showRoom(n) }
+        function chooseRoom(n) { showRoom(Number(n)) }
         function goHome() { showRoom(null) }
-        document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
-        $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
-        $('student').addEventListener('keydown', e => { if (e.key === 'Enter') $('group').focus() });
+        document.querySelectorAll('.task').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
         // Student / group name and date for print / PDF
-        function groupName() { return $('group').value.trim() }
-        function studentName() { return $('student').value.trim() }
+        function groupName() { return '' }
+        function studentName() { return '' }
         function pad(n) { return String(n).padStart(2, '0') }
         function localDay(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) }
         function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
         function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
         function setSheetInfo(g, date, s) { document.querySelectorAll('.sname').forEach(e => e.textContent = s || '………………'); document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
-        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('gLabel').textContent = g; $('sLabel').textContent = s; document.title = room ? fileBase(g, current, s) : 'Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8' }
-        $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
-        $('student').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
+        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('roomLabel').textContent = room || ''; document.title = (room ? room + ' – ' : '') + 'Đường trung bình của tam giác – Toán 8' }
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
         const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
         const IN_APP_TIP = 'Nếu không tải được: bấm ••• → “Mở bằng trình duyệt” (Safari/Chrome) rồi thử lại.';
@@ -2630,7 +2823,7 @@
 
         // ---------- Nhiệm vụ 2: Biến hóa hình học ----------
         // Any vertex can be dragged; the other two stay where they are.
-        let A = { x: 350, y: 80 }, B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let observations = [];
+        let A = { x: 240, y: 70 }, B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let observations = [];
         function getV(k) { return k === 'A' ? A : k === 'B' ? B : C }
         function setV(k, p) { if (k === 'A') A = p; else if (k === 'B') B = p; else C = p }
         function dist(p, q) { return Math.hypot(p.x - q.x, p.y - q.y) }
@@ -2644,47 +2837,67 @@
         function arcAt(v, p, q, r) { const u = unit(v, p), w = unit(v, q), s = { x: v.x + u.x * r, y: v.y + u.y * r }, e = { x: v.x + w.x * r, y: v.y + w.y * r }; return `M${v.x},${v.y} L${s.x},${s.y} A${r},${r} 0 0 ${u.x * w.y - u.y * w.x > 0 ? 1 : 0} ${e.x},${e.y} Z` }
         function bis(v, p, q, d) { const u = unit(v, p), w = unit(v, q); let x = u.x + w.x, y = u.y + w.y, l = Math.hypot(x, y); if (l < 1e-6) { x = -u.y; y = u.x; l = 1 } return { x: v.x + x / l * d, y: v.y + y / l * d } }
         function sideLabel(P, Q, toward, d) { const m = mid(P, Q), u = unit(P, Q); let nx = -u.y, ny = u.x; if (nx * (toward.x - m.x) + ny * (toward.y - m.y) < 0) { nx = -nx; ny = -ny } return { x: m.x + nx * d, y: m.y + ny * d } }
-        function measures() { const bc = Math.round(dist(B, C) / 40 * 10) / 10; return { bc, mn: bc / 2, ang: angle(A, B, C).toFixed(1) } }
+        // A, B, C cố định. M ∈ AB, N ∈ AC; tM, tN là tỉ lệ vị trí (0,5 = trung điểm).
+        let tM = .5, tN = .5;
+        const T_MIN = .1, T_MAX = .9, SNAP = .025;
+        function lerp(p, q, t) { return { x: p.x + (q.x - p.x) * t, y: p.y + (q.y - p.y) * t } }
+        function measures() {
+            const M = lerp(A, B, tM), N = lerp(A, C, tN);
+            return { bc: Math.round(dist(B, C) / 40 * 10) / 10, mn: tM === tN ? Math.round(tM * dist(B, C) / 40 * 100) / 100 : Math.round(dist(M, N) / 40 * 10) / 10, angM: angle(A, M, N).toFixed(1), angB: angle(A, B, C).toFixed(1) }
+        }
+        // Ký hiệu trung điểm: 1 gạch cho AM, MB; 2 gạch cho AN, NC
+        function tick(P, Q, n) {
+            const m = mid(P, Q), u = unit(P, Q), nx = -u.y * 8, ny = u.x * 8; let d = '';
+            (n === 1 ? [0] : [-4, 4]).forEach(o => { const cx = m.x + u.x * o, cy = m.y + u.y * o; d += `M${cx - nx},${cy - ny}L${cx + nx},${cy + ny}` });
+            return d
+        }
         function geometry() {
-            const M = mid(A, B), N = mid(A, C), G = { x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3 }, m = measures();
+            const M = lerp(A, B, tM), N = lerp(A, C, tN), G = { x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3 }, m = measures();
             $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`);
-            $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);
-            [['pointA', A], ['pointB', B], ['pointC', C], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });
-            [['labelA', A, 28], ['labelB', B, 28], ['labelC', C, 28], ['labelM', M, 22], ['labelN', N, 22]].forEach(([id, p, d]) => {
+            ['lineMN', 'hitMN'].forEach(id => { $(id).setAttribute('x1', M.x); $(id).setAttribute('y1', M.y); $(id).setAttribute('x2', N.x); $(id).setAttribute('y2', N.y) });
+            [['pointA', A], ['pointB', B], ['pointC', C], ['pointM', M], ['pointN', N], ['hitM', M], ['hitN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });
+            [['labelA', A, 28], ['labelB', B, 28], ['labelC', C, 28], ['labelM', M, 24], ['labelN', N, 24]].forEach(([id, p, d]) => {
                 const dx = p.x - G.x, dy = p.y - G.y, l = Math.hypot(dx, dy) || 1;
                 $(id).setAttribute('x', p.x + dx / l * d); $(id).setAttribute('y', p.y + dy / l * d)
             });
+            // Ký hiệu trung điểm chỉ hiện khi điểm đúng ở trung điểm
+            $('tickM').setAttribute('d', tM === .5 ? tick(A, M, 1) + tick(M, B, 1) : '');
+            $('tickN').setAttribute('d', tN === .5 ? tick(A, N, 2) + tick(N, C, 2) : '');
             $('arcM').setAttribute('d', arcAt(M, A, N, 24)); $('arcB').setAttribute('d', arcAt(B, A, C, 24));
             const set = (id, p, t) => { $(id).setAttribute('x', p.x); $(id).setAttribute('y', p.y); $(id).textContent = t };
             set('txtMN', sideLabel(M, N, A, 17), fmtN(m.mn, 2) + 'cm');
             set('txtBC', sideLabel(B, C, A, 17), fmtN(m.bc, 1) + 'cm');
-            set('txtAM', bis(M, A, N, 52), m.ang.replace('.', ',') + '°');
-            set('txtAB', bis(B, A, C, 52), m.ang.replace('.', ',') + '°')
+            set('txtAM', bis(M, A, N, 52), m.angM.replace('.', ',') + '°');
+            set('txtAB', bis(B, A, C, 52), m.angB.replace('.', ',') + '°')
         }
         const lab = $('lab'); let dragging = null;
-        ['A', 'B', 'C'].forEach(k => {
-            const el = $('point' + k);
-            el.addEventListener('pointerdown', e => { e.preventDefault(); dragging = k; el.setPointerCapture(e.pointerId) });
-            el.addEventListener('pointermove', e => { if (dragging !== k) return; setV(k, dragVertex(k, svgPoint(lab, e))); geometry() });
+        const clampN = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+        const snapT = t => { return Math.round(clampN(t, T_MIN, T_MAX) * 20) / 20 };
+        const projT = (P, Q, p) => { const dx = Q.x - P.x, dy = Q.y - P.y; return ((p.x - P.x) * dx + (p.y - P.y) * dy) / (dx * dx + dy * dy) };
+        // Đường qua p song song BC cắt AB, AC tại tỉ lệ t
+        function paraT(p) {
+            const u = { x: B.x - A.x, y: B.y - A.y }, v = { x: C.x - B.x, y: C.y - B.y }, w = { x: p.x - A.x, y: p.y - A.y };
+            return (w.x * v.y - w.y * v.x) / (u.x * v.y - u.y * v.x)
+        }
+        const DRAG = {
+            hitM: p => { tM = snapT(projT(A, B, p)) },   // chỉ M di chuyển, N đứng yên
+            hitN: p => { tN = snapT(projT(A, C, p)) },   // chỉ N di chuyển, M đứng yên
+            hitMN: p => { tM = tN = snapT(paraT(p)) }    // cả đoạn MN, luôn song song BC
+        };
+        Object.keys(DRAG).forEach(id => {
+            const el = $(id);
+            el.addEventListener('pointerdown', e => { e.preventDefault(); dragging = id; el.setPointerCapture(e.pointerId) });
+            el.addEventListener('pointermove', e => { if (dragging !== id) return; DRAG[id](svgPoint(lab, e)); geometry() });
             el.addEventListener('pointerup', () => dragging = null); el.addEventListener('pointercancel', () => dragging = null)
         });
-        const clampN = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-        // The dragged vertex snaps so a right angle is easy to hit; a move that would flatten the triangle is ignored.
-        function dragVertex(k, p) {
-            const [U, W] = ['A', 'B', 'C'].filter(x => x !== k).map(getV);
-            let x = clampN(p.x, 110, 590), y = clampN(p.y, 30, 355);
-            const O = mid(U, W), r = dist(U, W) / 2, d = Math.hypot(x - O.x, y - O.y);
-            if (d > 0 && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d }
-            else for (const [P, Q] of [[U, W], [W, U]]) {
-                const ux = Q.x - P.x, uy = Q.y - P.y, len = Math.hypot(ux, uy), t = ((x - P.x) * ux + (y - P.y) * uy) / len;
-                if (Math.abs(t) < 5) { x -= t * ux / len; y -= t * uy / len; break }
-            }
-            x = clampN(x, 110, 590); y = clampN(y, 30, 355);
-            const cross = Math.abs((U.x - x) * (W.y - y) - (U.y - y) * (W.x - x));
-            return cross < 2500 ? getV(k) : { x, y }
+        const gcd = (a, b) => b ? gcd(b, a % b) : a;
+        const toNum = v => parseFloat(String(v).replace(',', '.'));
+        function reduceFrac(mn, bc) { const a = Math.round(toNum(mn) * 100), b = Math.round(toNum(bc) * 100), g = gcd(a, b) || 1; return [a / g, b / g] }
+        function addObservation() { if (observations.length >= 3) return; const m = measures(); observations.push({ mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.angM, b: m.angB }); renderRows() }
+        function renderRows() {
+            $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${(f => `<span class="frac"><span>${f[0]}</span><span>${f[1]}</span></span>`)(reduceFrac(o.mn, o.bc))}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>';
+            $('obsMsg').textContent = observations.length + '/3 lần quan sát.'
         }
-        function addObservation() { if (observations.length >= 3) return; const m = measures(); observations.push({ type: typeOfTriangle(), mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.ang, b: m.ang }); renderRows() }
-        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="5" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         geometry();
 
         // ---------- Checking ----------
@@ -2705,11 +2918,8 @@
                     choice('midM', 'M là trung điểm AB', 'true'), choice('midN', 'N là trung điểm AC', 'true'), choice('expdir', 'MN và BC', 'parallel'), choice('explen', 'MN so với BC', '0.5')]
             },
             3: {
-                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 tam giác và đọc lại số đo.', items: [
-                    { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
-                    { key: 'angles', label: '∠AMN và ∠ABC', get: () => $('angles').value, ok: v => v === 'equal', show: v => v ? $('angles').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('angles').value = v || '' },
-                    { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
-                    { key: 'ratio3', label: 'MN/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
+                good: 'Nhóm đã ghi đủ số liệu quan sát!', bad: 'Hãy ghi đủ 3 lần số đo vào bảng.', items: [
+                    { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return l.length + '/3 lần (' + l.map(o => reduceFrac(o.mn, o.bc).join('/')).join('; ') + ')' }, set: v => { observations = obsList(v).map(o => ({ mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } }]
             }
         };
         function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : c.bad) }
@@ -2719,7 +2929,7 @@
             const c = CHECKS[n], answers = {}, total = c.items.length; let ok = 0;
             c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
             say(n, ok, total);
-            if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
+            if (ok === total) document.querySelector('.task[data-room="' + n + '"]')?.classList.add('done');
             const key = studentName() + '|' + groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
             v.tries++; lastId = v.id;
             const rec = { id: v.id, group: groupName(), student: studentName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
@@ -2794,14 +3004,13 @@
         let resetOnClose = false, printing = false;
         function resetAll() {
             document.querySelectorAll('.feedback').forEach(e => { e.className = 'feedback plain'; e.textContent = '' });
-            $('student').value = ''; $('group').value = '';
+
             document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
             document.querySelectorAll('.inputrow input').forEach(i => i.value = '');
-            $('angles').value = ''; $('rel3').value = ''; $('ratio3').value = '';
             observations = []; renderRows(); $('obsMsg').textContent = '';
-            A = { x: 350, y: 80 }; B = { x: 130, y: 334 }; C = { x: 570, y: 334 }; geometry();
+            tM = tN = .5; geometry();
             resetPuzzle(); $('puzzleProgress').textContent = 'Đã ghép 0/4 mảnh.';
-            document.querySelectorAll('.room.done').forEach(r => r.classList.remove('done'));
+            document.querySelectorAll('.task.done').forEach(r => r.classList.remove('done'));
             for (const k in visits) delete visits[k]; lastId = null;
             $('pdfPop').hidden = true; goHome()
         }
