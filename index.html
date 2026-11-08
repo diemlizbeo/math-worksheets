@@ -3001,7 +3001,7 @@
 
         // ---------- Nhiệm vụ 3: Vận dụng thực tế (bấm / kéo thả trực tiếp trên hình) ----------
         const VD = (() => {
-            const map = $('vdMap'), PB = { x: 1290, y: 562 }, PC = { x: 1370, y: 306 }, BCM = 120, K = BCM / dist(PB, PC); // B ở mép hồ phía khu ngôi nhà, C ở mép hồ phía khu trường học; BC thật = 120 m
+            const map = $('vdMap'), PB = { x: 1190, y: 590 }, PC = { x: 1330, y: 275 }, BCM = 120, K = BCM / dist(PB, PC); // B ở mép hồ phía khu ngôi nhà, C ở mép hồ phía khu trường học; BC thật = 120 m
             const minY = p => p.x < 430 ? 80 : p.x < 1000 ? 170 : 120; // A phải nằm trên mặt đất, không phải bầu trời
             const HINT = { x: 1620, y: 52 }, RESET = { x: 1556, y: 52 };
             // Mặt nạ vùng nước của hồ (ô 4 px), tách trực tiếp từ ảnh nền
@@ -3062,7 +3062,7 @@
                 const b = banner();
                 if (b) ui += `<rect x="286" y="22" width="1100" height="66" rx="33" fill="${b[1] === 'bad' ? '#b91c1c' : '#15803d'}" fill-opacity=".93"/><text x="836" y="56" fill="#fff" style="dominant-baseline:central">${b[0]}</text>`;
                 if (bt != null) { const w = lerp(PB, PC, bt); ui += `<text x="${w.x + (bt === 1 ? 40 : 0)}" y="${w.y}" font-size="46" style="dominant-baseline:central">🧒</text>` }
-                ui += icon(HINT, '💡', zone) + icon(RESET, '🔄', false);
+                ui += icon(RESET, '🔄', false);
                 $('vdLayer').innerHTML = h; $('vdUi').innerHTML = ui;
                 fx('fxA', A, s && s.a); fx('fxM', m, s && showM && s.m); fx('fxN', n, s && showN && s.n)
             }
