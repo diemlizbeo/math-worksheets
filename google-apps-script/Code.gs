@@ -12,13 +12,13 @@
  * Khi sửa file này, phải Deploy → Quản lý triển khai → sửa (bút chì) → Phiên bản mới, để URL cũ dùng code mới.
  *
  * Mỗi dòng của trang tính "Kết quả" là một nhóm làm một phòng; nhóm bấm kiểm tra lại thì dòng đó được cập nhật.
- * Cột "Tên học sinh" nằm ngay sau "Tên nhóm". Nếu trang tính cũ chưa có cột này, code sẽ tự chèn thêm.
+ * Cột "Tên nhóm" (trường student của trang web) nằm trước cột "Tên đội" (trường group). Trang tính cũ có cột "Tên học sinh" sẽ được đổi tiêu đề; các dòng cũ giữ nguyên dữ liệu.
  * Cột cuối là dữ liệu trang web đọc lại (để tải PDF) — xem thoải mái nhưng đừng sửa.
  */
 const SHEET_NAME = 'Kết quả';
-const HEAD = ['Ngày', 'Giờ', 'Tên nhóm', 'Tên học sinh', 'Phòng nghiên cứu', 'Đúng', 'Tổng', 'Điểm (thang 10)', 'Số lần kiểm tra', 'Các lựa chọn', 'Cập nhật lúc', 'Mã', 'Dữ liệu (không sửa)'];
+const HEAD = ['Ngày', 'Giờ', 'Tên nhóm', 'Tên đội', 'Nhiệm vụ', 'Đúng', 'Tổng', 'Điểm (thang 10)', 'Số lần kiểm tra', 'Các lựa chọn', 'Cập nhật lúc', 'Mã', 'Dữ liệu (không sửa)'];
 const COL_ID = 12, COL_DATA = 13;
-const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Phòng công nghệ' };
+const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Nhiệm vụ 2 - Biến hóa hình học' };
 
 function styleHead_(sh) {
   sh.getRange(1, 1, 1, HEAD.length).setValues([HEAD]).setFontWeight('bold').setBackground('#eef5ff');
@@ -32,11 +32,17 @@ function getSheet_() {
     styleHead_(sh);
     sh.setFrozenRows(1);
     sh.setColumnWidth(3, 180); sh.setColumnWidth(4, 180); sh.setColumnWidth(10, 360); sh.setColumnWidth(13, 120);
-  } else if (String(sh.getRange(1, 4).getValue()) !== HEAD[3]) {
-    // Trang tính cũ chưa có cột "Tên học sinh": chèn thêm một cột sau "Tên nhóm", các dòng cũ để trống ở cột đó.
-    sh.insertColumnAfter(3);
-    styleHead_(sh);
-    sh.setColumnWidth(4, 180);
+  } else {
+    const h4 = String(sh.getRange(1, 4).getValue());
+    if (h4 === 'Tên học sinh') {
+      // Trang tính cũ: chỉ đổi tiêu đề sang "Tên nhóm" / "Tên đội"
+      styleHead_(sh);
+    } else if (h4 !== HEAD[3]) {
+      // Trang tính chưa có cột thứ 4: chèn thêm một cột sau cột 3
+      sh.insertColumnAfter(3);
+      styleHead_(sh);
+      sh.setColumnWidth(4, 180);
+    }
   }
   return sh;
 }
@@ -85,7 +91,7 @@ function doPost(e) {
     // A leading ' keeps a cell as plain text, so Sheets does not turn it into a date, number or formula
     const text = s => "'" + String(s == null ? '' : s);
     const v = (k, n) => text(String(view[k] == null ? '' : view[k]).slice(0, n));
-    const row = [v('date', 10), v('time', 5), text(rec.group), text(rec.student), ROOMS[rec.room], rec.ok, rec.total, Math.round(rec.ok / rec.total * 100) / 10, rec.tries, v('choices', 2000),
+    const row = [v('date', 10), v('time', 5), text(rec.student), text(rec.group), ROOMS[rec.room], rec.ok, rec.total, Math.round(rec.ok / rec.total * 100) / 10, rec.tries, v('choices', 2000),
       text(Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm')), text(rec.id), text(JSON.stringify(rec))];
     if (i >= 0) {
       // A re-check keeps the date and time of the first check

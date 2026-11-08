@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8</title>
+    <title>Trải nghiệm công nghệ số | Đường trung bình của tam giác – Toán 8</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -1790,6 +1790,149 @@
             }
         }
 
+        /* ---------- Nhiệm vụ 2: bảng 7 cột + phân số ---------- */
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            line-height: 1.15;
+            font-weight: inherit
+        }
+
+        .frac>span {
+            padding: 0 0.25em
+        }
+
+        .frac>span:first-child {
+            border-bottom: 2px solid currentColor
+        }
+
+        .s3 .table {
+            font-size: 0.9375rem
+        }
+
+        .s3 .table th,
+        .s3 .table td {
+            padding: 0.5rem 0.25rem
+        }
+
+        .pdf-mode .s3 .table {
+            font-size: 0.8125rem
+        }
+
+        @media screen and (min-width:740px) {
+            .s3 .table {
+                font-size: 0.9375rem
+            }
+
+            .s3 .table th,
+            .s3 .table td {
+                padding: 0.5rem 0.25rem
+            }
+        }
+
+        /* ---------- Hộp thoại xác nhận ---------- */
+        .dlg-box {
+            max-width: 30rem;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-top: 8px solid var(--blue)
+        }
+
+        .dlg-box.warn {
+            border-top-color: var(--orange)
+        }
+
+        .dlg-ic {
+            width: 4.5rem;
+            height: 4.5rem;
+            margin: 0 auto 0.75rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 2.25rem;
+            background: var(--blue-s);
+            border: 3px solid var(--blue-t)
+        }
+
+        .dlg-box.warn .dlg-ic {
+            background: var(--orange-s);
+            border-color: var(--orange-t)
+        }
+
+        .dlg-box .pop-title {
+            font-size: 1.375rem
+        }
+
+        .dlg-box .pop-text {
+            font-size: 1.0625rem;
+            color: var(--text);
+            line-height: 1.5
+        }
+
+        .dlg-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1.25rem
+        }
+
+        .dlg-btns button {
+            padding: 0.75rem 1rem;
+            font-size: 1.0625rem
+        }
+
+        .dlg-box.warn .dlg-btns .primary {
+            background: var(--orange-d);
+            border-color: var(--orange-d)
+        }
+
+        @media(max-width:480px) {
+            .dlg-btns {
+                grid-template-columns: 1fr
+            }
+
+            .dlg-btns .primary {
+                order: -1
+            }
+        }
+
+        /* ---------- Nhiệm vụ 2: hình bên trái rộng hơn, bảng ghi nhận gọn lại ---------- */
+        @media screen and (min-width:740px) {
+            body:not(.pdf-mode) .s3 .layout {
+                grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+                gap: 1rem
+            }
+
+            body:not(.pdf-mode) .s3 .visual svg {
+                max-height: max(16rem, min(40rem, 100vh - 9rem))
+            }
+
+            .s3 .col+.col .step {
+                font-size: 1.1875rem
+            }
+
+            .s3 .col+.col .lead {
+                font-size: 1rem;
+                line-height: 1.5
+            }
+
+            .s3 .col+.col .table {
+                font-size: 0.9375rem;
+                margin-top: 0.75rem
+            }
+
+            .s3 .col+.col .table th,
+            .s3 .col+.col .table td {
+                padding: 0.5rem 0.25rem
+            }
+
+            .s3 .col+.col .action button {
+                padding: 0.625rem 1rem;
+                font-size: 1rem
+            }
+        }
+
         /* ---------- Print ---------- */
         @page {
             size: A4;
@@ -2109,7 +2252,7 @@
             <div class="mascot" aria-hidden="true">🔬</div>
             <div class="htext">
                 <div class="kicker">PHIẾU HỌC TẬP TƯƠNG TÁC • TOÁN 8</div>
-                <h1>Nhiệm vụ 2: Biến hóa hình học</h1>
+                <h1>Trải nghiệm công nghệ số</h1>
             </div>
         </div>
     </header>
@@ -2117,23 +2260,22 @@
         <section class="home" id="home">
             <!-- Nút xem thống kê đang được ẩn tạm thời (bỏ thuộc tính hidden để hiện lại) -->
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
-                aria-label="Xem kết quả các nhóm" hidden>📊</button>
+                aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên học sinh và tên nhóm, sau đó chọn nhiệm vụ để bắt đầu.</p>
+            <p class="home-sub">Điền tên nhóm và tên đội, sau đó chọn nhiệm vụ để bắt đầu.</p>
             <div class="home-form">
                 <div class="home-field">
-                    <label class="home-label" for="student"><span class="bubble">1</span>Tên học sinh</label>
-                    <input id="student" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off" />
+                    <label class="home-label" for="student"><span class="bubble">1</span>Tên nhóm</label>
+                    <input id="student" placeholder="Ví dụ: Nhóm 1" autocomplete="off" />
                 </div>
                 <div class="home-field">
-                    <label class="home-label" for="group"><span class="bubble">2</span>Tên nhóm</label>
-                    <input id="group" placeholder="Ví dụ: Nhóm 1 - Lớp 8A" autocomplete="off" />
+                    <label class="home-label" for="group"><span class="bubble">2</span>Tên đội</label>
+                    <input id="group" placeholder="Ví dụ: Đội Sao Mai - Lớp 8A" autocomplete="off" />
                 </div>
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên học sinh và tên nhóm trước khi bắt
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm và tên đội trước khi bắt
                     đầu.</span>
             </div>
             <div class="home-divider" aria-hidden="true"></div>
-            <div class="home-label home-task-label"><span class="bubble">3</span>Chọn nhiệm vụ</div>
             <div class="rooms" role="group" aria-label="Chọn nhiệm vụ">
                 <!-- Phòng 1 và 2 đang được ẩn (giữ nguyên code, bỏ thuộc tính hidden để hiện lại) -->
                 <button class="room s1" data-room="1" hidden><span class="ic">👀</span><span class="txt"><span
@@ -2142,8 +2284,8 @@
                 <button class="room s2" data-room="2" hidden><span class="ic">🧩</span><span class="txt"><span
                             class="no">Phòng 02:</span><strong>Thực nghiệm</strong></span><span class="go"><span
                             class="go-t">Bắt đầu </span>→</span></button>
-                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><span class="no">Nhiệm
-                            vụ 2:</span><strong>Biến hóa hình học</strong></span><span class="go"><span class="go-t">Bắt
+                <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><strong>Trải nghiệm
+                            công nghệ số</strong></span><span class="go"><span class="go-t">Bắt
                             đầu </span>→</span></button>
             </div>
         </section>
@@ -2162,9 +2304,9 @@
                 <table class="table rtable">
                     <thead>
                         <tr>
-                            <th>Ngày thực hiện</th>
+                            <th>Ngày</th>
                             <th>Tên nhóm</th>
-                            <th>Tên học sinh</th>
+                            <th>Tên đội</th>
                             <th>Nhiệm vụ</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
@@ -2177,10 +2319,10 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👤 Học sinh: <b id="sLabel"></b></span><span>👥 Nhóm: <b
+            <span class="tb-info"><span>👥 Nhóm: <b id="sLabel"></b></span><span>🚩 Đội: <b
                         id="gLabel"></b></span></span>
             <div class="tb-actions">
-                <button type="button" onclick="goHome()">↩ Về trang chủ</button>
+                <button type="button" onclick="backToHome()">↩ Về trang chủ</button>
                 <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
                 <button type="button" class="ghost" onclick="printSheet()">🖨️ In</button>
             </div>
@@ -2189,7 +2331,7 @@
         <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
@@ -2261,7 +2403,7 @@
         <!-- ================= PHÒNG 2 (đang ẩn) ================= -->
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">🧩</span>
                 <div><span class="room-no">Phòng nghiên cứu 02</span>
@@ -2387,28 +2529,31 @@
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
-                    8</span><span>Tên học sinh: <b class="sname">………………</b> • Nhóm: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head">
 
             </div>
             <div class="layout">
                 <div class="col">
-                    <div class="step"><span class="bubble">1</span>Khám phá hình học:</div>
-                    <p class="lead" style="margin-left:0">Di chuyển một đỉnh bất kì của tam giác ABC.<br>Quan sát sự
-                        thay đổi độ dài hai đoạn thẳng MN, BC và số đo hai góc AMN, ABC.</p>
-                    <div class="visual"><svg id="lab" viewBox="85 0 530 385"
+                    <div class="step"><span class="bubble">1</span>Nhiệm vụ:</div>
+                    <p class="lead" style="margin-left:0">• Di chuyển điểm A để ΔABC nhọn.<br>• Di chuyển điểm B để ΔABC
+                        vuông tại B.<br>• Di chuyển điểm C để ΔABC tù.<br>Quan sát sự
+                        thay đổi độ dài hai đoạn thẳng DE, BC và số đo hai góc ADE, ABC.</p>
+                    <div class="visual"><svg id="lab" viewBox="45 25 610 390"
                             aria-label="Tam giác ABC có thể kéo các đỉnh A, B, C; hiển thị trung điểm M N"
                             style="touch-action:none">
-                            <rect x="88" y="3" width="524" height="379" fill="#fcfbff" rx="14" />
+                            <rect x="48" y="28" width="604" height="384" fill="#fcfbff" rx="14" />
                             <path id="triabc" d="" fill="#f1ebff66" stroke="#354d6a" stroke-width="4" />
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
-                            <circle id="pointM" r="6" fill="#df8d33" />
-                            <circle id="pointN" r="6" fill="#df8d33" />
-                            <g fill="#4d8bc1" stroke="white" stroke-width="4" style="cursor:grab">
-                                <circle id="pointA" cx="350" cy="80" r="14" />
-                                <circle id="pointB" cx="130" cy="334" r="14" />
-                                <circle id="pointC" cx="570" cy="334" r="14" />
+                            <path id="ticks" fill="none" stroke="#e2923a" stroke-width="3" stroke-linecap="round"
+                                style="pointer-events:none" />
+                            <circle id="pointM" r="5" fill="#df8d33" />
+                            <circle id="pointN" r="5" fill="#df8d33" />
+                            <g fill="#4d8bc1" stroke="white" stroke-width="3" style="cursor:grab">
+                                <circle id="pointA" cx="350" cy="80" r="8" />
+                                <circle id="pointB" cx="130" cy="334" r="8" />
+                                <circle id="pointC" cx="570" cy="334" r="8" />
                             </g>
                             <path id="arcM" fill="#ffe3c2" stroke="#f28c28" stroke-width="3"
                                 style="pointer-events:none" />
@@ -2422,7 +2567,7 @@
                             <g fill="#25405c" font-weight="bold" font-size="27" text-anchor="middle"
                                 style="dominant-baseline:central;pointer-events:none">
                                 <text id="labelA">A</text><text id="labelB">B</text><text id="labelC">C</text>
-                                <text id="labelM">M</text><text id="labelN">N</text>
+                                <text id="labelM">D</text><text id="labelN">E</text>
                             </g>
                         </svg></div>
                 </div>
@@ -2438,15 +2583,17 @@
                             <thead>
                                 <tr>
                                     <th>Lần</th>
-                                    <th>MN</th>
+                                    <th>Dạng tam giác</th>
+                                    <th>DE</th>
                                     <th>BC</th>
-                                    <th>∠AMN</th>
+                                    <th><span class="frac"><span>DE</span><span>BC</span></span></th>
+                                    <th>∠ADE</th>
                                     <th>∠ABC</th>
                                 </tr>
                             </thead>
                             <tbody id="obsRows">
                                 <tr>
-                                    <td colspan="5" style="color:#718193">Chưa ghi số đo nào</td>
+                                    <td colspan="7" style="color:#718193">Chưa ghi số đo nào</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2457,7 +2604,7 @@
                 <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
                     <div class="qbox inputrow">
-                        <label class="qt" for="angles"><span>Nhận xét về hai góc AMN và ABC</span></label>
+                        <label class="qt" for="angles"><span>Nhận xét về hai góc ADE và góc ABC</span></label>
                         <select id="angles">
                             <option value="">Chọn kết luận</option>
                             <option value="equal">Bằng nhau</option>
@@ -2466,7 +2613,7 @@
                         </select>
                     </div>
                     <div class="qbox inputrow">
-                        <label class="qt" for="rel3"><span>Vị trí tương đối của MN và BC</span></label>
+                        <label class="qt" for="rel3"><span>Quan hệ của DE và BC</span></label>
                         <select id="rel3">
                             <option value="">Chọn kết luận</option>
                             <option value="parallel">Song song</option>
@@ -2475,8 +2622,8 @@
                         </select>
                     </div>
                     <div class="qbox inputrow">
-                        <label class="qt" for="ratio3"><span>Tỉ số MN/BC bằng</span></label>
-                        <input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 0.1">
+                        <label class="qt" for="ratio3"><span>Tỉ số DE/BC bằng</span></label>
+                        <input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 1/3">
                         <span class="note">Ghi kết quả dưới dạng số thập phân.</span>
                     </div>
                 </div>
@@ -2486,6 +2633,17 @@
         </section>
     </div>
     <footer>Đường trung bình của tam giác – Toán 8</footer>
+    <div class="pdf-pop" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" hidden>
+        <div class="pop-box dlg-box" id="dlgBox">
+            <div class="dlg-ic" id="dlgIc" aria-hidden="true"></div>
+            <div class="pop-title" id="dlgTitle"></div>
+            <p class="pop-text" id="dlgText"></p>
+            <div class="dlg-btns">
+                <button type="button" id="dlgNo"></button>
+                <button type="button" class="primary" id="dlgYes"></button>
+            </div>
+        </div>
+    </div>
     <div class="pdf-pop" id="pdfPop" role="dialog" aria-modal="true" aria-labelledby="popTitle" hidden>
         <div class="pop-box">
             <div class="pop-title" id="popTitle"></div>
@@ -2502,13 +2660,32 @@
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
         // Home screen: enter student + group name, then pick one room
-        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Nhiệm vụ 2 - Biến hóa hình học' }; let current = null;
+        const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Trải nghiệm công nghệ số' }; let current = null;
         // Views: 'home' (names + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
         function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
         function chooseRoom(n) { if (!groupName() || !studentName()) { $('groupErr').hidden = false; (studentName() ? $('group') : $('student')).focus(); return } showRoom(n) }
         function goHome() { showRoom(null) }
+        // Từ màn làm bài về trang chủ: xóa bài làm để đội khác bắt đầu (kết quả đã nộp vẫn nằm trên Google Sheets)
+        function backToHome() {
+            const submitted = Object.keys(visits).length > 0;
+            ask(submitted
+                ? { icon: '🏠', title: 'Về trang chủ?', text: 'Bài làm hiện tại sẽ được xóa.\nKết quả bài làm đã lưu trong bảng thống kê.', yes: 'Về trang chủ', no: 'Ở lại' }
+                : { icon: '⚠️', warn: true, title: 'Bài làm chưa được nộp!', text: 'Bạn chưa bấm “Kiểm tra kết quả”.\nNếu về trang chủ, toàn bộ bài làm sẽ bị xóa.', yes: 'Về trang chủ', no: 'Quay lại làm bài' }, resetAll)
+        }
+        // Hộp thoại xác nhận (thay cho confirm của trình duyệt)
+        let dlgYes = null;
+        function ask(o, onYes) {
+            $('dlgIc').textContent = o.icon; $('dlgTitle').textContent = o.title; $('dlgText').textContent = o.text;
+            $('dlgYes').textContent = o.yes; $('dlgNo').textContent = o.no; $('dlgBox').classList.toggle('warn', !!o.warn);
+            dlgYes = onYes; $('dlg').hidden = false; $('dlgNo').focus()
+        }
+        function closeAsk() { $('dlg').hidden = true; dlgYes = null }
+        $('dlgYes').addEventListener('click', () => { const f = dlgYes; closeAsk(); if (f) f() });
+        $('dlgNo').addEventListener('click', closeAsk);
+        $('dlg').addEventListener('click', e => { if (e.target === e.currentTarget) closeAsk() });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('dlg').hidden) closeAsk() });
         document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
         $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
         $('student').addEventListener('keydown', e => { if (e.key === 'Enter') $('group').focus() });
@@ -2520,7 +2697,7 @@
         function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
         function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
         function setSheetInfo(g, date, s) { document.querySelectorAll('.sname').forEach(e => e.textContent = s || '………………'); document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
-        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('gLabel').textContent = g; $('sLabel').textContent = s; document.title = room ? fileBase(g, current, s) : 'Nhiệm vụ 2 | Biến hóa hình học – Đường trung bình của tam giác – Toán 8' }
+        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('gLabel').textContent = g; $('sLabel').textContent = s; document.title = room ? fileBase(g, current, s) : 'Trải nghiệm công nghệ số | Đường trung bình của tam giác – Toán 8' }
         $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         $('student').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
@@ -2535,7 +2712,7 @@
         function openPop(title, text, ready) { $('popTitle').textContent = title; $('popText').textContent = text; $('popActions').hidden = !ready; $('popClose').hidden = ready || title.indexOf('⏳') === 0; $('pdfPop').hidden = false }
         function closePop() { $('pdfPop').hidden = true }
         // "Đã lưu xong": bài của nhóm → xóa và về trang chủ; PDF của giáo viên → chỉ đóng popup
-        function doneSaved() { if (resetOnClose) { resetOnClose = false; resetAll() } else closePop() }
+        function doneSaved() { closePop() }
         $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget && !$('popClose').hidden) closePop() });
         function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
         // File name: <tên học sinh>_<tên nhóm>_<tên phòng>.pdf
@@ -2569,7 +2746,7 @@
                 pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
                 $('pdfDl').href = pdfUrl; $('pdfDl').download = name;
                 $('pdfShare').hidden = !(navigator.canShare && navigator.canShare({ files: [pdfFile] }));
-                resetOnClose = !rec;
+                resetOnClose = false;
                 // Tải file xuống ngay, không cần mở xem
                 $('pdfDl').click();
                 openPop('✅ Đã tải xuống', name + (IN_APP ? '\n\n' + IN_APP_TIP : ''), true)
@@ -2630,31 +2807,31 @@
 
         // ---------- Nhiệm vụ 2: Biến hóa hình học ----------
         // Any vertex can be dragged; the other two stay where they are.
-        let A = { x: 350, y: 80 }, B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let observations = [];
+        const A0 = { x: 280, y: 334 - 150 * Math.sqrt(3) }; let A = { ...A0 }, B = { x: 130, y: 334 }, C = { x: 570, y: 334 }; let observations = [];
         function getV(k) { return k === 'A' ? A : k === 'B' ? B : C }
         function setV(k, p) { if (k === 'A') A = p; else if (k === 'B') B = p; else C = p }
         function dist(p, q) { return Math.hypot(p.x - q.x, p.y - q.y) }
         function fmtLen(px) { return (px / 40).toFixed(1).replace('.', ',') }
         function mid(p, q) { return { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 } }
         function angle(u, v, w) { let a = { x: u.x - v.x, y: u.y - v.y }, b = { x: w.x - v.x, y: w.y - v.y }; return Math.acos(Math.max(-1, Math.min(1, (a.x * b.x + a.y * b.y) / (Math.hypot(a.x, a.y) * Math.hypot(b.x, b.y))))) * 180 / Math.PI }
-        function typeOfTriangle() { let angles = [angle(B, A, C), angle(A, B, C), angle(A, C, B)]; let diff = Math.min(...angles.map(a => Math.abs(a - 90))); if (diff < 0.3) return 'Vuông'; if (angles.some(a => a > 90)) return 'Tù'; return 'Nhọn' }
+        function typeOfTriangle() { const an = [['A', angle(B, A, C)], ['B', angle(A, B, C)], ['C', angle(A, C, B)]], r = an.find(([, a]) => Math.abs(a - 90) < 0.3); if (r) return 'Vuông tại ' + r[0]; if (an.some(([, a]) => a > 90)) return 'Tù'; return 'Nhọn' }
         // Số hiển thị: BC làm tròn 1 chữ số, MN luôn đúng bằng một nửa BC (đã làm tròn); hai góc AMN và ABC dùng chung một giá trị.
         const fmtN = (v, d) => String(+v.toFixed(d)).replace('.', ',');
         function unit(a, b) { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy) || 1; return { x: dx / l, y: dy / l } }
         function arcAt(v, p, q, r) { const u = unit(v, p), w = unit(v, q), s = { x: v.x + u.x * r, y: v.y + u.y * r }, e = { x: v.x + w.x * r, y: v.y + w.y * r }; return `M${v.x},${v.y} L${s.x},${s.y} A${r},${r} 0 0 ${u.x * w.y - u.y * w.x > 0 ? 1 : 0} ${e.x},${e.y} Z` }
         function bis(v, p, q, d) { const u = unit(v, p), w = unit(v, q); let x = u.x + w.x, y = u.y + w.y, l = Math.hypot(x, y); if (l < 1e-6) { x = -u.y; y = u.x; l = 1 } return { x: v.x + x / l * d, y: v.y + y / l * d } }
         function sideLabel(P, Q, toward, d) { const m = mid(P, Q), u = unit(P, Q); let nx = -u.y, ny = u.x; if (nx * (toward.x - m.x) + ny * (toward.y - m.y) < 0) { nx = -nx; ny = -ny } return { x: m.x + nx * d, y: m.y + ny * d } }
-        function measures() { const bc = Math.round(dist(B, C) / 40 * 10) / 10; return { bc, mn: bc / 2, ang: angle(A, B, C).toFixed(1) } }
+        function measures() { const bc = Math.round(dist(B, C) / 40 * 10) / 10; return { bc, mn: bc / 2, ang: String(+angle(A, B, C).toFixed(1)) } }
         function geometry() {
             const M = mid(A, B), N = mid(A, C), G = { x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3 }, m = measures();
             $('triabc').setAttribute('d', `M${A.x},${A.y} L${B.x},${B.y} L${C.x},${C.y} Z`);
             $('lineMN').setAttribute('x1', M.x); $('lineMN').setAttribute('y1', M.y); $('lineMN').setAttribute('x2', N.x); $('lineMN').setAttribute('y2', N.y);
             [['pointA', A], ['pointB', B], ['pointC', C], ['pointM', M], ['pointN', N]].forEach(([id, p]) => { $(id).setAttribute('cx', p.x); $(id).setAttribute('cy', p.y) });
-            [['labelA', A, 28], ['labelB', B, 28], ['labelC', C, 28], ['labelM', M, 22], ['labelN', N, 22]].forEach(([id, p, d]) => {
+            [['labelA', A, 22], ['labelB', B, 22], ['labelC', C, 22], ['labelM', M, 22], ['labelN', N, 22]].forEach(([id, p, d]) => {
                 const dx = p.x - G.x, dy = p.y - G.y, l = Math.hypot(dx, dy) || 1;
                 $(id).setAttribute('x', p.x + dx / l * d); $(id).setAttribute('y', p.y + dy / l * d)
             });
-            $('arcM').setAttribute('d', arcAt(M, A, N, 24)); $('arcB').setAttribute('d', arcAt(B, A, C, 24));
+            $('ticks').setAttribute('d', ticks(A, M, 1) + ticks(M, B, 1) + ticks(A, N, 2) + ticks(N, C, 2)); $('arcM').setAttribute('d', arcAt(M, A, N, 24)); $('arcB').setAttribute('d', arcAt(B, A, C, 24));
             const set = (id, p, t) => { $(id).setAttribute('x', p.x); $(id).setAttribute('y', p.y); $(id).textContent = t };
             set('txtMN', sideLabel(M, N, A, 17), fmtN(m.mn, 2) + 'cm');
             set('txtBC', sideLabel(B, C, A, 17), fmtN(m.bc, 1) + 'cm');
@@ -2672,19 +2849,23 @@
         // The dragged vertex snaps so a right angle is easy to hit; a move that would flatten the triangle is ignored.
         function dragVertex(k, p) {
             const [U, W] = ['A', 'B', 'C'].filter(x => x !== k).map(getV);
-            let x = clampN(p.x, 110, 590), y = clampN(p.y, 30, 355);
+            let x = clampN(p.x, 68, 632), y = clampN(p.y, 48, 392);
             const O = mid(U, W), r = dist(U, W) / 2, d = Math.hypot(x - O.x, y - O.y);
             if (d > 0 && Math.abs(d - r) < 5) { x = O.x + (x - O.x) * r / d; y = O.y + (y - O.y) * r / d }
             else for (const [P, Q] of [[U, W], [W, U]]) {
                 const ux = Q.x - P.x, uy = Q.y - P.y, len = Math.hypot(ux, uy), t = ((x - P.x) * ux + (y - P.y) * uy) / len;
                 if (Math.abs(t) < 5) { x -= t * ux / len; y -= t * uy / len; break }
             }
-            x = clampN(x, 110, 590); y = clampN(y, 30, 355);
+            x = clampN(x, 68, 632); y = clampN(y, 48, 392);
             const cross = Math.abs((U.x - x) * (W.y - y) - (U.y - y) * (W.x - x));
             return cross < 2500 ? getV(k) : { x, y }
         }
-        function addObservation() { if (observations.length >= 3) return; const m = measures(); observations.push({ type: typeOfTriangle(), mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.ang, b: m.ang }); renderRows() }
-        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="5" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
+        function gcd(a, b) { return b ? gcd(b, a % b) : a }
+        function parseRatio(s) { s = String(s).trim().replace(',', '.'); if (s.indexOf('/') >= 0) { const p = s.split('/'); if (p.length !== 2) return NaN; const a = Number(p[0]), b = Number(p[1]); if (!Number.isInteger(a) || !Number.isInteger(b) || !b || gcd(Math.abs(a), Math.abs(b)) !== 1) return NaN; return a / b } return s === '' ? NaN : parseFloat(s) }
+        function frac(n, d) { return '<span class="frac"><span>' + esc(n) + '</span><span>' + esc(d) + '</span></span>' }
+        function ticks(P, Q, n) { const u = unit(P, Q), nx = -u.y, ny = u.x, m = mid(P, Q); let d = ''; for (let i = 0; i < n; i++) { const o = (i - (n - 1) / 2) * 7, cx = m.x + u.x * o, cy = m.y + u.y * o; d += `M${cx - nx * 7},${cy - ny * 7}L${cx + nx * 7},${cy + ny * 7}` } return d }
+        function addObservation() { if (observations.length >= 3) return; const m = measures(), n = Math.round(m.mn * 100), d = Math.round(m.bc * 100), g = gcd(n, d) || 1; observations.push({ type: typeOfTriangle(), mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.ang, b: m.ang, f: { rn: String(n / g), rd: String(d / g) } }); renderRows() }
+        function renderRows() { $('obsRows').innerHTML = observations.length ? observations.map((o, i) => { const f = o.f || {}; return `<tr><td>${i + 1}</td><td>${esc(o.type)}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${f.rn ? frac(f.rn, f.rd) : '—'}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>` }).join('') : '<tr><td colspan="7" style="color:#718193">Chưa ghi số đo nào</td></tr>'; $('obsMsg').textContent = observations.length + '/3 lần quan sát.' }
         geometry();
 
         // ---------- Checking ----------
@@ -2705,11 +2886,11 @@
                     choice('midM', 'M là trung điểm AB', 'true'), choice('midN', 'N là trung điểm AC', 'true'), choice('expdir', 'MN và BC', 'parallel'), choice('explen', 'MN so với BC', '0.5')]
             },
             3: {
-                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Hãy thử đủ 3 tam giác và đọc lại số đo.', items: [
-                    { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => obsList(v).length === 3, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b) })); renderRows() } },
-                    { key: 'angles', label: '∠AMN và ∠ABC', get: () => $('angles').value, ok: v => v === 'equal', show: v => v ? $('angles').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('angles').value = v || '' },
-                    { key: 'rel3', label: 'MN và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
-                    { key: 'ratio3', label: 'MN/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseFloat(String(v).replace(',', '.')) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
+                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Bảng cần đủ 3 tam giác: 1 nhọn, 1 vuông tại B và 1 tù. Hãy đo lại và kiểm tra.', items: [
+                    { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => { const t = obsList(v).map(o => o.type); return t.length === 3 && ['Nhọn', 'Vuông tại B', 'Tù'].every(x => t.includes(x)) }, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b), f: o.f })); renderRows() } },
+                    { key: 'angles', label: '∠ADE và ∠ABC', get: () => $('angles').value, ok: v => v === 'equal', show: v => v ? $('angles').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('angles').value = v || '' },
+                    { key: 'rel3', label: 'DE và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
+                    { key: 'ratio3', label: 'DE/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseRatio(v) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
             }
         };
         function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : c.bad) }
@@ -2719,6 +2900,7 @@
             const c = CHECKS[n], answers = {}, total = c.items.length; let ok = 0;
             c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
             say(n, ok, total);
+            if (n == 3) $('msg3').innerHTML;
             if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
             const key = studentName() + '|' + groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
             v.tries++; lastId = v.id;
@@ -2782,7 +2964,7 @@
             $('statsRows').innerHTML = list.length ? list.map(r => {
                 const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
                 const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
-                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${esc(r.group)}</b></td><td data-label="Tên học sinh"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Tên đội"><b class="r-group">${esc(r.group)}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
                     + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
                     + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
             }).join('') : `<tr><td colspan="7" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
@@ -2799,13 +2981,13 @@
             document.querySelectorAll('.inputrow input').forEach(i => i.value = '');
             $('angles').value = ''; $('rel3').value = ''; $('ratio3').value = '';
             observations = []; renderRows(); $('obsMsg').textContent = '';
-            A = { x: 350, y: 80 }; B = { x: 130, y: 334 }; C = { x: 570, y: 334 }; geometry();
+            A = { ...A0 }; B = { x: 130, y: 334 }; C = { x: 570, y: 334 }; geometry();
             resetPuzzle(); $('puzzleProgress').textContent = 'Đã ghép 0/4 mảnh.';
             document.querySelectorAll('.room.done').forEach(r => r.classList.remove('done'));
             for (const k in visits) delete visits[k]; lastId = null;
             $('pdfPop').hidden = true; goHome()
         }
-        window.addEventListener('afterprint', () => { if (printing) { printing = false; setTimeout(() => { if (confirm('Đã in/lưu xong? Bấm OK để xóa bài làm, nhường máy cho nhóm khác.')) resetAll() }, 300) } });
+        window.addEventListener('afterprint', () => { printing = false });
     </script>
 </body>
 
