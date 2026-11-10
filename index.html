@@ -2672,8 +2672,8 @@
             <div class="layout">
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Khám phá hình học:</div>
-                    <p class="lead" style="margin-left:0">Kéo điểm D, điểm E hoặc kéo cả đoạn DE. Quan sát độ dài DE, BC
-                        và số đo hai góc ADE, ABC.</p>
+                    <p class="lead" style="margin-left:0">Kéo điểm D hoặc điểm E. Quan sát độ dài DE, BC; số đo góc ADE
+                        và góc ABC; tỉ số <span class="frac"><span>DE</span><span>BC</span></span>.</p>
                     <div class="visual"><svg id="lab" viewBox="85 0 530 385"
                             aria-label="Tam giác ABC cố định; kéo D trên AB, E trên AC hoặc kéo cả đoạn DE"
                             style="touch-action:none">
@@ -2994,7 +2994,7 @@
         function reduceFrac(mn, bc) { const a = Math.round(toNum(mn) * 100), b = Math.round(toNum(bc) * 100), g = gcd(a, b) || 1; return [a / g, b / g] }
         function addObservation() { if (observations.length >= 3) return; const m = measures(); observations.push({ mn: fmtN(m.mn, 2), bc: fmtN(m.bc, 1), a: m.angM, b: m.angB }); renderRows() }
         function renderRows() {
-            $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${(f => `<span class="frac"><span>${f[0]}</span><span>${f[1]}</span></span>`)(reduceFrac(o.mn, o.bc))}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>';
+            $('obsRows').innerHTML = observations.length ? observations.map((o, i) => `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${fmtN(toNum(o.mn) / toNum(o.bc), 2)}</td><td>${esc(o.a.replace('.', ','))}°</td><td>${esc(o.b.replace('.', ','))}°</td></tr>`).join('') : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>';
             $('obsMsg').textContent = observations.length + '/3 lần quan sát.'
         }
         geometry();
