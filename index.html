@@ -665,16 +665,15 @@
             border-bottom: 2px solid var(--line2)
         }
 
-        /* Cột: 1 Ngày · 2 Tên nhóm · 3 Tên học sinh · 4 Nhiệm vụ · 5 Số câu đúng · 6 Các lựa chọn · 7 PDF */
-        .stats .rtable th:nth-child(5),
-        .stats .rtable th:nth-child(7),
+        /* Cột: 1 Ngày · 2 Tên nhóm · 3 Số máy · 4 Số câu đúng · 5 Các lựa chọn · 6 PDF */
+        .stats .rtable th:nth-child(4),
+        .stats .rtable th:nth-child(6),
         .stats .rtable td.c {
             text-align: center
         }
 
         .stats .rtable td:first-child,
-        .stats .rtable td.c,
-        .stats .rtable td:nth-child(4) {
+        .stats .rtable td.c {
             white-space: nowrap
         }
 
@@ -684,8 +683,8 @@
             max-width: 12rem
         }
 
-        .stats .rtable td:nth-child(6) {
-            min-width: 16rem
+        .stats .rtable td:nth-child(5) {
+            min-width: 22rem
         }
 
         .stats .rtable tbody tr:hover td {
@@ -748,16 +747,41 @@
             line-height: 1.4
         }
 
+        /* Mỗi lựa chọn nằm trọn trên 1 dòng: ✓/✗ · yêu cầu · đáp án */
         .picks li {
-            display: grid;
-            grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1fr);
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
-            align-items: start
+            white-space: nowrap
         }
 
         .picks li+li {
             border-top: 1px dashed var(--line);
             padding-top: 0.3125rem
+        }
+
+        .picks li span:after {
+            content: ":"
+        }
+
+        /* Các dòng thẳng cột với nhau (yêu cầu cùng cột, đáp án cùng cột) */
+        @supports (grid-template-columns: subgrid) {
+            .picks {
+                grid-template-columns: auto auto minmax(0, 1fr)
+            }
+
+            .picks li {
+                display: grid;
+                grid-column: 1/-1;
+                grid-template-columns: subgrid
+            }
+        }
+
+        @media(max-width:640px) {
+            .picks li {
+                white-space: normal;
+                align-items: start
+            }
         }
 
         .picks i {
@@ -2262,17 +2286,17 @@
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên nhóm và tên đội, sau đó chọn nhiệm vụ để bắt đầu.</p>
+            <p class="home-sub">Điền tên nhóm và số máy, sau đó chọn nhiệm vụ để bắt đầu.</p>
             <div class="home-form">
                 <div class="home-field">
                     <label class="home-label" for="student"><span class="bubble">1</span>Tên nhóm</label>
                     <input id="student" placeholder="Ví dụ: Nhóm 1" autocomplete="off" />
                 </div>
                 <div class="home-field">
-                    <label class="home-label" for="group"><span class="bubble">2</span>Tên đội</label>
-                    <input id="group" placeholder="Ví dụ: Đội 1" autocomplete="off" />
+                    <label class="home-label" for="group"><span class="bubble">2</span>Số máy</label>
+                    <input id="group" placeholder="Ví dụ: 1" autocomplete="off" />
                 </div>
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm và tên đội trước khi bắt
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm và số máy trước khi bắt
                     đầu.</span>
             </div>
             <div class="home-divider" aria-hidden="true"></div>
@@ -2307,7 +2331,6 @@
                             <th>Ngày</th>
                             <th>Tên nhóm</th>
                             <th>Tên đội</th>
-                            <th>Nhiệm vụ</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
                             <th>PDF</th>
@@ -2319,7 +2342,7 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👥 Nhóm: <b id="sLabel"></b></span><span>🚩 Đội: <b
+            <span class="tb-info"><span>👥 Nhóm: <b id="sLabel"></b></span><span>🖥️ Số máy: <b
                         id="gLabel"></b></span></span>
             <div class="tb-actions">
                 <button type="button" onclick="backToHome()">↩ Về trang chủ</button>
@@ -2331,7 +2354,7 @@
         <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
@@ -2403,7 +2426,7 @@
         <!-- ================= PHÒNG 2 (đang ẩn) ================= -->
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">🧩</span>
                 <div><span class="room-no">Phòng nghiên cứu 02</span>
@@ -2529,7 +2552,7 @@
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Đội: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head">
 
@@ -2538,8 +2561,9 @@
                 <div class="col">
                     <div class="step"><span class="bubble">1</span>Nhiệm vụ:</div>
                     <p class="lead" style="margin-left:0">• Di chuyển điểm A để ΔABC nhọn.<br>• Di chuyển điểm B để ΔABC
-                        vuông tại B.<br>• Di chuyển điểm C để ΔABC tù.<br>Quan sát sự
-                        thay đổi độ dài hai đoạn thẳng DE, BC và số đo hai góc ADE, ABC.</p>
+                        vuông tại B.<br>• Di chuyển điểm C để ΔABC tù.<br>Quan sát sự thay đổi độ dài DE, BC; tỉ số
+                        <span class="frac"><span>DE</span><span>BC</span></span>; số đo ∠ADE và ∠ABC.
+                    </p>
                     <div class="visual"><svg id="lab" viewBox="45 25 610 390"
                             aria-label="Tam giác ABC có thể kéo các đỉnh A, B, C; hiển thị trung điểm M N"
                             style="touch-action:none">
@@ -2604,12 +2628,12 @@
                 <div class="step"><span class="bubble">3</span>Rút ra kết luận.</div>
                 <div class="conclude-row">
                     <div class="qbox inputrow">
-                        <label class="qt" for="angles"><span>Nhận xét về hai góc ADE và góc ABC</span></label>
+                        <label class="qt" for="angles"><span>So sánh góc ADE và góc ABC</span></label>
                         <select id="angles">
                             <option value="">Chọn kết luận</option>
                             <option value="equal">Bằng nhau</option>
-                            <option value="comp">Phụ nhau</option>
-                            <option value="sum">Bù nhau</option>
+                            <option value="greater">Lớn hơn</option>
+                            <option value="less">Nhỏ hơn</option>
                         </select>
                     </div>
                     <div class="qbox inputrow">
@@ -2624,7 +2648,6 @@
                     <div class="qbox inputrow">
                         <label class="qt" for="ratio3"><span>Tỉ số DE/BC bằng</span></label>
                         <input id="ratio3" inputmode="decimal" placeholder="Ví dụ: 1/3">
-                        <span class="note">Ghi kết quả dưới dạng số thập phân.</span>
                     </div>
                 </div>
                 <div class="action"><button class="primary" onclick="check(3)">✅ Kiểm tra kết quả</button><span
@@ -2893,7 +2916,7 @@
                     { key: 'ratio3', label: 'DE/BC bằng', get: () => $('ratio3').value.trim(), ok: v => Math.abs(parseRatio(v) - .5) < 0.00001, show: v => v || '—', set: v => $('ratio3').value = v || '' }]
             }
         };
-        function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n); el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : c.bad) }
+        function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n), bad = (n == 3 && c.items[0].ok(observations)) ? 'Hãy đo lại và kiểm tra kết luận.' : c.bad; el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : bad) }
         const visits = {}; let lastId = null;
         function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }
         function check(n) {
@@ -2957,17 +2980,18 @@
         function setDay(d) { $('fDay').value = d; renderStats() }
         $('fDay').addEventListener('input', renderStats);
         function renderStats() {
-            const day = $('fDay').value, list = results.filter(r => CHECKS[r.room] && (!day || r.day === day)).sort((a, b) => String(b.updatedAt || b.at).localeCompare(String(a.updatedAt || a.at)));
+            const day = $('fDay').value, list = results.filter(r => CHECKS[r.room] && (!day || r.day === day)).sort((a, b) => String(b.day || '').localeCompare(String(a.day || '')) || String(a.at).localeCompare(String(b.at)));  // ngày mới trước; trong cùng ngày: nộp sớm nhất (nhanh nhất) đứng trên cùng
+
             $('statsCount').textContent = loading ? '(đang tải…)' : '(' + list.length + ' kết quả' + (day ? ' ngày ' + day.split('-').reverse().join('/') : '') + ')';
             $('statsNote').hidden = !offline;
             $('statsNote').textContent = !SHEET_API ? '⚠️ Chưa kết nối Google Sheets: dán link Web app của Apps Script vào SHEET_API trong index.html.' : '⚠️ Không kết nối được Google Sheets – kết quả chưa gửi được sẽ tự gửi lại khi bấm 🔄 Làm mới.';
             $('statsRows').innerHTML = list.length ? list.map(r => {
                 const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
                 const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
-                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Tên đội"><b class="r-group">${esc(r.group)}</b></td><td data-label="Nhiệm vụ"><span class="tb-room s${r.room}">${ROOMS[r.room]}</span></td>`
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Số máy"><b class="r-group">${esc(r.group)}</b></td>`
                     + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
                     + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
-            }).join('') : `<tr><td colspan="7" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
+            }).join('') : `<tr><td colspan="6" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
         }
         $('statsRows').addEventListener('click', e => { const b = e.target.closest('[data-pdf]'), r = b && results.find(x => x.id === b.dataset.pdf); if (r) savePdf(r) });
         setDay(localDay(new Date())); flush();
