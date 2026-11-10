@@ -4347,9 +4347,9 @@
                 return `<g fill="${col}"><text x="${c.x - 24}" y="${c.y}" text-anchor="end" ${s}>${pre}</text><text x="${c.x}" y="${c.y - 22}" font-size="28" ${s}>${num}</text>${bar(`stroke:${col};stroke-width:4px`)}<text x="${c.x}" y="${c.y + 23}" font-size="28" ${s}>${den}</text><text x="${c.x + 24}" y="${c.y}" text-anchor="start" ${s}>${post}</text></g>`;
             };
             const ROWS = [
-                ["MN =", "1", "2", "DE", "#be185d"],
-                ["DE =", "1", "2", "BC", "#15803d"],
-                ["MN =", "1", "4", "BC", "#7c3aed"],
+                ["MN =", "1", "2", "DE", "#bf0854"],
+                ["DE =", "1", "2", "BC", "#050857"],
+                ["MN =", "1", "4", "BC", "#2d064f"],
             ];
             const fx = (id, p, on) => {
                 const e = $(id);
@@ -4407,14 +4407,14 @@
                     ui += w1[1] + w2[1];
                     if (DE) {
                         const w3 = wet(d, e, s.fde, 9);
-                        h += ln(d, e, "#16a34a", 8) + w3[0];
+                        h += ln(d, e, "#fa9923", 8) + w3[0];
                         ui += w3[1];
                     }
                     if ((st === 2 || st === 3) && DE && showDELength)
                         h += tx(
                             side(d, e, A, 220, 44, 30),
                             "DE = " + DEM + " m",
-                            "#15803d",
+                            "#050857",
                         );
                     if (showM && showN) {
                         const wn = wet(m, n, s.fmn, 8);
