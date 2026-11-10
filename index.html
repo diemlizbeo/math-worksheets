@@ -4505,7 +4505,8 @@
                                 showE = true;
                                 checkDE();
                             };
-                    if (showD && showE && segDist(p, PB, PC) < 30)
+                    // Chỉ cho đo BC sau khi DE đã được chạm và hiện độ dài.
+                    if (showD && showE && showDELength && segDist(p, PB, PC) < 30)
                         return () => (st = 3);
                     return null;
                 }
@@ -4562,12 +4563,17 @@
                 if (!moved && dist(p, down) < 5) return; // chỉ bấm vào A, chưa kéo
                 moved = true;
                 map.style.cursor = "grabbing";
-                if ((st === 2 && showD && showE) || st === 3) st = 4; // A di chuyển: nội dung tính BC ở Tình huống 1 biến mất
+                // Khi A di chuyển, phân loại lại theo vị trí DE MỚI.
+                // DE nằm dưới hồ: chuyển sang cách đo gián tiếp (tình huống 2).
+                // DE trên bờ: quay về tình huống đo trực tiếp, không giữ trạng thái nguy hiểm cũ.
                 lab = 0;
+                showM = showN = false;
+                showDELength = false;
                 A = {
                     x: Math.max(10, Math.min(1398, p.x)),
                     y: Math.max(10, Math.min(1107, p.y)),
                 };
+                if (showD && showE) st = status(A).ready ? 4 : 2;
                 render();
             });
             ["pointerup", "pointercancel"].forEach((t) =>
