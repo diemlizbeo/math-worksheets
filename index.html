@@ -2827,14 +2827,14 @@
                             <line id="lineMN" x1="0" y1="0" x2="0" y2="0" stroke="#7955ac" stroke-width="5" />
                             <line id="hitMN" x1="0" y1="0" x2="0" y2="0" stroke="transparent" stroke-width="26"
                                 style="cursor: grab" />
-                            <g fill="#4d8bc1" stroke="white" stroke-width="4" style="pointer-events: none">
-                                <circle id="pointA" cx="240" cy="70" r="10" />
-                                <circle id="pointB" cx="130" cy="334" r="10" />
-                                <circle id="pointC" cx="570" cy="334" r="10" />
+                            <g fill="#4d8bc1" stroke="white" stroke-width="3" style="pointer-events: none">
+                                <circle id="pointA" cx="240" cy="70" r="6" />
+                                <circle id="pointB" cx="130" cy="334" r="6" />
+                                <circle id="pointC" cx="570" cy="334" r="6" />
                             </g>
-                            <circle id="pointM" r="8" fill="#df8d33" stroke="#fff" stroke-width="3"
+                            <circle id="pointM" r="5" fill="#df8d33" stroke="#fff" stroke-width="2.5"
                                 style="pointer-events: none" />
-                            <circle id="pointN" r="8" fill="#df8d33" stroke="#fff" stroke-width="3"
+                            <circle id="pointN" r="5" fill="#df8d33" stroke="#fff" stroke-width="2.5"
                                 style="pointer-events: none" />
                             <circle id="hitM" r="22" fill="transparent" style="cursor: grab" />
                             <circle id="hitN" r="22" fill="transparent" style="cursor: grab" />
@@ -2872,7 +2872,7 @@
                         <span class="bubble">2</span>Ghi nhận kết quả:
                     </div>
                     <p class="lead" style="margin-left: 0">
-                        Sau mỗi lần thay đổi vị trí điểm D, E hãy nhấn nút “Lưu” để ghi
+                        Sau mỗi lần thay đổi vị trí điểm D hoặc E, hãy nhấn nút “Lưu” để ghi
                         lại kết quả vào bảng. Thực hiện 3 lần.
                     </p>
                     <div class="action" style="margin-top: 0">
@@ -3859,8 +3859,8 @@
                 "d",
                 tN === 0.5 ? tick(A, N, 2) + tick(N, C, 2) : "",
             );
-            $("arcM").setAttribute("d", arcAt(M, A, N, 24));
-            $("arcB").setAttribute("d", arcAt(B, A, C, 24));
+            $("arcM").setAttribute("d", "");
+            $("arcB").setAttribute("d", "");
             const set = (id, p, t) => {
                 $(id).setAttribute("x", p.x);
                 $(id).setAttribute("y", p.y);
@@ -3934,12 +3934,25 @@
             });
             renderRows();
         }
+        // Tỉ số DE/BC viết dưới dạng phân số tối giản (xếp chồng)
+        function ratioFrac(mn, bc) {
+            let a = Math.round(toNum(mn) * 100),
+                b = Math.round(toNum(bc) * 100);
+            if (!a || !b) return "";
+            const g = (x, y) => (y ? g(y, x % y) : x),
+                k = g(a, b);
+            a /= k;
+            b /= k;
+            return b === 1
+                ? String(a)
+                : `<span class="frac"><span>${a}</span><span>${b}</span></span>`;
+        }
         function renderRows() {
             $("obsRows").innerHTML = observations.length
                 ? observations
                     .map(
                         (o, i) =>
-                            `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${fmtN(toNum(o.mn) / toNum(o.bc), 2)}</td><td>${esc(o.a.replace(".", ","))}°</td><td>${esc(o.b.replace(".", ","))}°</td></tr>`,
+                            `<tr><td>${i + 1}</td><td>${esc(o.mn)}</td><td>${esc(o.bc)}</td><td>${ratioFrac(o.mn, o.bc)}</td><td>${esc(o.a.replace(".", ","))}°</td><td>${esc(o.b.replace(".", ","))}°</td></tr>`,
                     )
                     .join("")
                 : '<tr><td colspan="6" style="color:#718193">Chưa ghi số đo nào</td></tr>';
@@ -4285,7 +4298,8 @@
             const checkDE = () => {
                 if (st === 2 && showD && showE && status(A).de) st = 4;
             };
-            // Ký hiệu bằng nhau: 1 gạch cho cạnh AB (AD = DB, sau đó AM = MD), 2 gạch cho cạnh AC (AE = EC, sau đó AN = NE)
+            // Ký hiệu bằng nhau: 1 gạch cho cạnh AB (AD = DB), 2 gạch cho cạnh AC (AE = EC);
+            // Tình huống 2: 3 gạch cho AM = MD, gạch chéo (/) cho AN = NE
             const tick = (P, Q, n, c) => {
                 const m0 = mid(P, Q),
                     L = dist(P, Q) || 1,
@@ -4294,11 +4308,20 @@
                     nx = -uy * 18,
                     ny = ux * 18;
                 let d = "";
-                (n === 1 ? [0] : [-7, 7]).forEach((o) => {
-                    const cx = m0.x + ux * o,
-                        cy = m0.y + uy * o;
-                    d += `M${cx - nx},${cy - ny}L${cx + nx},${cy + ny}`;
-                });
+                if (n === "slash") {
+                    // dấu ×: hai gạch chéo cắt nhau, nghiêng ±45° so với đoạn thẳng
+                    const vx = (nx + ux * 18) * 0.6,
+                        vy = (ny + uy * 18) * 0.6,
+                        wx = (nx - ux * 18) * 0.6,
+                        wy = (ny - uy * 18) * 0.6;
+                    d = `M${m0.x - vx},${m0.y - vy}L${m0.x + vx},${m0.y + vy}M${m0.x - wx},${m0.y - wy}L${m0.x + wx},${m0.y + wy}`;
+                } else {
+                    (n === 1 ? [0] : n === 3 ? [-11, 0, 11] : [-7, 7]).forEach((o) => {
+                        const cx = m0.x + ux * o,
+                            cy = m0.y + uy * o;
+                        d += `M${cx - nx},${cy - ny}L${cx + nx},${cy + ny}`;
+                    });
+                }
                 return `<path d="${d}" fill="none" stroke-linecap="round" style="stroke:#fff;stroke-width:11px"/><path d="${d}" fill="none" stroke-linecap="round" style="stroke:${c};stroke-width:6px"/>`;
             };
             const near = (p, q, r) => dist(p, q) < r;
@@ -4421,10 +4444,10 @@
                         h += ln(m, n, "#db2777", 7) + wn[0];
                         ui += wn[1];
                     }
-                    if (showM) h += tick(A, m, 1, "#ea580c") + tick(m, d, 1, "#ea580c");
+                    if (showM) h += tick(A, m, 3, "#ea580c") + tick(m, d, 3, "#ea580c");
                     else if (showD)
                         h += tick(A, d, 1, "#ea580c") + tick(d, PB, 1, "#ea580c");
-                    if (showN) h += tick(A, n, 2, "#7c3aed") + tick(n, e, 2, "#7c3aed");
+                    if (showN) h += tick(A, n, "slash", "#7c3aed") + tick(n, e, "slash", "#7c3aed");
                     else if (showE)
                         h += tick(A, e, 2, "#7c3aed") + tick(e, PC, 2, "#7c3aed");
                     if (showD) h += pt(d, inLake(d) ? RED : "#f59e0b", "D", G);
@@ -4448,11 +4471,20 @@
                         // DE = 1/2 BC: phía dưới điểm E
                         { x: clamp(s.e.x + 72, 150, 1245), y: clamp(s.e.y + 82, 95, 1030) },
                         // MN = 1/4 BC: bên phải, gần giữa cạnh BC
-                        { x: clamp(midBC.x + 145, 160, 1260), y: clamp(midBC.y, 95, 1030) },
+                        { x: clamp(midBC.x + 260, 160, 1255), y: clamp(midBC.y, 150, 960) },
                     ];
                     for (let i = 0; i < lab; i++) {
                         const pos = formulaPositions[i];
-                        ui += `<g style="paint-order:stroke;stroke:#fff;stroke-width:9px;stroke-linejoin:round">${frac(pos, ...ROWS[i])}</g>`;
+                        // Dòng 2 (chỉ với MN = 1/4 BC): hay BC = 4.MN
+                        const frame =
+                            i === 2
+                                ? `<rect x="${pos.x - 165}" y="${pos.y - 56}" width="300" height="156" rx="16" fill="#fff" fill-opacity=".95" style="stroke:${ROWS[i][4]};stroke-width:3px"/>`
+                                : "";
+                        const extra =
+                            i === 2
+                                ? `<text x="${pos.x - 15}" y="${pos.y + 74}" fill="${ROWS[i][4]}" style="dominant-baseline:central">hay BC = 4.MN</text>`
+                                : "";
+                        ui += `<g style="paint-order:stroke;stroke:#fff;stroke-width:9px;stroke-linejoin:round">${frame}${frac(pos, ...ROWS[i])}${extra}</g>`;
                     }
                 }
                 ui += icon(SOUND, muted ? "🔇" : "🔊") + icon(RESET, "🔄");
