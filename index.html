@@ -287,6 +287,51 @@
             font-weight: 900
         }
 
+        /* ---------- Đồng hồ làm bài (2 phút) ---------- */
+        .tb-timer {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--soft);
+            color: var(--accent-d);
+            border: 2px solid var(--tint);
+            border-radius: 999px;
+            padding: 0.125rem 0.875rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            transition: background .25s, color .25s, border-color .25s
+        }
+
+        .tb-timer b {
+            color: inherit;
+            font-size: 1.25rem;
+            letter-spacing: .03em
+        }
+
+        .tb-timer.warn {
+            background: var(--orange-s);
+            color: var(--orange-d);
+            border-color: var(--orange-t)
+        }
+
+        .tb-timer.danger {
+            background: #fdecec;
+            color: #c0392b;
+            border-color: #f6c6c1;
+            animation: timerPulse 1s ease-in-out infinite
+        }
+
+        @keyframes timerPulse {
+            50% {
+                opacity: .55
+            }
+        }
+
+        .sheet.timeup {
+            opacity: .82;
+            filter: grayscale(.2)
+        }
+
         .tb-actions {
             display: flex;
             gap: 0.5rem
@@ -448,6 +493,25 @@
             color: var(--navy)
         }
 
+        /* Nhãn thời gian làm bài nằm trong ô từng nhiệm vụ */
+        .room .time {
+            align-self: flex-start;
+            margin-top: 0.375rem;
+            background: var(--orange-s);
+            color: var(--orange-d);
+            border: 1.5px solid var(--orange-t);
+            border-radius: 999px;
+            padding: 0.125rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .room .time b {
+            font-weight: 900;
+            white-space: nowrap
+        }
+
         .room .go {
             margin: 0 0 0 auto;
             flex: none;
@@ -504,6 +568,13 @@
 
             .room strong {
                 font-size: 1.0625rem
+            }
+
+            .room .time {
+                font-size: 0.75rem;
+                line-height: 1.3;
+                padding: 0.125rem 0.625rem;
+                border-radius: 0.875rem
             }
 
             .home h2 {
@@ -2286,30 +2357,33 @@
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên nhóm và số máy, sau đó chọn nhiệm vụ để bắt đầu.</p>
+            <p class="home-sub">Điền tên tổ và số máy, sau đó chọn nhiệm vụ để bắt đầu.</p>
             <div class="home-form">
                 <div class="home-field">
-                    <label class="home-label" for="student"><span class="bubble">1</span>Tên nhóm</label>
-                    <input id="student" placeholder="Ví dụ: Nhóm 1" autocomplete="off" />
+                    <label class="home-label" for="student"><span class="bubble">1</span>Tên tổ</label>
+                    <input id="student" placeholder="Ví dụ: Tổ 1" autocomplete="off" />
                 </div>
                 <div class="home-field">
                     <label class="home-label" for="group"><span class="bubble">2</span>Số máy</label>
                     <input id="group" placeholder="Ví dụ: 1" autocomplete="off" />
                 </div>
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên nhóm và số máy trước khi bắt
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên tổ và số máy trước khi bắt
                     đầu.</span>
             </div>
             <div class="home-divider" aria-hidden="true"></div>
             <div class="rooms" role="group" aria-label="Chọn nhiệm vụ">
                 <!-- Phòng 1 và 2 đang được ẩn (giữ nguyên code, bỏ thuộc tính hidden để hiện lại) -->
                 <button class="room s1" data-room="1" hidden><span class="ic">👀</span><span class="txt"><span
-                            class="no">Phòng 01: </span><strong>Trực quan</strong></span><span class="go"><span
-                            class="go-t">Bắt đầu </span>→</span></button>
+                            class="no">Phòng 01: </span><strong>Trực quan</strong><span class="time">⏱️ Thời gian làm
+                            bài: <b>2 phút</b></span></span><span class="go"><span class="go-t">Bắt đầu
+                        </span>→</span></button>
                 <button class="room s2" data-room="2" hidden><span class="ic">🧩</span><span class="txt"><span
-                            class="no">Phòng 02:</span><strong>Thực nghiệm</strong></span><span class="go"><span
-                            class="go-t">Bắt đầu </span>→</span></button>
+                            class="no">Phòng 02:</span><strong>Thực nghiệm</strong><span class="time">⏱️ Thời gian làm
+                            bài: <b>2 phút</b></span></span><span class="go"><span class="go-t">Bắt đầu
+                        </span>→</span></button>
                 <button class="room s3" data-room="3"><span class="ic">💻</span><span class="txt"><strong>Trải nghiệm
-                            công nghệ số</strong></span><span class="go"><span class="go-t">Bắt
+                            công nghệ số</strong><span class="time">⏱️ Thời gian làm bài: <b>2
+                                phút</b></span></span><span class="go"><span class="go-t">Bắt
                             đầu </span>→</span></button>
             </div>
         </section>
@@ -2317,7 +2391,7 @@
         <section class="stats" id="stats" hidden>
             <button type="button" class="stats-back" onclick="goHome()">↩ Về trang chủ</button>
             <div class="stats-head">
-                <h3>📊 Kết quả các nhóm <small id="statsCount"></small></h3>
+                <h3>📊 Thống kê kết quả<small id="statsCount"></small></h3>
                 <div class="stats-tools"><label for="fDay">Ngày</label><input type="date" id="fDay"><button
                         type="button" onclick="setDay(localDay(new Date()))">Hôm nay</button><button type="button"
                         onclick="setDay('')">Tất cả</button><button type="button" class="ghost" onclick="loadStats()">🔄
@@ -2329,8 +2403,8 @@
                     <thead>
                         <tr>
                             <th>Ngày</th>
-                            <th>Tên nhóm</th>
-                            <th>Tên đội</th>
+                            <th>Tên tổ</th>
+                            <th>Số máy</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
                             <th>PDF</th>
@@ -2342,8 +2416,9 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👥 Nhóm: <b id="sLabel"></b></span><span>🖥️ Số máy: <b
-                        id="gLabel"></b></span></span>
+            <span class="tb-info"><span>👥 Tổ: <b id="sLabel"></b></span><span>🖥️ Số máy: <b
+                        id="gLabel"></b></span><span class="tb-timer" id="timer" role="timer" aria-live="off">⏱️
+                    <span>Còn lại</span> <b id="timeLeft">02:00</b></span></span>
             <div class="tb-actions">
                 <button type="button" onclick="backToHome()">↩ Về trang chủ</button>
                 <button type="button" class="ghost" onclick="savePdf()">📄 Lưu PDF</button>
@@ -2354,7 +2429,7 @@
         <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Tổ: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
@@ -2552,7 +2627,7 @@
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Tổ: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head">
 
@@ -2687,9 +2762,35 @@
         // Views: 'home' (names + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
-        function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet') }
+        function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet'); if (n === null) { stopTimer(); unlockSheets() } else startTimer() }
         function chooseRoom(n) { if (!groupName() || !studentName()) { $('groupErr').hidden = false; (studentName() ? $('group') : $('student')).focus(); return } showRoom(n) }
         function goHome() { showRoom(null) }
+        // ---------- Đồng hồ làm bài: 2 phút, tính từ lúc học sinh bấm “Bắt đầu” và vào màn làm bài ----------
+        // Hết giờ: nếu chưa nộp thì tự lưu kết quả những phần đã làm (giống bấm “Kiểm tra kết quả”); nếu đã nộp thì giữ nguyên kết quả đã nộp. Sau đó khóa bài và báo cho học sinh.
+        const TIME_LIMIT = 120; let timerId = null, deadline = 0;
+        function fmtClock(s) { return pad(Math.floor(s / 60)) + ':' + pad(s % 60) }
+        function drawTimer() {
+            const left = Math.max(0, Math.ceil((deadline - Date.now()) / 1000)), el = $('timer');
+            $('timeLeft').textContent = fmtClock(left);
+            el.classList.toggle('warn', left <= 30 && left > 10); el.classList.toggle('danger', left <= 10);
+            return left
+        }
+        function startTimer() { stopTimer(); unlockSheets(); deadline = Date.now() + TIME_LIMIT * 1000; drawTimer(); timerId = setInterval(tickTimer, 250) }
+        function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null } }
+        function tickTimer() { if (drawTimer() <= 0) timeUp() }
+        function unlockSheets() { document.querySelectorAll('.sheet').forEach(s => { s.inert = false; s.classList.remove('timeup') }) }
+        function timeUp() {
+            const n = current; stopTimer(); if (!n) return;
+            closeAsk();
+            if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+            if (gesture) gesture = null;
+            const submitted = !!visits[studentName() + '|' + groupName() + '|' + n];
+            if (!submitted) submit(n, true);  // chưa nộp: tự lưu phần đã làm; đã nộp: giữ nguyên kết quả đã nộp
+            const sheet = $('s' + n); sheet.inert = true; sheet.classList.add('timeup');
+            ask({ icon: '⏰', warn: true, title: 'Hết giờ làm bài!', yes: 'Về trang chủ', no: 'Xem lại bài' }, resetAll)
+        }
+        // Tab bị ẩn thì trình duyệt làm chậm setInterval; kiểm tra lại ngay khi quay lại tab.
+        document.addEventListener('visibilitychange', () => { if (timerId) tickTimer() });
         // Từ màn làm bài về trang chủ: xóa bài làm để đội khác bắt đầu (kết quả đã nộp vẫn nằm trên Google Sheets)
         function backToHome() {
             const submitted = Object.keys(visits).length > 0;
@@ -2909,7 +3010,7 @@
                     choice('midM', 'M là trung điểm AB', 'true'), choice('midN', 'N là trung điểm AC', 'true'), choice('expdir', 'MN và BC', 'parallel'), choice('explen', 'MN so với BC', '0.5')]
             },
             3: {
-                good: 'Nhóm đã kiểm chứng tính bất biến!', bad: 'Bảng cần đủ 3 tam giác: 1 nhọn, 1 vuông tại B và 1 tù. Hãy đo lại và kiểm tra.', items: [
+                good: 'Bạn đã kiểm chứng tính bất biến!', bad: 'Bảng cần đủ 3 tam giác: 1 nhọn, 1 vuông tại B và 1 tù. Hãy đo lại và kiểm tra.', items: [
                     { key: 'obs', label: 'Bảng quan sát', get: () => observations.map(o => ({ ...o })), ok: v => { const t = obsList(v).map(o => o.type); return t.length === 3 && ['Nhọn', 'Vuông tại B', 'Tù'].every(x => t.includes(x)) }, show: v => { const l = obsList(v); return (l.map(o => o.type).join(', ') || 'chưa ghi') + ' (' + l.length + '/3 lần)' }, set: v => { observations = obsList(v).map(o => ({ type: String(o.type), mn: String(o.mn), bc: String(o.bc), a: String(o.a), b: String(o.b), f: o.f })); renderRows() } },
                     { key: 'angles', label: '∠ADE và ∠ABC', get: () => $('angles').value, ok: v => v === 'equal', show: v => v ? $('angles').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('angles').value = v || '' },
                     { key: 'rel3', label: 'DE và BC luôn', get: () => $('rel3').value, ok: v => v === 'parallel', show: v => v ? $('rel3').querySelector('option[value="' + CSS.escape(String(v)) + '"]')?.textContent || '—' : '—', set: v => $('rel3').value = v || '' },
@@ -2919,14 +3020,16 @@
         function say(n, ok, total) { const c = CHECKS[n], all = ok === total, el = $('msg' + n), bad = (n == 3 && c.items[0].ok(observations)) ? 'Hãy đo lại và kiểm tra kết luận.' : c.bad; el.className = 'feedback'; void el.offsetWidth; el.className = 'feedback ' + (all ? 'good' : 'try'); el.innerHTML = (all ? '🎉 ' : '💪 ') + '<b>Đúng ' + ok + '/' + total + ' câu.</b> ' + esc(all ? c.good : bad) }
         const visits = {}; let lastId = null;
         function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }
-        function check(n) {
+        function check(n) { submit(n, false) }
+        // auto = true: hết giờ, tự lưu phần đã làm (không tính là một lần bấm “Kiểm tra”)
+        function submit(n, auto) {
             const c = CHECKS[n], answers = {}, total = c.items.length; let ok = 0;
             c.items.forEach(it => { const v = it.get(); answers[it.key] = v; ok += it.ok(v) });
             say(n, ok, total);
             if (n == 3) $('msg3').innerHTML;
             if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
             const key = studentName() + '|' + groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
-            v.tries++; lastId = v.id;
+            if (!auto) v.tries++; lastId = v.id;
             const rec = { id: v.id, group: groupName(), student: studentName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
             rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
             saveResult(rec)
