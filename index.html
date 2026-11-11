@@ -4305,8 +4305,8 @@
                     L = dist(P, Q) || 1,
                     ux = (Q.x - P.x) / L,
                     uy = (Q.y - P.y) / L,
-                    nx = -uy * 18,
-                    ny = ux * 18;
+                    nx = -uy * 12,
+                    ny = ux * 12;
                 let d = "";
                 if (n === "slash") {
                     // dấu ×: hai gạch chéo cắt nhau, nghiêng ±45° so với đoạn thẳng
@@ -4322,7 +4322,7 @@
                         d += `M${cx - nx},${cy - ny}L${cx + nx},${cy + ny}`;
                     });
                 }
-                return `<path d="${d}" fill="none" stroke-linecap="round" style="stroke:#fff;stroke-width:11px"/><path d="${d}" fill="none" stroke-linecap="round" style="stroke:${c};stroke-width:6px"/>`;
+                return `<path d="${d}" fill="none" stroke-linecap="round" style="stroke:#fff;stroke-width:8px"/><path d="${d}" fill="none" stroke-linecap="round" style="stroke:${c};stroke-width:4px"/>`;
             };
             const near = (p, q, r) => dist(p, q) < r;
             const segDist = (p, a, b) => {
@@ -4345,7 +4345,7 @@
                 const L = dist(p, away) || 1,
                     lx = p.x + ((p.x - away.x) / L) * 38,
                     ly = p.y + ((p.y - away.y) / L) * 38;
-                return `<circle cx="${p.x}" cy="${p.y}" r="11" fill="${c}" style="stroke:#fff;stroke-width:4px"/><text x="${lx}" y="${ly}" fill="#1d2b4f" style="dominant-baseline:central">${l}</text>`;
+                return `<circle cx="${p.x}" cy="${p.y}" r="8" fill="${c}" style="stroke:#fff;stroke-width:3px"/><text x="${lx}" y="${ly}" fill="#1d2b4f" style="dominant-baseline:central">${l}</text>`;
             };
             const tx = (p, t, c) =>
                 `<text x="${p.x}" y="${p.y}" fill="${c}" style="dominant-baseline:central">${t}</text>`;
@@ -4392,7 +4392,7 @@
                     ? { x: (A.x + PB.x + PC.x) / 3, y: (A.y + PB.y + PC.y) / 3 }
                     : null;
                 if (st === 0)
-                    h += `<circle class="pulse" cx="${PB.x}" cy="${PB.y}" r="24"/><circle class="pulse" cx="${PC.x}" cy="${PC.y}" r="24"/>`;
+                    h += `<circle class="pulse" cx="${PB.x}" cy="${PB.y}" r="18"/><circle class="pulse" cx="${PC.x}" cy="${PC.y}" r="18"/>`;
                 if (st >= 1) {
                     if ((st === 2 && showD && showE) || (st === 4 && lab === 2))
                         h += glow(PB, PC);
