@@ -365,10 +365,10 @@
             font-size: 1.0625rem
         }
 
-        /* Hai ô nhập (học sinh, nhóm) nằm cạnh nhau, nhãn căn trái */
+        /* Ô nhập số máy, nhãn căn trái */
         .home-form {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             gap: 0.25rem 1.5rem;
             margin-top: 1.5rem;
             text-align: left
@@ -736,9 +736,9 @@
             border-bottom: 2px solid var(--line2)
         }
 
-        /* Cột: 1 Ngày · 2 Tên nhóm · 3 Số máy · 4 Số câu đúng · 5 Các lựa chọn · 6 PDF */
-        .stats .rtable th:nth-child(4),
-        .stats .rtable th:nth-child(6),
+        /* Cột: 1 Thời gian làm bài · 2 Số máy · 3 Số câu đúng · 4 Các lựa chọn · 5 PDF */
+        .stats .rtable th:nth-child(3),
+        .stats .rtable th:nth-child(5),
         .stats .rtable td.c {
             text-align: center
         }
@@ -748,13 +748,12 @@
             white-space: nowrap
         }
 
-        .stats .rtable td:nth-child(2),
-        .stats .rtable td:nth-child(3) {
+        .stats .rtable td:nth-child(2) {
             min-width: 7rem;
             max-width: 12rem
         }
 
-        .stats .rtable td:nth-child(5) {
+        .stats .rtable td:nth-child(4) {
             min-width: 22rem
         }
 
@@ -777,7 +776,7 @@
             font-weight: 700
         }
 
-        .r-date,
+        .r-time,
         .r-group {
             color: var(--navy);
             font-weight: 900;
@@ -917,7 +916,7 @@
 
             .stats .rtable tr {
                 display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
                 margin-bottom: 0.875rem;
                 border: 1px solid var(--line2);
                 border-radius: 1rem;
@@ -949,7 +948,7 @@
                 border-left: 1px solid var(--line)
             }
 
-            .stats .rtable tr td:nth-child(n+5),
+            .stats .rtable tr td:nth-child(n+4),
             .stats .rtable tr td.empty {
                 grid-column: 1/-1;
                 border-left: 0;
@@ -987,6 +986,7 @@
             }
 
             .stats .rtable tr td:nth-child(3) {
+                grid-column: 1/-1;
                 border-left: 0
             }
 
@@ -2357,17 +2357,13 @@
             <button type="button" class="ghost stats-open" onclick="openStats()" title="Xem kết quả các nhóm"
                 aria-label="Xem kết quả các nhóm">📊</button>
             <h2>Chào nhóm nghiên cứu! 👋</h2>
-            <p class="home-sub">Điền tên tổ và số máy, sau đó chọn nhiệm vụ để bắt đầu.</p>
+            <p class="home-sub">Điền số máy, sau đó chọn nhiệm vụ để bắt đầu.</p>
             <div class="home-form">
                 <div class="home-field">
-                    <label class="home-label" for="student"><span class="bubble">1</span>Tên tổ</label>
-                    <input id="student" placeholder="Ví dụ: Tổ 1" autocomplete="off" />
-                </div>
-                <div class="home-field">
-                    <label class="home-label" for="group"><span class="bubble">2</span>Số máy</label>
+                    <label class="home-label" for="group"><span class="bubble">1</span>Số máy</label>
                     <input id="group" placeholder="Ví dụ: 1" autocomplete="off" />
                 </div>
-                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền tên tổ và số máy trước khi bắt
+                <span class="home-err" id="groupErr" hidden>⚠️ Hãy điền số máy trước khi bắt
                     đầu.</span>
             </div>
             <div class="home-divider" aria-hidden="true"></div>
@@ -2402,8 +2398,7 @@
                 <table class="table rtable">
                     <thead>
                         <tr>
-                            <th>Ngày</th>
-                            <th>Tên tổ</th>
+                            <th>Thời gian làm bài</th>
                             <th>Số máy</th>
                             <th>Số câu đúng</th>
                             <th>Các lựa chọn</th>
@@ -2416,8 +2411,8 @@
         </section>
 
         <div class="toolbar" id="toolbar" hidden>
-            <span class="tb-info"><span>👥 Tổ: <b id="sLabel"></b></span><span>🖥️ Số máy: <b
-                        id="gLabel"></b></span><span class="tb-timer" id="timer" role="timer" aria-live="off">⏱️
+            <span class="tb-info"><span>🖥️ Số máy: <b id="gLabel"></b></span><span class="tb-timer" id="timer"
+                    role="timer" aria-live="off">⏱️
                     <span>Còn lại</span> <b id="timeLeft">02:00</b></span></span>
             <div class="tb-actions">
                 <button type="button" onclick="backToHome()">↩ Về trang chủ</button>
@@ -2429,7 +2424,7 @@
         <!-- ================= PHÒNG 1 (đang ẩn) ================= -->
         <section class="sheet s1" id="s1">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Tổ: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">👀</span>
                 <div><span class="room-no">Phòng nghiên cứu 01</span>
@@ -2501,7 +2496,7 @@
         <!-- ================= PHÒNG 2 (đang ẩn) ================= -->
         <section class="sheet s2" id="s2">
             <div class="pgroup"><span><b>Ba phòng nghiên cứu</b> • Đường trung bình của tam giác – Toán
-                    8</span><span>Nhóm: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head"><span class="room-ic" aria-hidden="true">🧩</span>
                 <div><span class="room-no">Phòng nghiên cứu 02</span>
@@ -2627,7 +2622,7 @@
         <!-- ================= NHIỆM VỤ 2: BIẾN HÓA HÌNH HỌC ================= -->
         <section class="sheet s3" id="s3">
             <div class="pgroup"><span><b>Nhiệm vụ 2</b> • Biến hóa hình học – Đường trung bình của tam giác – Toán
-                    8</span><span>Tổ: <b class="sname">………………</b> • Số máy: <b class="gname">………………</b> • Ngày:
+                    8</span><span>Số máy: <b class="gname">………………</b> • Ngày:
                     <b class="pdate"></b></span></div>
             <div class="sheet-head">
 
@@ -2757,17 +2752,17 @@
     <script>
         const $ = id => document.getElementById(id);
         function radio(n) { return document.querySelector('input[name="' + n + '"]:checked')?.value || null }
-        // Home screen: enter student + group name, then pick one room
+        // Home screen: enter the machine number, then pick one room
         const ROOMS = { 1: 'Phòng trực quan', 2: 'Phòng thực nghiệm', 3: 'Trải nghiệm công nghệ số' }; let current = null;
-        // Views: 'home' (names + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
+        // Views: 'home' (machine number + rooms), 'sheet' (the room's worksheet), 'stats' (results table opened from home).
         function showView(v) { $('home').hidden = v !== 'home'; $('stats').hidden = v !== 'stats'; $('toolbar').hidden = v !== 'sheet'; document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('active', v === 'sheet' && s.id === 's' + current)); syncGroup(); if (v === 'sheet') pickLayout(); if (v === 'stats') loadStats(); window.scrollTo(0, 0) }
         function openStats() { current = null; setDay(localDay(new Date())); showView('stats') }
         function showRoom(n) { current = n; showView(n === null ? 'home' : 'sheet'); if (n === null) { stopTimer(); unlockSheets() } else startTimer() }
-        function chooseRoom(n) { if (!groupName() || !studentName()) { $('groupErr').hidden = false; (studentName() ? $('group') : $('student')).focus(); return } showRoom(n) }
+        function chooseRoom(n) { if (!groupName()) { $('groupErr').hidden = false; $('group').focus(); return } showRoom(n) }
         function goHome() { showRoom(null) }
         // ---------- Đồng hồ làm bài: 2 phút, tính từ lúc học sinh bấm “Bắt đầu” và vào màn làm bài ----------
         // Hết giờ: nếu chưa nộp thì tự lưu kết quả những phần đã làm (giống bấm “Kiểm tra kết quả”); nếu đã nộp thì giữ nguyên kết quả đã nộp. Sau đó khóa bài và báo cho học sinh.
-        const TIME_LIMIT = 120; let timerId = null, deadline = 0;
+        const TIME_LIMIT = 120; let timerId = null, deadline = 0, startedAt = 0;
         function fmtClock(s) { return pad(Math.floor(s / 60)) + ':' + pad(s % 60) }
         function drawTimer() {
             const left = Math.max(0, Math.ceil((deadline - Date.now()) / 1000)), el = $('timer');
@@ -2775,7 +2770,7 @@
             el.classList.toggle('warn', left <= 30 && left > 10); el.classList.toggle('danger', left <= 10);
             return left
         }
-        function startTimer() { stopTimer(); unlockSheets(); deadline = Date.now() + TIME_LIMIT * 1000; drawTimer(); timerId = setInterval(tickTimer, 250) }
+        function startTimer() { stopTimer(); unlockSheets(); startedAt = Date.now(); deadline = Date.now() + TIME_LIMIT * 1000; drawTimer(); timerId = setInterval(tickTimer, 250) }
         function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null } }
         function tickTimer() { if (drawTimer() <= 0) timeUp() }
         function unlockSheets() { document.querySelectorAll('.sheet').forEach(s => { s.inert = false; s.classList.remove('timeup') }) }
@@ -2784,7 +2779,7 @@
             closeAsk();
             if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
             if (gesture) gesture = null;
-            const submitted = !!visits[studentName() + '|' + groupName() + '|' + n];
+            const submitted = !!visits[groupName() + '|' + n];
             if (!submitted) submit(n, true);  // chưa nộp: tự lưu phần đã làm; đã nộp: giữ nguyên kết quả đã nộp
             const sheet = $('s' + n); sheet.inert = true; sheet.classList.add('timeup');
             ask({ icon: '⏰', warn: true, title: 'Hết giờ làm bài!', yes: 'Về trang chủ', no: 'Xem lại bài' }, resetAll)
@@ -2812,18 +2807,17 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('dlg').hidden) closeAsk() });
         document.querySelectorAll('.room').forEach(r => r.addEventListener('click', () => chooseRoom(r.dataset.room)));
         $('group').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur() });
-        $('student').addEventListener('keydown', e => { if (e.key === 'Enter') $('group').focus() });
-        // Student / group name and date for print / PDF
+        // Machine number and date for print / PDF
         function groupName() { return $('group').value.trim() }
-        function studentName() { return $('student').value.trim() }
         function pad(n) { return String(n).padStart(2, '0') }
         function localDay(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) }
         function fmtDate(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() }
         function fmtTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) }
-        function setSheetInfo(g, date, s) { document.querySelectorAll('.sname').forEach(e => e.textContent = s || '………………'); document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
-        function syncGroup() { const g = groupName(), s = studentName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date()), s); $('gLabel').textContent = g; $('sLabel').textContent = s; document.title = room ? fileBase(g, current, s) : 'Trải nghiệm công nghệ số | Đường trung bình của tam giác – Toán 8' }
+        // Thời gian làm bài: 1p30s (dưới 1 phút: 45s)
+        function fmtDur(sec) { sec = Math.max(0, Math.round(sec)); const m = Math.floor(sec / 60), s = sec % 60; return m ? m + 'p' + pad(s) + 's' : s + 's' }
+        function setSheetInfo(g, date) { document.querySelectorAll('.gname').forEach(e => e.textContent = g || '………………'); document.querySelectorAll('.pdate').forEach(e => e.textContent = date) }
+        function syncGroup() { const g = groupName(), room = ROOMS[current]; setSheetInfo(g, fmtDate(new Date())); $('gLabel').textContent = g; document.title = room ? fileBase(g, current) : 'Trải nghiệm công nghệ số | Đường trung bình của tam giác – Toán 8' }
         $('group').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
-        $('student').addEventListener('input', () => { $('groupErr').hidden = true; syncGroup() });
         // Print / PDF. In-app browsers (Zalo, Facebook...) and some phones ignore window.print(), so "Lưu PDF" builds the file itself.
         const IN_APP = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|Line\/|TikTok/i.test(navigator.userAgent);
         const IN_APP_TIP = 'Nếu không tải được: bấm ••• → “Mở bằng trình duyệt” (Safari/Chrome) rồi thử lại.';
@@ -2839,8 +2833,8 @@
         function doneSaved() { closePop() }
         $('pdfPop').addEventListener('click', e => { if (e.target === e.currentTarget && !$('popClose').hidden) closePop() });
         function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => { s.remove(); fail(new Error(src)) }; document.head.appendChild(s) }) }
-        // File name: <tên học sinh>_<tên nhóm>_<tên phòng>.pdf
-        function fileBase(g, n, s) { return [s, g, ROOMS[n]].filter(Boolean).join('_').replace(/[\\/:*?"<>|]+/g, '-') }
+        // File name: Máy <số máy>_<tên phòng>.pdf
+        function fileBase(g, n) { return [g && 'Máy ' + g, ROOMS[n]].filter(Boolean).join('_').replace(/[\\/:*?"<>|]+/g, '-') }
         const PDF_VIEW = { width: 960, font: 19 };
         function renderSheet(n) {
             const svgs = [...document.querySelectorAll('svg')], root = document.documentElement;
@@ -2855,7 +2849,7 @@
             for (let y = 0; y < canvas.height; y += pagePx) { const ph = Math.min(pagePx, canvas.height - y), c = document.createElement('canvas'); c.width = canvas.width; c.height = ph; const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, ph); ctx.drawImage(canvas, 0, y, canvas.width, ph, 0, 0, canvas.width, ph); if (y) pdf.addPage(); pdf.addImage(c.toDataURL('image/jpeg', .92), 'JPEG', M, M, W, ph * W / canvas.width) }
             return pdf
         }
-        // Without `rec`: the room on screen. With a saved result: its sheet is filled with that group's answers, drawn, then put back as it was.
+        // Without `rec`: the room on screen. With a saved result: its sheet is filled with that machine's answers, drawn, then put back as it was.
         async function savePdf(rec) {
             const n = rec ? rec.room : current; if (!n) return; beforeOutput();
             openPop('⏳ Đang tạo file PDF…', 'Vui lòng đợi vài giây.', false);
@@ -2865,7 +2859,7 @@
                 if (document.fonts) await document.fonts.ready;
                 if (rec) undo = fillRecord(rec);
                 const canvas = await renderSheet(n); if (undo) { undo(); undo = null }
-                const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n, rec ? rec.student : studentName()) + (rec ? '_' + rec.day : '') + '.pdf';
+                const blob = buildPdf(canvas).output('blob'), name = fileBase(rec ? rec.group : groupName(), n) + (rec ? '_' + rec.day : '') + '.pdf';
                 if (pdfUrl) URL.revokeObjectURL(pdfUrl);
                 pdfUrl = URL.createObjectURL(blob); pdfFile = new File([blob], name, { type: 'application/pdf' });
                 $('pdfDl').href = pdfUrl; $('pdfDl').download = name;
@@ -3028,18 +3022,20 @@
             say(n, ok, total);
             if (n == 3) $('msg3').innerHTML;
             if (ok === total) document.querySelector('.room[data-room="' + n + '"]').classList.add('done');
-            const key = studentName() + '|' + groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
+            const key = groupName() + '|' + n, now = new Date(), v = visits[key] = visits[key] || { id: uid(), at: now.toISOString(), day: localDay(now), tries: 0 };
             if (!auto) v.tries++; lastId = v.id;
-            const rec = { id: v.id, group: groupName(), student: studentName(), room: Number(n), ok, total, answers, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
+            // Thời gian làm bài (giây) tính từ lúc bấm “Bắt đầu” đến lần kiểm tra này; nhân bản vào answers để vẫn lưu được nếu Google Sheets chỉ giữ các trường cũ
+            const duration = Math.min(TIME_LIMIT, Math.max(1, Math.round((now.getTime() - (startedAt || now.getTime())) / 1000))); answers.duration = duration;
+            const rec = { id: v.id, group: groupName(), room: Number(n), ok, total, answers, duration, at: v.at, day: v.day, updatedAt: now.toISOString(), tries: v.tries };
             rec.view = { date: fmtDate(new Date(v.at)), time: fmtTime(new Date(v.at)), choices: c.items.map(it => (it.ok(answers[it.key]) ? '✓ ' : '✗ ') + it.label + ': ' + it.show(answers[it.key])).join('\n') };
             saveResult(rec)
         }
-        // Put a saved result into its sheet (answers, student, group, date, score) for the PDF; returns a function that restores the sheet.
+        // Put a saved result into its sheet (answers, machine number, date, score) for the PDF; returns a function that restores the sheet.
         function fillRecord(r) {
             const n = r.room, items = CHECKS[n].items, sheet = $('s' + n), msg = $('msg' + n), ans = r.answers || {}, d = new Date(r.at);
             const before = { vals: items.map(it => it.get()), msg: [msg.className, msg.innerHTML], obsMsg: $('obsMsg').textContent, puzzle: n === 2 && { L, frame: { ...frame }, state: JSON.parse(JSON.stringify(state)), slotOf: { ...slotOf }, stacked }, shown: sheet.classList.contains('active') };
             items.forEach(it => it.set(ans[it.key]));
-            say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d), r.student);
+            say(n, r.ok, r.total); setSheetInfo(r.group, isNaN(d) ? r.day : fmtDate(d));
             if (!before.shown) sheet.classList.add('active', 'pdf-ghost');
             return () => {
                 items.forEach((it, i) => it.set(before.vals[i])); $('obsMsg').textContent = before.obsMsg;
@@ -3082,19 +3078,23 @@
         // ---------- Results table ----------
         function setDay(d) { $('fDay').value = d; renderStats() }
         $('fDay').addEventListener('input', renderStats);
+        const STATS_LIMIT = 15;
+        // Thời gian làm bài (giây) của một kết quả; kết quả cũ chưa có thì xếp cuối bảng
+        function durOf(r) { const v = Number(r.duration ?? (r.answers && r.answers.duration)); return Number.isFinite(v) && v > 0 ? v : Infinity }
         function renderStats() {
-            const day = $('fDay').value, list = results.filter(r => CHECKS[r.room] && (!day || r.day === day)).sort((a, b) => String(b.day || '').localeCompare(String(a.day || '')) || String(a.at).localeCompare(String(b.at)));  // ngày mới trước; trong cùng ngày: nộp sớm nhất (nhanh nhất) đứng trên cùng
+            const day = $('fDay').value, all = results.filter(r => CHECKS[r.room] && (!day || r.day === day)).sort((a, b) => String(b.updatedAt || b.at || '').localeCompare(String(a.updatedAt || a.at || ''))),
+                list = all.slice(0, STATS_LIMIT).sort((a, b) => durOf(a) - durOf(b) || String(a.at).localeCompare(String(b.at)));  // chỉ lấy 15 kết quả gần nhất; trong đó máy làm xong nhanh nhất đứng trên cùng
 
-            $('statsCount').textContent = loading ? '(đang tải…)' : '(' + list.length + ' kết quả' + (day ? ' ngày ' + day.split('-').reverse().join('/') : '') + ')';
+            $('statsCount').textContent = loading ? '(đang tải…)' : '(' + (all.length > STATS_LIMIT ? STATS_LIMIT + ' kết quả gần nhất' : list.length + ' kết quả') + (day ? ' ngày ' + day.split('-').reverse().join('/') : '') + ')';
             $('statsNote').hidden = !offline;
             $('statsNote').textContent = !SHEET_API ? '⚠️ Chưa kết nối Google Sheets: dán link Web app của Apps Script vào SHEET_API trong index.html.' : '⚠️ Không kết nối được Google Sheets – kết quả chưa gửi được sẽ tự gửi lại khi bấm 🔄 Làm mới.';
             $('statsRows').innerHTML = list.length ? list.map(r => {
-                const d = new Date(r.at), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
+                const dur = durOf(r), ok = Math.max(0, Math.min(r.total, r.ok | 0)), total = r.total | 0, ans = r.answers || {};
                 const picks = CHECKS[r.room].items.map(it => { const v = ans[it.key], good = it.ok(v); return `<li class="${good ? 'y' : 'n'}"><i aria-label="${good ? 'đúng' : 'sai'}">${good ? '✓' : '✗'}</i><span>${esc(it.label)}</span><b>${esc(it.show(v))}</b></li>` }).join('');
-                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Ngày thực hiện"><b class="r-date">${isNaN(d) ? esc(r.day) : fmtDate(d)}</b>${isNaN(d) ? '' : '<small>🕒 ' + fmtTime(d) + '</small>'}</td><td data-label="Tên nhóm"><b class="r-group">${r.student ? esc(r.student) : '—'}</b></td><td data-label="Số máy"><b class="r-group">${esc(r.group)}</b></td>`
+                return `<tr${r.id === lastId ? ' class="mine"' : ''}><td data-label="Thời gian làm bài"><b class="r-time">${dur === Infinity ? '—' : '⏱️ ' + fmtDur(dur)}</b></td><td data-label="Số máy"><b class="r-group">${esc(r.group)}</b></td>`
                     + `<td class="c" data-label="Số câu đúng"><span class="pts${ok === total ? ' full' : ''}">Đúng ${ok}/${total}</span>${r.tries > 1 ? '<small>' + (r.tries | 0) + ' lần kiểm tra</small>' : ''}</td>`
                     + `<td data-label="Các lựa chọn"><ul class="picks">${picks}</ul></td><td class="c"><button type="button" class="primary pdf-btn" data-pdf="${esc(r.id)}">📄 Tải PDF</button></td></tr>`
-            }).join('') : `<tr><td colspan="6" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
+            }).join('') : `<tr><td colspan="5" class="empty">Chưa có kết quả nào${day ? ' trong ngày này' : ''}.</td></tr>`
         }
         $('statsRows').addEventListener('click', e => { const b = e.target.closest('[data-pdf]'), r = b && results.find(x => x.id === b.dataset.pdf); if (r) savePdf(r) });
         setDay(localDay(new Date())); flush();
@@ -3103,7 +3103,7 @@
         let resetOnClose = false, printing = false;
         function resetAll() {
             document.querySelectorAll('.feedback').forEach(e => { e.className = 'feedback plain'; e.textContent = '' });
-            $('student').value = ''; $('group').value = '';
+            $('group').value = '';
             document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
             document.querySelectorAll('.inputrow input').forEach(i => i.value = '');
             $('angles').value = ''; $('rel3').value = ''; $('ratio3').value = '';
